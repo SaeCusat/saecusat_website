@@ -366,7 +366,7 @@ We are a team of passionate students driven by a shared interest in automobiles,
                         </div>
                         <div className="flex flex-col justify-center">
                           <h4 className="font-semibold text-base sm:text-lg mb-0.5">Email</h4>
-                          <a href="mailto:sae@cusat.ac.in" className="text-blue-200 text-sm sm:text-base hover:underline">sae@cusat.ac.in</a>
+                          <a href="mailto:sae.official@cusat.ac.in" className="text-blue-200 text-sm sm:text-base hover:underline">sae.official@cusat.ac.in</a>
                         </div>
                       </div>
                     </div>
@@ -391,7 +391,7 @@ We are a team of passionate students driven by a shared interest in automobiles,
                         </div>
                         <div>
                           <h4 className="font-semibold text-base sm:text-lg mb-0.5">LinkedIn</h4>
-                          <a href="https://linkedin.com/company/saecusat" target="_blank" rel="noopener noreferrer" className="text-blue-200 text-sm sm:text-base hover:underline">SAE CUSAT</a>
+                          <a href="https://www.linkedin.com/company/society-of-automotive-engineers/" target="_blank" rel="noopener noreferrer" className="text-blue-200 text-sm sm:text-base hover:underline">SAE CUSAT</a>
                         </div>
                       </div>
                     </div>
