@@ -1,6 +1,6 @@
 # SAE CUSAT - Official Website
 
-A modern, responsive website for the Society of Automotive Engineers chapter at Cochin University of Science and Technology (CUSAT).
+A website for the Society of Automotive Engineers chapter at Cochin University of Science and Technology (CUSAT).
 
 ## 🚀 Features
 
@@ -32,19 +32,13 @@ A modern, responsive website for the Society of Automotive Engineers chapter at 
 ### Installation
 
 1. Clone the repository
-2. Install dependencies: `pnpm install`
-3. Run development server: `pnpm dev`
+2. Install dependencies: `npm install`
+3. Run development server: `npm run dev`
 4. Open [http://localhost:3000](http://localhost:3000)
 
 ### Building for Production
 
 ```bash
-pnpm build
-pnpm start
+npm run build
+npm start
 ```
-
-## Contact
-
-- **Email**: sae@cusat.ac.in
-- **Instagram**: [@saecusat](https://instagram.com/saecusat)
-- **LinkedIn**: [SAE CUSAT](https://linkedin.com/company/saecusat)
