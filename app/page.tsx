@@ -116,7 +116,8 @@ export default function HomePage() {
             <div className="relative mb-6">
               <div className="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl animate-fade-in-scale">
                 <Image
-                  src="/placeholder.svg?height=60&width=60"
+                  src="/sae-logo.png"
+
                   alt="SAE CUSAT Logo"
                   width={60}
                   height={60}

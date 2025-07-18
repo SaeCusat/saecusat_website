@@ -36,9 +36,9 @@ export default function TeamsPage() {
   const teams = [
     {
       id: 1,
-      name: "Formula SAE Team",
+      name: "Hermes",
       description:
-        "Our flagship team designing and building formula-style race cars for international competitions. We focus on aerodynamics, chassis design, and powertrain optimization to create competitive vehicles.",
+        "Team Hermes, the official bicycle design team of CUSAT, is a student-led group focused on building high-efficiency, human-powered vehicles. Combining innovative engineering with sustainable design, the team develops competitive bicycles built for performance and eco-friendly mobility. Establishing itself as a national front-runner, Hermes secured All India Rank 1 overall and AIR 2 in Design at BDC 6.0, following a strong showing at BDC 5.0 with AIR 6 overall and another AIR 2 in Design. With back-to-back top-tier performances, the team continues to demonstrate technical depth, innovation, and consistency—cementing its place as a leading force in student-driven cycle engineering in India.",
       achievements: ["3rd Place - Formula SAE 2024", "Best Design Award 2023", "Innovation Excellence 2022"],
       members: 15,
       established: "2018",
@@ -53,9 +53,9 @@ export default function TeamsPage() {
     },
     {
       id: 2,
-      name: "Baja SAE Team",
+      name: "AROHA",
       description:
-        "Specialized in designing and manufacturing off-road vehicles for the Baja SAE competition. Our team excels in creating robust, all-terrain vehicles capable of handling extreme conditions.",
+        "Team AROHA, the official drone design and innovation team of CUSAT, develops advanced UAVs for real-world applications and top-tier competitions. Integrating aerodynamics, control systems, and intelligent design, the team builds high-performance drones focused on precision and endurance. Currently competing in SAEINDIA AEROTHON 2025 and ADDC 2025–26, AROHA secured AIR 25/79 and Kerala Rank 2 in AEROTHON Phase 1. On the global front, the team is pursuing strategic collaborations with RWTH Aachen University, Germany, and defense startups—positioning itself at the forefront of aerospace and autonomous systems innovation.",
       achievements: ["1st Place - Baja SAE India 2023", "Innovation Award 2022", "Best Performance 2021"],
       members: 12,
       established: "2019",
@@ -70,9 +70,9 @@ export default function TeamsPage() {
     },
     {
       id: 3,
-      name: "Electric Vehicle Team",
+      name: "TARUSA",
       description:
-        "Focused on developing sustainable electric vehicle solutions and participating in EV competitions. We work on battery management, electric motors, and energy efficiency optimization.",
+        "Team TARUSA, the official off-road engineering team of the School of Engineering, CUSAT, specializes in the complete design and development of competition-grade all-terrain vehicles. Founded in 2017 under SAE CUSAT, the team blends mechanical precision, structural resilience, and systems innovation for extreme racing environments. In SAEINDIA BAJA 2025, TARUSA secured AIR 7 overall, with AIR 1 in Cost and Statics, AIR 2 in Altair Simulation, and top-five finishes in Sales, Sustainability, and Design, along with 1st in the Fastrack Exhibition. Past achievements include AIR 1 in hBAJA 2024 Prelims, a Top 20 finish in eBAJA 2022, AIR 10 in Mega ATV 2022, and the Most Cost-Effective Design Award in mBAJA 2019.",
       achievements: ["Best EV Design 2024", "Efficiency Champion 2023", "Green Innovation Award 2022"],
       members: 18,
       established: "2020",
@@ -87,9 +87,9 @@ export default function TeamsPage() {
     },
     {
       id: 4,
-      name: "Aero Design Team",
+      name: "YETI Racing",
       description:
-        "Specializing in aerodynamic design and analysis for various automotive applications. We use CFD analysis and wind tunnel testing to optimize vehicle performance.",
+        "Paving a new pathway in the domain of Formula style Cars, the highest form of racing cars sanctioned by the FIA. A leading force in Formula Student vehicle construction from CUSAT, Kochi, embodies dedication and collaboration, with a strong presence in prestigious competitions like SAE SUPRA, FFS INDIA, and FORMULA BHARAT. The team has been the first ever team from Kerala to win Formula Bharat and their engineering skills and vision brings creative innovation in the very field of Formula Car design.",
       achievements: ["Aero Excellence Award 2024", "CFD Challenge Winner 2023", "Design Innovation 2022"],
       members: 10,
       established: "2021",
@@ -104,9 +104,9 @@ export default function TeamsPage() {
     },
     {
       id: 5,
-      name: "Powertrain Team",
+      name: "Storm Racing ",
       description:
-        "Dedicated to engine design, optimization, and powertrain development for racing vehicles. We focus on maximizing power output while maintaining reliability and efficiency.",
+        "Kart racing, being a form of open wheel motorsport using small light weight four wheelers called go-karts, find its CUSAT pioneer in the team Storm Racing, which was founded in the year 2024 by ambitious automotive enthusiasts of CUSAT. The team is all set to compete in its maiden competition in the month of July, 2025 in DKDC organised by FMAE.",
       achievements: ["Engine Performance Award 2024", "Powertrain Innovation 2023", "Technical Excellence 2022"],
       members: 14,
       established: "2019",
@@ -121,9 +121,9 @@ export default function TeamsPage() {
     },
     {
       id: 6,
-      name: "Chassis & Suspension Team",
+      name: "Marutsakha",
       description:
-        "Experts in vehicle dynamics, chassis design, and suspension system development. We create lightweight yet strong chassis with optimal suspension geometry.",
+        "Team Marutsakha is CUSAT’s official Aero Design Club, dedicated to UAV innovation and excellence. Since its revival in 2023, the team has achieved top national ranks in the SAEISS Drone Development Challenge, including All India Rank 3.For the 2026 SAE ADC  competition, the team will be joined by an additional 10-member Micro-Class team, in addition to the regular class team.With a passion for flight and a mission to push boundaries, Marutsakha blends creativity, teamwork, and real-world engineering to shape the future of aerial tech.",
       achievements: ["Best Chassis Design 2024", "Suspension Innovation 2023", "Structural Excellence 2022"],
       members: 11,
       established: "2020",
@@ -138,9 +138,9 @@ export default function TeamsPage() {
     },
     {
       id: 7,
-      name: "Electronics & Controls Team",
+      name: "Astron Aperta",
       description:
-        "Responsible for electronic systems, data acquisition, and vehicle control systems. We develop advanced telemetry systems and electronic control units.",
+        "Team Astron Aperta is CUSAT’s pioneering solar off road EV club, blazing a trail in green mobility. Formed in 2024, this student-led team combines electrical and mechanical minds to build innovative solar-powered electric vehicles.With a strong showing at ESVC, Asia’s biggest solar car event, earning Kerala Rank 1 and All India Rank 9, they’re proving that clean energy can power bold ideas.The team is all set for participating in EBAJA and BSVC . For Astron Aperta, it's not just about building cars, it’s about building a sustainable tomorrow.",
       achievements: ["Best Electronics Integration 2024", "Data Systems Award 2023", "Innovation Prize 2022"],
       members: 13,
       established: "2021",

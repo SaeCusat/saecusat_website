@@ -87,27 +87,15 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Brand */}
-          <Link
-            href="/"
-            className="flex items-center space-x-4 hover:scale-105 transition-all duration-300 z-50 group"
-          >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-white to-blue-100 rounded-full flex items-center justify-center shadow-xl overflow-hidden group-hover:shadow-2xl transition-all duration-300 group-hover:rotate-6">
-              <Image
-                src="/placeholder.svg?height=48&width=48"
-                alt="SAE Logo"
-                width={48}
-                height={48}
-                className="object-cover transition-transform duration-300 group-hover:scale-110 w-6 h-6 sm:w-8 sm:h-8"
-              />
-            </div>
-            <div className="hidden md:block">
-              <h1 className="font-bold text-lg sm:text-xl tracking-wide text-white group-hover:text-blue-200 transition-colors duration-300">
-                SAE CUSAT
-              </h1>
-              <p className="text-xs text-blue-200 font-medium group-hover:text-blue-100 transition-colors duration-300">
-                Automotive Excellence
-              </p>
-            </div>
+          <Link href="/" className="hover:scale-105 transition-all duration-300 z-50 group">
+            <Image
+              src="/sae-logo.png"
+              alt="SAE Logo"
+              width={96}
+              height={48}
+              className="transition-transform duration-300 group-hover:scale-110"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation - Centered */}
@@ -196,7 +184,7 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
         className={`md:hidden fixed inset-0 z-[65] transition-all duration-500 ease-in-out ${
           mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
-        style={{ 
+        style={{
           background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 58, 138, 0.96) 50%, rgba(15, 23, 42, 0.98) 100%)',
           backdropFilter: 'blur(20px)',
           boxShadow: 'inset 0 0 100px rgba(59, 130, 246, 0.1)',
@@ -210,7 +198,7 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
           {/* Mobile Menu Header */}
           <div className={`flex-shrink-0 flex items-center justify-between p-4 sm:p-6 border-b border-blue-400/40 transition-all duration-700 ease-out ${
             mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-[-20px] opacity-0'
-          }`} style={{ 
+          }`} style={{
             background: 'linear-gradient(135deg, rgba(15, 23, 42, 1) 0%, rgba(30, 58, 138, 1) 25%, rgba(59, 130, 246, 1) 50%, rgba(30, 58, 138, 1) 75%, rgba(15, 23, 42, 1) 100%)',
             backdropFilter: 'blur(15px)',
             boxShadow: '0 4px 20px rgba(30, 58, 138, 0.4)'
@@ -253,7 +241,7 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                     }
                   }}
                   className="w-full flex items-center justify-center px-6 sm:px-8 py-4 sm:py-6 text-center text-white hover:bg-white/20 active:bg-white/30 transition-all duration-300 rounded-full font-semibold text-lg sm:text-xl hover:scale-105 active:scale-95 backdrop-blur-sm group relative overflow-hidden"
-                  style={{ 
+                  style={{
                     background: 'rgba(30, 58, 138, 0.95)',
                     border: '1px solid rgba(59, 130, 246, 0.3)',
                     backdropFilter: 'blur(10px)',
@@ -273,7 +261,7 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
           {/* Mobile Check-in Button */}
           <div className={`flex-shrink-0 p-4 sm:p-6 border-t border-blue-400/40 transition-all duration-700 ease-out ${
             mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-[20px] opacity-0'
-          }`} style={{ 
+          }`} style={{
             background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%)',
             backdropFilter: 'blur(15px)',
             transitionDelay: mobileMenuOpen ? '600ms' : '0ms'
