@@ -89,10 +89,10 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
           {/* Logo and Brand */}
           <Link href="/" className="hover:scale-105 transition-all duration-300 z-50 group">
             <Image
-              src="/sae-logo.png"
+              src="/Logo/sae_logo.png"
               alt="SAE Logo"
-              width={96}
-              height={48}
+              width={75}
+              height={75}
               className="transition-transform duration-300 group-hover:scale-110"
               priority
             />
@@ -208,11 +208,11 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                 mobileMenuOpen ? 'scale-100 rotate-0' : 'scale-75 rotate-12'
               }`}>
                 <Image
-                  src="/placeholder.svg?height=48&width=48"
+                  src="/Logo/sae_logo.png"
                   alt="SAE Logo"
-                  width={48}
-                  height={48}
-                  className="object-cover w-6 h-6 sm:w-8 sm:h-8"
+                  width={100}
+                  height={100}
+                  className="object-cover w-10 h-10 sm:w-12 sm:h-12"
                 />
               </div>
               <div className={`transition-all duration-500 delay-100 ${

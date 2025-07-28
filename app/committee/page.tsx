@@ -32,19 +32,19 @@ export default function CommitteePage() {
       { 
         name: "Harinadh Sadish", 
         position: "President", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/Harinadh.jpg",
         linkedin: "https://www.linkedin.com/in/harinadh-sadish-a173b6366"
       },
       { 
         name: "Alakanandha C B", 
         position: "Vice President", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/Alakanandha cb.jpg",
         linkedin: "https://www.linkedin.com/in/alakanandha-c-b-610641291"
       },
       { 
         name: "Indulekha T R", 
         position: "Secretary", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/INDULEKHA T R.JPG",
         linkedin: "https://www.linkedin.com/in/indulekha-t-r-945183227"
       },
       { 
@@ -56,13 +56,13 @@ export default function CommitteePage() {
       { 
         name: "Muhammad Aslam", 
         position: "Technical Head", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/Aslam.jpg",
         linkedin: "https://www.linkedin.com/in/muhammad-aslam"
       },
       { 
         name: "Prajith A K", 
         position: "Joint Secretary", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/Prajith AK.jpg",
         linkedin: "https://linkedin.com/in/ananyavarma"
       }
     ],
