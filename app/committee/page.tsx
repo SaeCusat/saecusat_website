@@ -50,7 +50,7 @@ export default function CommitteePage() {
       { 
         name: "Neeraj V", 
         position: "Treasurer", 
-        image: "/placeholder.svg?height=200&width=200",
+        image: "/committee/neeraj.png",
         linkedin: "https://www.linkedin.com/in/neerajv777"
       },
       { 

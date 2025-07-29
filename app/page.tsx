@@ -108,16 +108,22 @@ export default function HomePage() {
       {/* Simplified Splash Screen */}
       {showSplash && (
         <div
-          className={`fixed inset-0 z-[100] bg-gradient-to-br from-navy-900 to-blue-800 flex items-center justify-center transition-opacity duration-300 ${splashAnimationComplete ? "opacity-0" : "opacity-100"}`}
+          className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 ${splashAnimationComplete ? "opacity-0" : "opacity-100"}`}
         >
-          {/* Simplified Logo Container */}
-          <div className="text-center">
-            {/* Logo with simple animation */}
+          {/* Animated Gradient & Particles Background */}
+          <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 matrix-background opacity-40 pointer-events-none" />
+            <div className="absolute inset-0 animated-dots opacity-30 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0a102a] via-[#101a3a] to-[#1a2350] animate-gradient-move opacity-90 pointer-events-none" />
+          </div>
+
+          {/* Splash Content */}
+          <div className="relative text-center z-10">
+            {/* Logo with enhanced zoom-in animation */}
             <div className="relative mb-6">
-              <div className="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl animate-fade-in-scale">
+              <div className="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl animate-logo-zoom-in">
                 <Image
                   src="/Logo/sae_logo.png"
-
                   alt="SAE CUSAT Logo"
                   width={100}
                   height={100}
@@ -126,13 +132,13 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Simplified Text Animation */}
+            {/* Improved Text Animation */}
             <div className="space-y-3">
-              <h1 className="text-3xl md:text-4xl font-bold text-white animate-fade-in-up">SAE CUSAT</h1>
-              <p className="text-lg text-blue-200 animate-fade-in-up animation-delay-200">
+              <h1 className="text-3xl md:text-4xl font-bold text-white animate-text-reveal">SAE CUSAT</h1>
+              <p className="text-lg text-blue-200 animate-text-reveal animation-delay-200">
                 Society of Automotive Engineers
               </p>
-              <div className="flex items-center justify-center mt-4 animate-fade-in-up animation-delay-400">
+              <div className="flex items-center justify-center mt-4 animate-text-reveal animation-delay-400">
                 <div className="w-12 h-0.5 bg-white rounded-full"></div>
               </div>
             </div>
