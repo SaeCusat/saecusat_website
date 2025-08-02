@@ -19,6 +19,7 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
+import { useAdvancedParallax } from "@/hooks/use-parallax"
 import { useEffect, useState } from "react"
 import LightRays from "@/components/LightRays"
 import { Montserrat } from 'next/font/google'
@@ -34,6 +35,9 @@ export default function HomePage() {
   const achievementsRef = useScrollAnimation()
   const eventsRef = useScrollAnimation()
   const contactRef = useScrollAnimation()
+  
+  // Parallax effects
+  const { scrollY, isClient, getParallaxStyle, getOpacityFade, getScaleFade } = useAdvancedParallax()
 
   const [showSplash, setShowSplash] = useState(true)
   const [logoAnimationComplete, setLogoAnimationComplete] = useState(false)
@@ -121,9 +125,13 @@ export default function HomePage() {
   ]
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+    try {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
+    } catch (error) {
+      console.warn('Scroll to section error:', error)
     }
   }
 
@@ -186,34 +194,48 @@ export default function HomePage() {
         >
           {/* Hero Section - Full Screen */}
           <section className="hero-seamless-bg text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
-            {/* Light Rays Background Effect */}
-            <div className={`absolute inset-0 w-full h-full animate-light-rays-fade-in opacity-0`}>
+            {/* Light Rays Background Effect with Parallax */}
+            <div 
+              className={`absolute inset-0 w-full h-full animate-light-rays-fade-in opacity-0 hero-parallax-bg parallax-element`}
+              style={isClient ? getParallaxStyle(0.2, 'down') : {}}
+            >
               <LightRays
                 raysOrigin="top-center"
                 raysColor="#00d4ff"
                 raysSpeed={1.2}
-                lightSpread={0.7}
-                rayLength={1.8}
+                lightSpread={0.8}
+                rayLength={2.2}
                 followMouse={true}
-                mouseInfluence={0.12}
-                noiseAmount={0.05}
-                distortion={0.02}
-                fadeDistance={0.9}
-                saturation={1.1}
+                mouseInfluence={0.15}
+                noiseAmount={0.08}
+                distortion={0.03}
+                fadeDistance={0.85}
+                saturation={1.3}
                 className="light-rays-container"
               />
             </div>
             
-            {/* Subtle Gradient Overlay for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 z-[1]"></div>
+            {/* Subtle Gradient Overlay for better text readability - Reduced on Mobile with Parallax */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 md:from-[#020208]/60 md:via-transparent md:to-[#020208]/40 from-[#020208]/30 via-transparent to-[#020208]/20 z-[1] hero-parallax-bg parallax-element"
+              style={isClient ? getParallaxStyle(0.1) : {}}
+            ></div>
             
             {/* Content - Centered in Optical Center */}
             <div className="absolute inset-0 flex items-center justify-center -mt-20">
               <div className="container mx-auto px-4 text-center relative z-10">
                 {/* Logo and Text Container - Centered */}
                 <div className="max-w-2xl mx-auto">
-                  {/* SAE Logo - Static in Hero Section */}
-                  <div className={`w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center ${!showSplash ? 'hover:scale-105 transition-all duration-300' : ''}`}>
+                  {/* SAE Logo - Static in Hero Section with Enhanced Parallax and Fade */}
+                  <div 
+                    className={`w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center hero-parallax-logo parallax-element hero-depth-layer-3 ${!showSplash ? 'hover:scale-105 transition-all duration-300' : ''}`}
+                    style={isClient ? {
+                      ...getParallaxStyle(0.2),
+                      opacity: getOpacityFade(0, 500),
+                      filter: `blur(${Math.min(scrollY * 0.008, 2)}px)`,
+                      transform: `${getParallaxStyle(0.2).transform} scale(${getScaleFade(0, 400, 1.08)})`
+                    } : {}}
+                  >
                     <div className="w-[16rem] h-[16rem] sm:w-[20rem] sm:h-[20rem] md:w-[24rem] md:h-[24rem] lg:w-[28rem] lg:h-[28rem] relative">
                       <Image
                         src="/Logo/sae_logo_white.png"
@@ -225,12 +247,26 @@ export default function HomePage() {
                     </div>
                   </div>
                   
-                  {/* Organization Name and University - Animated Text */}
-                  <div className={`space-y-2 ${montserrat.className} animate-hero-text-slide-in opacity-0 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide leading-tight">
+                  {/* Organization Name and University - Enhanced Text with Strong Parallax */}
+                  <div 
+                    className={`space-y-2 ${montserrat.className} animate-hero-text-slide-in opacity-0 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28 hero-parallax-text parallax-element hero-depth-layer-2`}
+                    style={isClient ? {
+                      ...getParallaxStyle(0.6),
+                      opacity: getOpacityFade(0, 600),
+                      filter: `blur(${Math.min(scrollY * 0.005, 1.5)}px)`,
+                      transform: `${getParallaxStyle(0.6).transform} scale(${getScaleFade(50, 450, 1.05)})`
+                    } : {}}
+                  >
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide leading-tight hero-title-animated parallax-text-zoom">
                       Society of Automotive Engineers
                     </h1>
-                    <h2 className="text-lg md:text-xl lg:text-2xl font-medium text-white/90 tracking-wide leading-relaxed">
+                    <h2 
+                      className="text-lg md:text-xl lg:text-2xl font-medium text-white/90 tracking-wide leading-relaxed hero-subtitle-animated parallax-text-blur"
+                      style={isClient ? {
+                        transform: `translateY(${scrollY * 0.4}px) scale(${getScaleFade(100, 500, 1.03)})`,
+                        filter: `blur(${Math.min(scrollY * 0.003, 1)}px)`
+                      } : {}}
+                    >
                       Cochin University of Science and Technology
                     </h2>
                   </div>
@@ -238,8 +274,14 @@ export default function HomePage() {
               </div>
             </div>
             
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-scroll-indicator-appear opacity-0">
+            {/* Scroll indicator with Enhanced Parallax */}
+            <div 
+              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-scroll-indicator-appear opacity-0 hero-parallax-scroll parallax-element hero-depth-layer-1"
+              style={isClient ? {
+                ...getParallaxStyle(0.8),
+                opacity: getOpacityFade(50, 250)
+              } : {}}
+            >
               <div className="flex flex-col items-center space-y-3 animate-bounce cursor-pointer group" onClick={() => scrollToSection('about')}>
                 <div className="text-white/60 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300">Scroll</div>
                 <div className="w-8 h-8 flex items-center justify-center">
