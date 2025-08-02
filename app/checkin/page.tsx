@@ -253,15 +253,22 @@ export default function CheckinPage() {
         
         {/* Subtle floating elements */}
         <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
+          {[
+            { left: 35, top: 35, delay: 1, duration: 10.5 },
+            { left: 65, top: 50, delay: 2.5, duration: 9 },
+            { left: 45, top: 70, delay: 4, duration: 11.5 },
+            { left: 75, top: 35, delay: 0.5, duration: 8 },
+            { left: 25, top: 60, delay: 3, duration: 12 },
+            { left: 55, top: 25, delay: 1.5, duration: 9.5 }
+          ].map((dot, i) => (
             <div
               key={i}
               className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
               style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 4}s`
+                left: `${dot.left}%`,
+                top: `${dot.top}%`,
+                animationDelay: `${dot.delay}s`,
+                animationDuration: `${dot.duration}s`
               }}
             />
           ))}

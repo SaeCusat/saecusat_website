@@ -63,7 +63,7 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
         <div className="absolute top-6 left-6 z-[70]">
           <Link href="/" className="hover:scale-105 transition-all duration-300 group">
             <Image
-              src="/Logo/sae_logo_white.png"
+              src="/Logo/sae_logo_white_hero.png"
               alt="SAE Logo"
               width={60}
               height={60}

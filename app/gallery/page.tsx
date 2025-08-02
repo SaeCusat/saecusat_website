@@ -121,15 +121,22 @@ export default function GalleryPage() {
         
         {/* Subtle floating elements */}
         <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
+          {[
+            { left: 30, top: 25, delay: 0.5, duration: 9 },
+            { left: 70, top: 40, delay: 2, duration: 11 },
+            { left: 50, top: 60, delay: 3.5, duration: 10 },
+            { left: 80, top: 30, delay: 1, duration: 8.5 },
+            { left: 40, top: 70, delay: 4, duration: 12 },
+            { left: 60, top: 20, delay: 2.5, duration: 9.5 }
+          ].map((dot, i) => (
             <div
               key={i}
               className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
               style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 4}s`
+                left: `${dot.left}%`,
+                top: `${dot.top}%`,
+                animationDelay: `${dot.delay}s`,
+                animationDuration: `${dot.duration}s`
               }}
             />
           ))}

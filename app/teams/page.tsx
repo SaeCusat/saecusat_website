@@ -189,15 +189,22 @@ export default function TeamsPage() {
         
         {/* Subtle floating elements */}
         <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
+          {[
+            { left: 25, top: 30, delay: 0, duration: 10 },
+            { left: 65, top: 45, delay: 1.5, duration: 12 },
+            { left: 45, top: 65, delay: 3, duration: 9 },
+            { left: 75, top: 25, delay: 4.5, duration: 11 },
+            { left: 35, top: 55, delay: 2, duration: 8 },
+            { left: 55, top: 75, delay: 3.5, duration: 10.5 }
+          ].map((dot, i) => (
             <div
               key={i}
               className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
               style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 4}s`
+                left: `${dot.left}%`,
+                top: `${dot.top}%`,
+                animationDelay: `${dot.delay}s`,
+                animationDuration: `${dot.duration}s`
               }}
             />
           ))}

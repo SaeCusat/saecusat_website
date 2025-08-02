@@ -21,6 +21,13 @@ import Link from "next/link"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import { useEffect, useState } from "react"
 import LightRays from "@/components/LightRays"
+import { Montserrat } from 'next/font/google'
+
+const montserrat = Montserrat({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-montserrat'
+})
 
 export default function HomePage() {
   const aboutRef = useScrollAnimation()
@@ -166,20 +173,6 @@ export default function HomePage() {
 
           {/* Main page content that can be blurred */}
           <div id="main-content">
-            {/* Floating SAE Academy Button */}
-            <div className="fixed bottom-6 right-6 z-50">
-            <Link href="/academy">
-              <div className="bg-gradient-to-r from-navy-900 to-blue-800 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 cursor-pointer group flex items-center px-4 sm:px-6 py-3 sm:py-4 space-x-2 sm:space-x-3 floating-button">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
-                  <GraduationCap className="w-4 h-4 sm:w-6 sm:h-6 text-navy-900" />
-                </div>
-                <div className="hidden sm:block">
-                  <div className="font-bold text-sm">SAE Academy</div>
-                  <div className="text-xs text-blue-200">Coming Soon!</div>
-                </div>
-              </div>
-            </Link>
-          </div>
 
           {/* Hero Section - Full Screen */}
           <section className="bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
@@ -204,16 +197,33 @@ export default function HomePage() {
             {/* Subtle Gradient Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 z-[1]"></div>
             
-            {/* Content - Centered */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            {/* Content - Centered in Optical Center */}
+            <div className="absolute inset-0 flex items-center justify-center -mt-20">
               <div className="container mx-auto px-4 text-center relative z-10">
-                <div className="max-w-4xl mx-auto">
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 animate-fade-in-up font-serif tracking-wider text-center drop-shadow-lg">
-                    Society of Automotive Engineers
-                  </h1>
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl text-blue-200 animate-fade-in-up animation-delay-200 font-sans text-center drop-shadow-md">
-                    Cochin University of Science and Technology
-                  </h2>
+                {/* Logo and Text Container - Centered */}
+                <div className="max-w-2xl mx-auto">
+                  {/* SAE Logo */}
+                  <div className="w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center animate-fade-in-up hover:scale-105 transition-all duration-300">
+                    <div className="w-[16rem] h-[16rem] sm:w-[20rem] sm:h-[20rem] md:w-[24rem] md:h-[24rem] lg:w-[28rem] lg:h-[28rem] relative">
+                      <Image
+                        src="/Logo/sae_logo_white_hero.png"
+                        alt="SAE CUSAT Logo"
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Organization Name and University - Directly Below Logo */}
+                  <div className={`space-y-2 ${montserrat.className} animate-fade-in-up animation-delay-300 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide leading-tight">
+                      Society of Automotive Engineers
+                    </h1>
+                    <h2 className="text-lg md:text-xl lg:text-2xl font-medium text-white/90 tracking-wide leading-relaxed">
+                      Cochin University of Science and Technology
+                    </h2>
+                  </div>
                 </div>
               </div>
             </div>
@@ -266,6 +276,79 @@ We are a team of passionate students driven by a shared interest in automobiles,
                       <p className="text-gray-600 text-sm sm:text-base">{item.desc}</p>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* SAE Academy Section */}
+          <section className="py-16 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 relative z-10">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                  {/* Left Content */}
+                  <div className="space-y-6 animate-fade-in-up">
+                    <div className="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse">
+                      <GraduationCap className="w-4 h-4 mr-2" />
+                      Coming Soon
+                    </div>
+                    <h2 className="text-4xl lg:text-5xl font-bold text-navy-900 leading-tight">
+                      SAE Academy
+                    </h2>
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      Unlock your potential with our comprehensive engineering education platform. 
+                      Learn from industry experts, work on real projects, and advance your automotive engineering career.
+                    </p>
+                    <div className="space-y-4">
+                      {[
+                        "Industry-expert instructors",
+                        "Hands-on project experience", 
+                        "Certificate programs",
+                        "Career advancement support"
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center space-x-3 animate-fade-in-up" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
+                          <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                          <span className="text-gray-700">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <Link href="/academy">
+                      <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-1000">
+                        Get Early Access
+                      </Button>
+                    </Link>
+                  </div>
+                  
+                  {/* Right Visual */}
+                  <div className="relative animate-slide-in-right animation-delay-500">
+                    <div className="bg-gradient-to-br from-navy-900 to-blue-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                      <div className="space-y-6">
+                        <div className="text-center">
+                          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
+                            <GraduationCap className="w-10 h-10 text-navy-900" />
+                          </div>
+                          <h3 className="text-2xl font-bold text-white mb-2">Learn. Build. Innovate.</h3>
+                          <p className="text-blue-200">Join the future of automotive engineering education</p>
+                        </div>
+                        
+                        {/* Feature highlights */}
+                        <div className="grid grid-cols-2 gap-4 mt-6">
+                          {[
+                            { icon: "🎓", title: "Expert-Led", desc: "Industry professionals" },
+                            { icon: "🔧", title: "Hands-On", desc: "Real projects" },
+                            { icon: "📜", title: "Certified", desc: "Recognized credentials" },
+                            { icon: "🚗", title: "Automotive", desc: "Specialized focus" }
+                          ].map((item, index) => (
+                            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/20 transition-all duration-300" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
+                              <div className="text-2xl mb-2">{item.icon}</div>
+                              <div className="text-white font-semibold text-sm">{item.title}</div>
+                              <div className="text-blue-200 text-xs">{item.desc}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
