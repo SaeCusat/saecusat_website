@@ -37,17 +37,27 @@ export default function HomePage() {
 
   const [showSplash, setShowSplash] = useState(true)
   const [splashAnimationComplete, setSplashAnimationComplete] = useState(false)
+  const [mainContentVisible, setMainContentVisible] = useState(false)
 
   useEffect(() => {
-    // Simplified and faster splash screen
-    const timer = setTimeout(() => {
+    // Enhanced splash screen with seamless transition
+    const logoAnimationTimer = setTimeout(() => {
       setSplashAnimationComplete(true)
-      setTimeout(() => {
-        setShowSplash(false)
-      }, 300) // Reduced fade out time
-    }, 1500) // Reduced total splash duration from 3000ms to 1500ms
+    }, 2800) // Logo completes its animation
 
-    return () => clearTimeout(timer)
+    const contentFadeTimer = setTimeout(() => {
+      setMainContentVisible(true)
+    }, 3000) // Content starts fading in
+
+    const splashHideTimer = setTimeout(() => {
+      setShowSplash(false)
+    }, 4000) // Preloader fully disappears
+
+    return () => {
+      clearTimeout(logoAnimationTimer)
+      clearTimeout(contentFadeTimer)
+      clearTimeout(splashHideTimer)
+    }
   }, [])
 
   const achievements = [
@@ -112,72 +122,50 @@ export default function HomePage() {
   }
 
   return (
-    <>
-      {/* Simplified Splash Screen */}
-      {showSplash && (
-        <div
-          className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 ${splashAnimationComplete ? "opacity-0" : "opacity-100"}`}
+    /* Main Content Background - Always rendered to prevent white flash */
+    <div className="min-h-screen bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] relative overflow-x-hidden">
+      {/* Enhanced Matrix Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 matrix-background opacity-[0.03]"></div>
+        <div className="absolute inset-0 animated-dots opacity-[0.02]"></div>
+      </div>
+
+      {/* Navigation */}
+      <Navigation currentPage="home" onSectionScroll={scrollToSection} />
+
+        {/* Seamless Preloader Overlay */}
+        {showSplash && (
+          <div
+            className={`fixed inset-0 z-[100] flex items-center justify-center preloader-overlay ${
+              splashAnimationComplete ? "animate-preloader-fade-out" : ""
+            }`}
+          >
+            {/* Logo Animation - Seamlessly transitions to hero position */}
+            <div className="relative z-10 flex items-center justify-center w-full h-full">
+              <div className="logo-transition-container">
+                <div className="w-[12rem] h-[12rem] sm:w-[16rem] sm:h-[16rem] md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem] relative animate-logo-to-hero">
+                  <Image
+                    src="/Logo/sae_logo_white.png"
+                    alt="SAE CUSAT Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Main page content with smooth transition */}
+        <div 
+          id="main-content"
+          className={`content-transition ${!mainContentVisible ? 'loading' : ''}`}
         >
-          {/* Animated Gradient & Particles Background */}
-          <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 matrix-background opacity-40 pointer-events-none" />
-            <div className="absolute inset-0 animated-dots opacity-30 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0a102a] via-[#101a3a] to-[#1a2350] animate-gradient-move opacity-90 pointer-events-none" />
-          </div>
-
-          {/* Splash Content */}
-          <div className="relative text-center z-10">
-            {/* Logo with enhanced zoom-in animation */}
-            <div className="relative mb-6">
-              <div className="w-24 h-24 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl animate-logo-zoom-in">
-                <Image
-                  src="/Logo/sae_logo.png"
-                  alt="SAE CUSAT Logo"
-                  width={100}
-                  height={100}
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Improved Text Animation */}
-            <div className="space-y-3">
-              <h1 className="text-3xl md:text-4xl font-bold text-white animate-text-reveal">SAE CUSAT</h1>
-              <p className="text-lg text-blue-200 animate-text-reveal animation-delay-200">
-                Society of Automotive Engineers
-              </p>
-              <div className="flex items-center justify-center mt-4 animate-text-reveal animation-delay-400">
-                <div className="w-12 h-0.5 bg-white rounded-full"></div>
-              </div>
-            </div>
-
-            {/* Simple loading indicator */}
-            <div className="mt-8 animate-fade-in-up animation-delay-600">
-              <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Main Content */}
-      <div className={`transition-opacity duration-300 ${showSplash ? "opacity-0" : "opacity-100"}`}>
-        <div className="min-h-screen bg-white relative overflow-x-hidden">
-          {/* Enhanced Matrix Background */}
-          <div className="fixed inset-0 pointer-events-none z-0">
-            <div className="absolute inset-0 matrix-background opacity-[0.03]"></div>
-            <div className="absolute inset-0 animated-dots opacity-[0.02]"></div>
-          </div>
-
-          {/* Navigation */}
-          <Navigation currentPage="home" onSectionScroll={scrollToSection} />
-
-          {/* Main page content that can be blurred */}
-          <div id="main-content">
-
           {/* Hero Section - Full Screen */}
-          <section className="bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
+          <section className="hero-seamless-bg text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
             {/* Light Rays Background Effect */}
-            <div className="absolute inset-0 w-full h-full">
+            <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${mainContentVisible ? 'opacity-70' : 'opacity-0'}`}>
               <LightRays
                 raysOrigin="top-center"
                 raysColor="#00d4ff"
@@ -190,7 +178,7 @@ export default function HomePage() {
                 distortion={0.02}
                 fadeDistance={0.9}
                 saturation={1.1}
-                className="opacity-70 light-rays-container"
+                className="light-rays-container"
               />
             </div>
             
@@ -203,10 +191,10 @@ export default function HomePage() {
                 {/* Logo and Text Container - Centered */}
                 <div className="max-w-2xl mx-auto">
                   {/* SAE Logo */}
-                  <div className="w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center animate-fade-in-up hover:scale-105 transition-all duration-300">
+                  <div className={`w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center ${!showSplash && mainContentVisible ? 'animate-hero-logo-entrance' : 'animate-fade-in-up'} hover:scale-105 transition-all duration-300`}>
                     <div className="w-[16rem] h-[16rem] sm:w-[20rem] sm:h-[20rem] md:w-[24rem] md:h-[24rem] lg:w-[28rem] lg:h-[28rem] relative">
                       <Image
-                        src="/Logo/sae_logo_white_hero.png"
+                        src="/Logo/sae_logo_white.png"
                         alt="SAE CUSAT Logo"
                         fill
                         className="object-contain"
@@ -216,7 +204,7 @@ export default function HomePage() {
                   </div>
                   
                   {/* Organization Name and University - Directly Below Logo */}
-                  <div className={`space-y-2 ${montserrat.className} animate-fade-in-up animation-delay-300 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
+                  <div className={`space-y-2 ${montserrat.className} text-content-reveal ${mainContentVisible ? 'visible' : ''} animation-delay-300 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide leading-tight">
                       Society of Automotive Engineers
                     </h1>
@@ -255,7 +243,7 @@ export default function HomePage() {
                   <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-6 sm:mb-8 text-center">About Us</h2>
                   <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6 sm:mb-8 px-4">
                     Welcome to SAE CUSAT, where innovation meets engineering excellence.<br></br>
-We are a team of passionate students driven by a shared interest in automobiles, design, and hands-on engineering. At SAE CUSAT, we go beyond just building vehicles,we focus on creating, learning, and growing through real-world experience. As the official student chapter of the Society of Automotive Engineers at CUSAT, we bring together individuals who enjoy tackling challenges, working as a team, and constantly pushing the limits of what’s possible. If you have a passion for engineering, teamwork, and technology, you’ll feel right at home here.
+We are a team of passionate students driven by a shared interest in automobiles, design, and hands-on engineering. At SAE CUSAT, we go beyond just building vehicles,we focus on creating, learning, and growing through real-world experience. As the official student chapter of the Society of Automotive Engineers at CUSAT, we bring together individuals who enjoy tackling challenges, working as a team, and constantly pushing the limits of what's possible. If you have a passion for engineering, teamwork, and technology, you'll feel right at home here.
                   </p>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -547,9 +535,7 @@ We are a team of passionate students driven by a shared interest in automobiles,
               </p>
             </div>
           </footer>
-          </div>
         </div>
       </div>
-    </>
   )
 }

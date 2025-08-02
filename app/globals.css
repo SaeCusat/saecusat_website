@@ -322,6 +322,130 @@
   animation: logoPulse 2s infinite;
 }
 
+/* Enhanced Preloader Transition Animations */
+@keyframes preloader-fade-out {
+  0% {
+    opacity: 1;
+    backdrop-filter: blur(0px);
+    z-index: 100;
+  }
+  70% {
+    opacity: 0.4;
+    backdrop-filter: blur(0px);
+    z-index: 100;
+  }
+  95% {
+    opacity: 0.1;
+    backdrop-filter: blur(5px);
+    z-index: 100;
+  }
+  100% {
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    z-index: -1;
+  }
+}
+
+@keyframes logo-zoom-to-hero {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6) translateY(0px) translateZ(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(0.7) translateY(-5px) translateZ(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(0.85) translateY(-15px) translateZ(15px);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0.95) translateY(-25px) translateZ(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(-30px) translateZ(0);
+  }
+}
+
+@keyframes hero-logo-entrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(40px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+  }
+}
+
+@keyframes main-content-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(5px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(15px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes background-reveal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes preloader-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+.animate-logo-to-hero {
+  animation: logo-zoom-to-hero 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards,
+             preloader-breathe 3s ease-in-out infinite;
+}
+
+.animate-preloader-fade-out {
+  animation: preloader-fade-out 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.animate-hero-logo-entrance {
+  animation: hero-logo-entrance 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 2.5s;
+}
+
+.animate-main-content-fade-in {
+  animation: main-content-fade-in 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 2.5s;
+}
+
+.animate-background-reveal {
+  animation: background-reveal 1s ease-out forwards;
+  animation-delay: 2.2s;
+}
+
 /* Gradient Text Effect */
 .gradient-text {
   background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #0066ff 100%);
@@ -347,13 +471,6 @@
   box-shadow: 
     0 8px 32px rgba(31, 38, 135, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.glassmorphism-button {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .glassmorphism-button:hover {
@@ -425,6 +542,7 @@
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -467,6 +585,53 @@
     @apply leading-relaxed;
     font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
   }
+}
+
+/* Seamless transition utilities */
+.preloader-overlay {
+  background: linear-gradient(135deg, #020208 0%, #040408 50%, #060608 100%);
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  perspective: 1000px;
+}
+
+.hero-seamless-bg {
+  background: linear-gradient(135deg, #020208 0%, #040408 50%, #060608 100%);
+  position: relative;
+  z-index: 1;
+}
+
+.content-transition {
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(0);
+}
+
+.content-transition.loading {
+  opacity: 0;
+  transform: translateY(50px);
+  filter: blur(5px);
+}
+
+.logo-transition-container {
+  transition: all 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+}
+
+/* Prevent body white flash */
+body {
+  background: linear-gradient(135deg, #020208 0%, #040408 50%, #060608 100%) !important;
+  overflow-x: hidden;
+}
+
+/* Text content smooth reveal */
+.text-content-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.text-content-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Enhanced smooth scrolling with offset for fixed header */
@@ -1392,20 +1557,6 @@ nav * {
 
 .text-cyber {
   animation: cyber-glow 2s ease-in-out infinite;
-}
-
-/* Floating Animation */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
 }
 
 /* Scan Line Effect */
