@@ -20,6 +20,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import { useEffect, useState } from "react"
+import LightRays from "@/components/LightRays"
 
 export default function HomePage() {
   const aboutRef = useScrollAnimation()
@@ -180,20 +181,58 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Hero Section */}
-          <section className="bg-gradient-to-r from-navy-900 to-blue-800 text-white py-16 sm:py-20 lg:py-24 relative mt-20">
-            <div className="container mx-auto px-4 text-center relative z-10">
-              <div className="max-w-4xl mx-auto">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 animate-fade-in-up font-serif tracking-wider text-center">
-                  Society of Automotive Engineers
-                </h1>
-                <h2 className="text-lg sm:text-xl lg:text-2xl mb-6 sm:mb-8 text-blue-200 animate-fade-in-up animation-delay-200 font-sans text-center">
-                  Cochin University of Science and Technology
-                </h2>
-                <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 leading-relaxed animate-fade-in-up animation-delay-400 text-center px-4">
-                  Driving innovation in automotive engineering through hands-on learning, competitive excellence, and
-                  technical expertise.
-                </p>
+          {/* Hero Section - Full Screen */}
+          <section className="bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
+            {/* Light Rays Background Effect */}
+            <div className="absolute inset-0 w-full h-full">
+              <LightRays
+                raysOrigin="top-center"
+                raysColor="#00d4ff"
+                raysSpeed={1.2}
+                lightSpread={0.7}
+                rayLength={1.8}
+                followMouse={true}
+                mouseInfluence={0.12}
+                noiseAmount={0.05}
+                distortion={0.02}
+                fadeDistance={0.9}
+                saturation={1.1}
+                className="opacity-70 light-rays-container"
+              />
+            </div>
+            
+            {/* Subtle Gradient Overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 z-[1]"></div>
+            
+            {/* Content - Centered */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="container mx-auto px-4 text-center relative z-10">
+                <div className="max-w-4xl mx-auto">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 sm:mb-8 animate-fade-in-up font-serif tracking-wider text-center drop-shadow-lg">
+                    Society of Automotive Engineers
+                  </h1>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl text-blue-200 animate-fade-in-up animation-delay-200 font-sans text-center drop-shadow-md">
+                    Cochin University of Science and Technology
+                  </h2>
+                </div>
+              </div>
+            </div>
+            
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 scroll-indicator">
+              <div className="flex flex-col items-center space-y-3 animate-bounce cursor-pointer group" onClick={() => scrollToSection('about')}>
+                <div className="text-white/60 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300">Scroll</div>
+                <div className="w-8 h-8 flex items-center justify-center">
+                  <svg 
+                    className="w-6 h-6 text-white/70 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
             </div>
           </section>

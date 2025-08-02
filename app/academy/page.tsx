@@ -6,19 +6,31 @@ import Footer from "@/components/Footer"
 
 export default function AcademyPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#020208] via-[#0a0a0f] to-[#020208] relative">
       {/* Navigation */}
       <Navigation currentPage="academy" />
 
       <div id="main-content">
+      {/* Enhanced Dark Background */}
+      <div className="fixed inset-0 opacity-[0.15] pointer-events-none z-0">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 40% 60%, rgba(147, 51, 234, 0.06) 0%, transparent 50%)
+          `
+        }}></div>
+        <div className="absolute inset-0 matrix-background opacity-30"></div>
+      </div>
+
       {/* Header */}
-      <section className="bg-gradient-to-r from-navy-900 to-blue-800 text-white py-16 mt-20">
+      <section className="bg-gradient-to-r from-cyan-900/30 via-blue-900/30 to-purple-900/30 backdrop-blur-xl border-b border-white/10 text-white py-16 mt-6 relative z-10">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4 animate-fade-in-up">SAE Academy</h1>
+          <h1 className="text-5xl font-bold mb-4 animate-fade-in-up bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">SAE Academy</h1>
           <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-8 animate-fade-in-up animation-delay-200">
             Comprehensive learning platform for automotive engineering excellence - Coming Soon!
           </p>
-          <div className="inline-flex items-center bg-yellow-500 text-yellow-900 px-4 py-2 rounded-full font-semibold">
+          <div className="inline-flex items-center bg-yellow-500/20 border border-yellow-400/30 text-yellow-300 px-4 py-2 rounded-full font-semibold backdrop-blur-xl">
             <Star className="w-4 h-4 mr-2" />
             Under Development
           </div>
@@ -26,27 +38,27 @@ export default function AcademyPage() {
       </section>
 
       {/* Coming Soon Content */}
-      <section className="py-16">
+      <section className="py-16 relative z-10">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-navy-900 mb-4 relative animate-fade-in-up">
+              <h2 className="text-4xl font-bold text-white mb-4 relative animate-fade-in-up bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                 <span className="relative z-10">What's Coming</span>
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-navy-900 to-blue-600 rounded-full"></div>
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"></div>
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-lg text-gray-300">
                 SAE Academy will be your gateway to advanced automotive engineering education, featuring comprehensive
                 courses, hands-on projects, and industry insights.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              <Card className="text-center">
+              <Card className="text-center bg-black/20 backdrop-blur-xl border border-white/10">
                 <CardHeader>
-                  <div className="w-16 h-16 bg-navy-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <BookOpen className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-navy-900">Comprehensive Courses</CardTitle>
+                  <CardTitle className="text-white bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Comprehensive Courses</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription>

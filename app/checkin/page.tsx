@@ -235,169 +235,212 @@ export default function CheckinPage() {
           animation-delay: 2.7s;
         }
       `}</style>
-    <div className="min-h-screen bg-gray-50 relative">
-      {/* Background Pattern */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(circle, #94a3b8 1px, transparent 1px)`,
-          backgroundSize: '20px 20px'
-        }}
-      />
+    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+      {/* Enhanced Dark Background with dot particles */}
+      <div className="fixed inset-0 z-0">
+        {/* Dark gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+          {/* Enhanced dot particle pattern */}
+          <div className="absolute inset-0 enhanced-dot-particles opacity-80"></div>
+          {/* Additional subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.02]">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }}></div>
+          </div>
+        </div>
+        
+        {/* Subtle floating elements */}
+        <div className="absolute inset-0">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
+              style={{
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
+      </div>
       
       {/* Navigation */}
       <Navigation currentPage="checkin" />
 
       <div id="main-content" className="relative z-10">
-      {/* Header */}
-      <section className="bg-gradient-to-r from-navy-900 to-blue-800 text-white py-16 mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-4 animate-fade-in-up">Lab Facility Check-in</h1>
-          <p className="text-xl text-blue-200 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
-            Mark your attendance for using SAE lab facilities and equipment.
-          </p>
-        </div>
-      </section>
+        {/* Hero Section with glassmorphic header */}
+        <section className="min-h-screen flex items-center justify-center relative">
+          {/* Large Background Text */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800 select-none tracking-tight">
+              CHECK-IN
+            </div>
+          </div>
 
-      {/* Check-in Section */}
-      <section className="py-16">
+          <div className="container mx-auto px-4 text-center relative z-10 pt-20">
+            {/* Clean Main Title */}
+            <div className="mb-12">
+              <div className="inline-block">
+                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase">
+                  Lab Facility
+                </div>
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+                  Check-in
+                </h1>
+              </div>
+            </div>
+
+            {/* Clean CTA Button with glassmorphic design */}
+            <button
+              onClick={() => document.querySelector('#checkin-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
+            >
+              <CheckCircle className="w-5 h-5 mr-2 inline" />
+              Access Lab System
+            </button>
+          </div>
+        </section>
+
+      {/* Check-in Section with glassmorphism */}
+      <section id="checkin-section" className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            {/* Check-in Section */}
-            <Card className="mb-8 backdrop-blur-sm bg-white/90 shadow-lg border-0 animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-navy-900 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg animate-bounce-slow hover:animate-pulse">
-                  <CheckCircle className="w-8 h-8 text-white" />
+            {/* Check-in Card with glassmorphism */}
+            <div className="mb-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-lg animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white/15">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-bounce-slow hover:animate-pulse">
+                  <CheckCircle className="w-8 h-8 text-blue-400" />
                 </div>
-                <CardTitle className="text-2xl text-navy-900 animate-fade-in-up animation-delay-400">Lab Attendance System</CardTitle>
-                <CardDescription className="text-lg animate-fade-in-up animation-delay-500">
+                <h2 className="text-3xl font-bold text-white mb-4 animate-fade-in-up animation-delay-400">Lab Attendance System</h2>
+                <p className="text-lg animate-fade-in-up animation-delay-500 text-gray-300 mb-8">
                   Click the button below to access the attendance marking system for SAE lab facilities.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center animate-fade-in-up animation-delay-600">
-                <Button
-                  size="lg"
-                  className="bg-navy-900 hover:bg-navy-800 text-white px-8 py-4 text-lg transform hover:scale-110 transition-all duration-300 hover:shadow-2xl animate-pulse-slow"
+                </p>
+                <button
+                  className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600/30 hover:to-purple-600/30"
                   onClick={handleCheckin}
                 >
-                  <CheckCircle className="w-5 h-5 mr-2" />
+                  <CheckCircle className="w-5 h-5 mr-2 inline" />
                   Check-in to Lab
-                  <ExternalLink className="w-4 h-4 ml-2" />
-                </Button>
-                <p className="text-sm text-gray-500 mt-4 animate-fade-in-up animation-delay-700">This will redirect you to the attendance marking system</p>
-              </CardContent>
-            </Card>
+                  <ExternalLink className="w-4 h-4 ml-2 inline" />
+                </button>
+                <p className="text-sm text-gray-400 mt-4 animate-fade-in-up animation-delay-700">This will redirect you to the attendance marking system</p>
+              </div>
+            </div>
 
-            {/* Lab Information */}
+            {/* Lab Information with glassmorphism */}
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <Card className="backdrop-blur-sm bg-white/90 shadow-lg border-0 animate-slide-in-left animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-navy-900 animate-fade-in-up animation-delay-900">
-                    <Clock className="w-5 h-5 mr-2 animate-spin-slow" />
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-lg animate-slide-in-left animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 hover:bg-white/15">
+                <div className="mb-4">
+                  <h3 className="flex items-center text-white text-xl font-bold animate-fade-in-up animation-delay-900">
+                    <Clock className="w-5 h-5 mr-2 animate-spin-slow text-blue-400" />
                     Lab Hours
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="animate-fade-in-up animation-delay-1000">
+                  </h3>
+                </div>
+                <div className="animate-fade-in-up animation-delay-1000">
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="font-medium">Daily Hours:</span>
-                      <span className="font-semibold text-navy-900">6:00 AM - 6:00 PM</span>
+                      <span className="font-medium text-gray-300">Daily Hours:</span>
+                      <span className="font-semibold text-white">6:00 AM - 6:00 PM</span>
                     </div>
-                    <div className="text-xs text-gray-500 mt-3">
+                    <div className="text-xs text-gray-400 mt-3">
                       <p>* Extensions beyond 6:00 PM require prior approval</p>
                       <p>* Open 7 days a week</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
 
-              <Card className="backdrop-blur-sm bg-white/90 shadow-lg border-0 animate-slide-in-right animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-navy-900 animate-fade-in-up animation-delay-900">
-                    <MapPin className="w-5 h-5 mr-2 animate-bounce-slow" />
+              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-lg animate-slide-in-right animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 hover:bg-white/15">
+                <div className="mb-4">
+                  <h3 className="flex items-center text-white text-xl font-bold animate-fade-in-up animation-delay-900">
+                    <MapPin className="w-5 h-5 mr-2 animate-bounce-slow text-purple-400" />
                     Lab Location
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="animate-fade-in-up animation-delay-1000">
-                  <div className="space-y-2 text-sm">
+                  </h3>
+                </div>
+                <div className="animate-fade-in-up animation-delay-1000">
+                  <div className="space-y-2 text-sm text-gray-300">
                     <p>SAE Workshop</p>
                     <p>Mechanical Engineering Department</p>
                     <p>CUSAT Campus, Kochi</p>
-                    <p className="text-gray-500">Building B, Ground Floor</p>
+                    <p className="text-gray-400">Building B, Ground Floor</p>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
 
-            {/* Guidelines */}
-            <Card className="backdrop-blur-sm bg-white/90 shadow-lg border-2 border-blue-500 animate-scale-in animation-delay-1100 hover:shadow-2xl transition-all duration-500">
-              <CardHeader className="bg-blue-50/50 relative z-10 animate-fade-in-up animation-delay-1200">
-                <CardTitle className="text-navy-900 flex items-center">
-                  <span className="text-blue-600 mr-2"></span>
+            {/* Guidelines with glassmorphism */}
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-lg animate-scale-in animation-delay-1100 hover:shadow-2xl transition-all duration-500 hover:bg-white/15">
+              <div className="mb-6 animate-fade-in-up animation-delay-1200">
+                <h3 className="text-white text-2xl font-bold flex items-center">
+                  <span className="text-blue-400 mr-2">⚠️</span>
                   Lab Usage Guidelines
-                  <span className="text-blue-600 ml-2"></span>
-                </CardTitle>
-                <CardDescription className="text-blue-700 font-medium animate-fade-in-up animation-delay-1300">
+                  <span className="text-purple-400 ml-2">⚠️</span>
+                </h3>
+                <p className="text-blue-300 font-medium mt-2 animate-fade-in-up animation-delay-1300">
                   Please read and follow all safety guidelines below
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="bg-blue-50/20 relative z-10 animate-fade-in-up animation-delay-1400">
+                </p>
+              </div>
+              <div className="animate-fade-in-up animation-delay-1400">
                 <ul className="space-y-3 text-sm">
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Wear safety goggles, gloves, face shields when using machines; welding helmets must be worn for welding</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Wear safety goggles, gloves, face shields when using machines; welding helmets must be worn for welding</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Fully covered clothing and safety shoes are mandatory for lab entry</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Fully covered clothing and safety shoes are mandatory for lab entry</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Entry is only permitted with a valid ID card</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Entry is only permitted with a valid ID card</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">A core team member must be present during all manufacturing activities</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">A core team member must be present during all manufacturing activities</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Sign in when entering and sign out before exiting the lab</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Sign in when entering and sign out before exiting the lab</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Ensure all doors and entry points are securely closed after use</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Ensure all doors and entry points are securely closed after use</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Lab is open from 6:00 AM to 6:00 PM; extensions require prior approval</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Lab is open from 6:00 AM to 6:00 PM; extensions require prior approval</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Report all injuries immediately and submit an incident report</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Report all injuries immediately and submit an incident report</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Keep the lab clean, organized, and clutter-free at all times</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Keep the lab clean, organized, and clutter-free at all times</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Return all tools to their default racks or positions after use</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Return all tools to their default racks or positions after use</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Dispose of waste properly using designated bins only</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Dispose of waste properly using designated bins only</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Permission is required to use the lab for non-SAE projects</span>
+                    <span className="text-purple-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Permission is required to use the lab for non-SAE projects</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-blue-500 font-bold mr-2 mt-0.5">•</span>
-                    <span className="font-medium text-gray-800">Follow safety protocols and behave responsibly at all times</span>
+                    <span className="text-blue-400 font-bold mr-2 mt-0.5">•</span>
+                    <span className="font-medium text-gray-300">Follow safety protocols and behave responsibly at all times</span>
                   </li>
                 </ul>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>

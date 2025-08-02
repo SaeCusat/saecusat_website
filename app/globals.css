@@ -49,6 +49,339 @@
   }
 }
 
+/* Enhanced text shadows for better visibility over light rays */
+.drop-shadow-lg {
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1)) drop-shadow(0 0 0 rgb(0 0 0 / 0.3));
+}
+
+.drop-shadow-md {
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06)) drop-shadow(0 0 0 rgb(0 0 0 / 0.2));
+}
+
+/* Ensure light rays canvas doesn't interfere with text selection */
+.light-rays-container canvas {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Full screen hero section styles */
+.hero-fullscreen {
+  height: 100vh;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Ensure hero section doesn't get cut off by navigation */
+@media (max-width: 768px) {
+  .hero-fullscreen {
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
+
+/* Enhanced scroll indicator */
+.scroll-indicator {
+  animation: scroll-bounce 2s infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Enhanced scroll indicator hover effect */
+.scroll-indicator:hover {
+  animation: scroll-pulse 1.5s infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* V-shaped arrow animation */
+@keyframes arrow-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Glassmorphism Navigation Effects */
+.glassmorphism-nav {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.25) 100%);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Mobile Menu Glassmorphism */
+.mobile-menu-glassmorphism {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(5, 5, 10, 0.90) 50%, rgba(0, 0, 0, 0.95) 100%);
+  backdrop-filter: blur(40px);
+  box-shadow: 
+    inset 0 0 200px rgba(0, 212, 255, 0.12),
+    0 0 100px rgba(0, 0, 0, 0.5);
+}
+
+/* Navigation Item Hover Effects */
+.nav-item-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-item-hover:hover::before {
+  left: 100%;
+}
+
+/* Corner Navigation Elements */
+.corner-nav-element {
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Button Animations */
+.button-shimmer {
+  overflow: hidden;
+  position: relative;
+}
+
+.button-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.button-shimmer:hover::before {
+  left: 100%;
+}
+
+/* Mobile Menu Animation Keyframes */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile Menu Button Animation */
+.hamburger-line {
+  transition: all 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.hamburger-to-x .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(0px, 6px);
+}
+
+.hamburger-to-x .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.hamburger-to-x .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(0px, -6px);
+}
+
+/* Mobile menu navigation item hover effects */
+.mobile-nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.mobile-nav-item:hover::before {
+  left: 100%;
+}
+
+/* Enhanced mobile menu animations */
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-30px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(50px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile navigation item glass effect */
+.mobile-nav-glassmorphism {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.20) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Pulse Animation for Logo */
+@keyframes logoPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+  }
+}
+
+.logo-pulse:hover {
+  animation: logoPulse 2s infinite;
+}
+
+/* Gradient Text Effect */
+.gradient-text {
+  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #0066ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced Backdrop Blur Utilities */
+.backdrop-blur-ultra {
+  backdrop-filter: blur(50px);
+}
+
+.backdrop-blur-extreme {
+  backdrop-filter: blur(80px);
+}
+
+.glassmorphism-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glassmorphism-button {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glassmorphism-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced navigation link underline effects */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00d4ff, #0ea5e9);
+  transition: width 0.3s ease-out;
+}
+
+.nav-link-underline:hover::after {
+  width: 100%;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -983,4 +1316,214 @@ nav * {
 .animate-gradient-move {
   background-size: 200% 200%;
   animation: gradient-move 8s ease-in-out infinite;
+}
+
+/* Futuristic Grid Pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+  }
+  10% {
+    transform: translate(-2px, -1px);
+  }
+  20% {
+    transform: translate(2px, 1px);
+  }
+  30% {
+    transform: translate(-1px, 2px);
+  }
+  40% {
+    transform: translate(1px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 1px);
+  }
+  60% {
+    transform: translate(2px, -1px);
+  }
+  70% {
+    transform: translate(-1px, -2px);
+  }
+  80% {
+    transform: translate(1px, 2px);
+  }
+  90% {
+    transform: translate(-2px, -1px);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.5s infinite;
+}
+
+/* Cyber Text Effect */
+@keyframes cyber-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 15px currentColor;
+  }
+  50% {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 30px currentColor;
+  }
+}
+
+.text-cyber {
+  animation: cyber-glow 2s ease-in-out infinite;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scan Line Effect */
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.animate-scan-line {
+  animation: scan-line 2s linear infinite;
+}
+
+/* Matrix Rain Effect */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.matrix-rain {
+  animation: matrix-rain 3s linear infinite;
+}
+
+/* Hologram Effect */
+@keyframes hologram {
+  0%, 100% {
+    opacity: 1;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    filter: hue-rotate(90deg);
+  }
+}
+
+.animate-hologram {
+  animation: hologram 2s ease-in-out infinite;
+}
+
+/* Digital Glitch */
+@keyframes digital-glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.animate-digital-glitch {
+  animation: digital-glitch 0.3s infinite;
+}
+
+/* Animated Dot Particle Background */
+.dot-particle-bg {
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 10% 90%, rgba(79, 70, 229, 0.1) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px, 100px 100px, 120px 120px, 140px 140px;
+  background-position: 0 0, 30px 30px, 50px 50px, 70px 70px, 90px 90px;
+  animation: particle-drift 25s linear infinite;
+}
+
+@keyframes particle-drift {
+  0% {
+    background-position: 0 0, 30px 30px, 50px 50px, 70px 70px, 90px 90px;
+  }
+  100% {
+    background-position: 60px 60px, 90px 90px, 150px 150px, 190px 190px, 230px 230px;
+  }
+}
+
+/* Enhanced dot particle with floating effect */
+.enhanced-dot-particles {
+  background-image: 
+    radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.2) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 85% 75%, rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 45% 55%, rgba(59, 130, 246, 0.12) 1.2px, transparent 1.2px),
+    radial-gradient(circle at 75% 25%, rgba(168, 85, 247, 0.1) 0.8px, transparent 0.8px),
+    radial-gradient(circle at 25% 85%, rgba(79, 70, 229, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 65% 45%, rgba(147, 51, 234, 0.08) 0.6px, transparent 0.6px);
+  background-size: 80px 80px, 100px 100px, 120px 120px, 90px 90px, 110px 110px, 70px 70px;
+  background-position: 0 0, 40px 40px, 60px 60px, 20px 80px, 80px 20px, 100px 100px;
+  animation: enhanced-particle-float 30s ease-in-out infinite;
+}
+
+@keyframes enhanced-particle-float {
+  0%, 100% {
+    background-position: 0 0, 40px 40px, 60px 60px, 20px 80px, 80px 20px, 100px 100px;
+  }
+  33% {
+    background-position: 20px 10px, 60px 50px, 80px 80px, 40px 100px, 100px 40px, 120px 120px;
+  }
+  66% {
+    background-position: -10px 20px, 30px 70px, 100px 40px, 10px 60px, 70px 10px, 90px 140px;
+  }
 }

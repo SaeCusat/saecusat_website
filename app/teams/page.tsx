@@ -13,7 +13,7 @@ export default function TeamsPage() {
   const teamsRef = useScrollAnimation()
   const carouselRef = useScrollAnimation()
 
-  const [currentTeamIndex, setCurrentTeamIndex] = useState(0)
+  const [currentTeam, setCurrentTeam] = useState(0)
   const [selectedTeam, setSelectedTeam] = useState<any>(null)
   const [windowWidth, setWindowWidth] = useState(0)
 
@@ -156,11 +156,11 @@ export default function TeamsPage() {
   ]
 
   const nextTeam = () => {
-    setCurrentTeamIndex((prev) => (prev + 1) % teams.length)
+    setCurrentTeam((prev) => (prev + 1) % teams.length)
   }
 
   const prevTeam = () => {
-    setCurrentTeamIndex((prev) => (prev - 1 + teams.length) % teams.length)
+    setCurrentTeam((prev) => (prev - 1 + teams.length) % teams.length)
   }
 
   const openTeamDetail = (team: any) => {
@@ -168,16 +168,75 @@ export default function TeamsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
       {/* Navigation */}
       <Navigation currentPage="teams" />
 
-      <div id="main-content">
-      {/* Dot Pattern Background */}
-      <div className="fixed inset-0 opacity-[0.02] pointer-events-none z-0">
-        <div className="absolute inset-0 matrix-background"></div>
-        <div className="absolute inset-0 animated-dots"></div>
+      {/* Dark Background matching navigation with enhanced dot particles */}
+      <div className="fixed inset-0 z-0">
+        {/* Dark gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+          {/* Enhanced dot particle pattern */}
+          <div className="absolute inset-0 enhanced-dot-particles opacity-80"></div>
+          {/* Additional subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.02]">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)`,
+              backgroundSize: '40px 40px'
+            }}></div>
+          </div>
+        </div>
+        
+        {/* Subtle floating elements */}
+        <div className="absolute inset-0">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
+              style={{
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${8 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
       </div>
+
+      <div id="main-content" className="relative z-10">
+        {/* Hero Section with Dark Design matching gallery */}
+        <section className="min-h-screen flex items-center justify-center relative">
+          {/* Large Background Text - matching gallery style */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800 select-none tracking-tight">
+              TEAMS
+            </div>
+          </div>
+
+          <div className="container mx-auto px-4 text-center relative z-10 pt-20">
+            {/* Clean Main Title */}
+            <div className="mb-12">
+              <div className="inline-block">
+                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase">
+                  Our Teams
+                </div>
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+                  Teams
+                </h1>
+              </div>
+            </div>
+
+            {/* Clean CTA Button with glassmorphic design */}
+            <button
+              onClick={() => document.querySelector('#teams-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
+            >
+              <Users className="w-5 h-5 mr-2 inline" />
+              Meet Our Teams
+            </button>
+          </div>
+        </section>
 
       {/* Team Detail Modal */}
       {selectedTeam && (
@@ -265,45 +324,33 @@ export default function TeamsPage() {
         </div>
       )}
 
-      {/* Header */}
-      <section className="bg-gradient-to-r from-navy-900 to-blue-800 text-white py-12 sm:py-16 relative z-10 mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <div ref={headerRef} className="scroll-animate">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 animate-fade-in-up">Our Teams</h1>
-            <p className="text-base sm:text-lg lg:text-xl text-blue-200 max-w-3xl mx-auto animate-fade-in-up animation-delay-200 px-4">
-              Meet the dedicated teams that drive innovation and excellence in automotive engineering at SAE CUSAT.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Enhanced 3D Teams Carousel Section */}
-      <section className="py-16 sm:py-20 bg-gray-50 relative z-10">
+      <section id="teams-section" className="py-12 bg-gray-800/50 relative z-10">
         <div className="container mx-auto px-4">
           <div ref={carouselRef} className="scroll-animate">
-            <h2 className="text-4xl sm:text-5xl font-bold text-navy-900 text-center mb-12 sm:mb-16">Featured Teams</h2>
+            <h2 className="text-4xl sm:text-5xl font-bold text-white text-center mb-12 sm:mb-16">Featured Teams</h2>
 
             <div className="relative">
               {/* Navigation Arrows */}
               <button
                 onClick={prevTeam}
-                className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white rounded-full p-4 sm:p-5 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 border border-gray-200"
+                className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-4 sm:p-5 hover:shadow-xl transition-all duration-300 hover:scale-110"
               >
-                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 text-navy-900" />
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
               </button>
 
               <button
                 onClick={nextTeam}
-                className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white rounded-full p-4 sm:p-5 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 border border-gray-200"
+                className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-4 sm:p-5 hover:shadow-xl transition-all duration-300 hover:scale-110"
               >
-                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 text-navy-900" />
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
               </button>
 
               {/* Enhanced 3D Carousel */}
               <div className="relative h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden">
                 <div className="flex items-center justify-center h-full perspective-1000">
                   {teams.map((team, index) => {
-                    const offset = index - currentTeamIndex
+                    const offset = index - currentTeam
                     const isActive = offset === 0
                     const isVisible = Math.abs(offset) <= 2
 
@@ -324,7 +371,7 @@ export default function TeamsPage() {
                         }}
                         onClick={() => openTeamDetail(team)}
                       >
-                        <Card className="w-72 h-96 sm:w-80 sm:h-[450px] lg:w-96 lg:h-[500px] overflow-hidden hover:shadow-3xl transition-all duration-500 group border-2 border-transparent hover:border-navy-200">
+                        <Card className="w-72 h-96 sm:w-80 sm:h-[450px] lg:w-96 lg:h-[500px] overflow-hidden hover:shadow-xl transition-all duration-500 group bg-white border border-gray-200 hover:border-cyan-400/50">
                           <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
                             <Image
                               src={team.image || "/placeholder.svg"}
@@ -332,24 +379,24 @@ export default function TeamsPage() {
                               fill
                               className="object-cover group-hover:scale-110 transition-transform duration-700"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                             <div className="absolute bottom-4 left-4 text-white">
                               <h3 className="font-bold text-lg sm:text-xl lg:text-2xl">{team.name}</h3>
                               <p className="text-sm sm:text-base opacity-90">Est. {team.established}</p>
                             </div>
                           </div>
                           <CardHeader className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between text-sm sm:text-base text-gray-500 mb-3">
+                            <div className="flex items-center justify-between text-sm sm:text-base text-gray-600 mb-3">
                               <div className="flex items-center">
-                                <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                                <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-cyan-500" />
                                 {team.members} Members
                               </div>
                               <div className="flex items-center">
-                                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-500" />
                                 {team.achievements.length} Awards
                               </div>
                             </div>
-                            <p className="text-gray-600 text-sm sm:text-base line-clamp-4 leading-relaxed">
+                            <p className="text-gray-700 text-sm sm:text-base line-clamp-4 leading-relaxed">
                               {team.description}
                             </p>
 
@@ -357,7 +404,7 @@ export default function TeamsPage() {
                             {isActive && (
                               <div className="mt-4 pt-4 border-t border-gray-200">
                                 <div className="flex items-center justify-center">
-                                  <span className="text-navy-900 font-semibold text-sm flex items-center">
+                                  <span className="text-cyan-600 font-semibold text-sm flex items-center">
                                     Click to explore <ChevronRight className="w-4 h-4 ml-1" />
                                   </span>
                                 </div>
@@ -376,10 +423,10 @@ export default function TeamsPage() {
                 {teams.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentTeamIndex(index)}
+                    onClick={() => setCurrentTeam(index)}
                     className={`transition-all duration-300 rounded-full ${
-                      index === currentTeamIndex
-                        ? "w-12 h-3 bg-navy-900"
+                      index === currentTeam
+                        ? "w-12 h-3 bg-gradient-to-r from-cyan-500 to-blue-600"
                         : "w-3 h-3 bg-gray-300 hover:bg-gray-400 hover:scale-125"
                     }`}
                   />
