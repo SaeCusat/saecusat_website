@@ -36,26 +36,32 @@ export default function HomePage() {
   const contactRef = useScrollAnimation()
 
   const [showSplash, setShowSplash] = useState(true)
-  const [splashAnimationComplete, setSplashAnimationComplete] = useState(false)
-  const [mainContentVisible, setMainContentVisible] = useState(false)
+  const [logoAnimationComplete, setLogoAnimationComplete] = useState(false)
+  const [preloaderFadeStart, setPreloaderFadeStart] = useState(false)
+  const [heroContentReady, setHeroContentReady] = useState(false)
 
   useEffect(() => {
-    // Enhanced splash screen with seamless transition
-    const logoAnimationTimer = setTimeout(() => {
-      setSplashAnimationComplete(true)
-    }, 2800) // Logo completes its animation
+    // Faster smooth transition sequence with better performance
+    const logoZoomTimer = setTimeout(() => {
+      setLogoAnimationComplete(true)
+    }, 2000) // Logo finishes smooth positioning - faster
 
-    const contentFadeTimer = setTimeout(() => {
-      setMainContentVisible(true)
-    }, 3000) // Content starts fading in
+    const preloaderFadeTimer = setTimeout(() => {
+      setPreloaderFadeStart(true)
+    }, 2100) // Start fading preloader overlay - faster
+
+    const heroContentTimer = setTimeout(() => {
+      setHeroContentReady(true)
+    }, 2200) // Hero content starts appearing - faster
 
     const splashHideTimer = setTimeout(() => {
       setShowSplash(false)
-    }, 4000) // Preloader fully disappears
+    }, 3600) // Complete removal of preloader - faster
 
     return () => {
-      clearTimeout(logoAnimationTimer)
-      clearTimeout(contentFadeTimer)
+      clearTimeout(logoZoomTimer)
+      clearTimeout(preloaderFadeTimer)
+      clearTimeout(heroContentTimer)
       clearTimeout(splashHideTimer)
     }
   }, [])
@@ -133,24 +139,40 @@ export default function HomePage() {
       {/* Navigation */}
       <Navigation currentPage="home" onSectionScroll={scrollToSection} />
 
-        {/* Seamless Preloader Overlay */}
+        {/* Seamless Preloader Overlay - Hardware Accelerated */}
         {showSplash && (
           <div
-            className={`fixed inset-0 z-[100] flex items-center justify-center preloader-overlay ${
-              splashAnimationComplete ? "animate-preloader-fade-out" : ""
+            className={`fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] ${
+              preloaderFadeStart ? "animate-preloader-fade-seamless" : ""
             }`}
+            style={{ 
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+              perspective: '1000px'
+            }}
           >
-            {/* Logo Animation - Seamlessly transitions to hero position */}
-            <div className="relative z-10 flex items-center justify-center w-full h-full">
-              <div className="logo-transition-container">
-                <div className="w-[12rem] h-[12rem] sm:w-[16rem] sm:h-[16rem] md:w-[20rem] md:h-[20rem] lg:w-[24rem] lg:h-[24rem] relative animate-logo-to-hero">
-                  <Image
-                    src="/Logo/sae_logo_white.png"
-                    alt="SAE CUSAT Logo"
-                    fill
-                    className="object-contain"
-                    priority
-                  />
+            {/* Logo with Perfect Zoom-to-Position Animation - Match Hero Position */}
+            <div className="relative z-10 w-full h-full">
+              {/* Match hero section positioning exactly */}
+              <div className="absolute inset-0 flex items-center justify-center -mt-20">
+                <div className="container mx-auto px-4 text-center relative z-10">
+                  <div className="max-w-2xl mx-auto">
+                    <div className="preloader-logo-container" style={{ transform: 'translateZ(0)' }}>
+                      {/* Match exact hero section sizing: outer container */}
+                      <div className="w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center animate-preloader-logo-zoom">
+                        {/* Match exact hero section sizing: inner image container */}
+                        <div className="w-[16rem] h-[16rem] sm:w-[20rem] sm:h-[20rem] md:w-[24rem] md:h-[24rem] lg:w-[28rem] lg:h-[28rem] relative">
+                          <Image
+                            src="/Logo/sae_logo_white.png"
+                            alt="SAE CUSAT Logo"
+                            fill
+                            className="object-contain"
+                            priority
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -160,12 +182,12 @@ export default function HomePage() {
         {/* Main page content with smooth transition */}
         <div 
           id="main-content"
-          className={`content-transition ${!mainContentVisible ? 'loading' : ''}`}
+          className={`transition-all duration-1000 ${!heroContentReady ? 'opacity-0' : 'opacity-100'}`}
         >
           {/* Hero Section - Full Screen */}
           <section className="hero-seamless-bg text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
             {/* Light Rays Background Effect */}
-            <div className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${mainContentVisible ? 'opacity-70' : 'opacity-0'}`}>
+            <div className={`absolute inset-0 w-full h-full animate-light-rays-fade-in opacity-0`}>
               <LightRays
                 raysOrigin="top-center"
                 raysColor="#00d4ff"
@@ -190,8 +212,8 @@ export default function HomePage() {
               <div className="container mx-auto px-4 text-center relative z-10">
                 {/* Logo and Text Container - Centered */}
                 <div className="max-w-2xl mx-auto">
-                  {/* SAE Logo */}
-                  <div className={`w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center ${!showSplash && mainContentVisible ? 'animate-hero-logo-entrance' : 'animate-fade-in-up'} hover:scale-105 transition-all duration-300`}>
+                  {/* SAE Logo - Static in Hero Section */}
+                  <div className={`w-[20rem] h-[20rem] sm:w-[24rem] sm:h-[24rem] md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] mx-auto flex items-center justify-center ${!showSplash ? 'hover:scale-105 transition-all duration-300' : ''}`}>
                     <div className="w-[16rem] h-[16rem] sm:w-[20rem] sm:h-[20rem] md:w-[24rem] md:h-[24rem] lg:w-[28rem] lg:h-[28rem] relative">
                       <Image
                         src="/Logo/sae_logo_white.png"
@@ -203,8 +225,8 @@ export default function HomePage() {
                     </div>
                   </div>
                   
-                  {/* Organization Name and University - Directly Below Logo */}
-                  <div className={`space-y-2 ${montserrat.className} text-content-reveal ${mainContentVisible ? 'visible' : ''} animation-delay-300 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
+                  {/* Organization Name and University - Animated Text */}
+                  <div className={`space-y-2 ${montserrat.className} animate-hero-text-slide-in opacity-0 -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28`}>
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wide leading-tight">
                       Society of Automotive Engineers
                     </h1>
@@ -217,7 +239,7 @@ export default function HomePage() {
             </div>
             
             {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 scroll-indicator">
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-scroll-indicator-appear opacity-0">
               <div className="flex flex-col items-center space-y-3 animate-bounce cursor-pointer group" onClick={() => scrollToSection('about')}>
                 <div className="text-white/60 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300">Scroll</div>
                 <div className="w-8 h-8 flex items-center justify-center">
