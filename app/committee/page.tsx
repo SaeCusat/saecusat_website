@@ -3,97 +3,125 @@
 import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
+import ChromaGrid from "@/components/ChromaGrid"
+import InteractiveBackground from "@/components/InteractiveBackground"
 import { useState, useEffect } from "react"
 
 export default function CommitteePage() {
   const [isVisible, setIsVisible] = useState(false)
-  const [hoveredMember, setHoveredMember] = useState<number | null>(null)
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  const executiveCommittee = {
-    faculty: [
-      { 
-        name: "Dr Biju N", 
-        position: "Faculty Advisor", 
-        image: "/placeholder.svg?height=200&width=200",
-        linkedin: "https://www.linkedin.com/in/biju-n-4287a9a"
-      },
-      { 
-        name: "Dr Gireesh Kumaran", 
-        position: "Faculty Advisor", 
-        image: "/placeholder.svg?height=200&width=200",
-        linkedin: "https://www.linkedin.com/in/gireesh-kumaran-thampi-b-s-6711253b"
-      },
-    ],
-    students: [
-      { 
-        name: "Harinadh Sadish", 
-        position: "President", 
-        image: "/committee/Harinadh.png",
-        linkedin: "https://www.linkedin.com/in/harinadh-sadish-a173b6366"
-      },
-      { 
-        name: "Alakanandha C B", 
-        position: "Vice President", 
-        image: "/committee/Alakanandha cb.png",
-        linkedin: "https://www.linkedin.com/in/alakanandha-c-b-610641291"
-      },
-      { 
-        name: "Indulekha T R", 
-        position: "Secretary", 
-        image: "/committee/INDULEKHA T R.png",
-        linkedin: "https://www.linkedin.com/in/indulekha-t-r-945183227"
-      },
-      { 
-        name: "Neeraj V", 
-        position: "Treasurer", 
-        image: "/committee/neeraj.png",
-        linkedin: "https://www.linkedin.com/in/neerajv777"
-      },
-      { 
-        name: "Muhammad Aslam", 
-        position: "Technical Head", 
-        image: "/committee/Aslam.png",
-        linkedin: "https://www.linkedin.com/in/muhammad-aslam"
-      },
-      { 
-        name: "Prajith A K", 
-        position: "Joint Secretary", 
-        image: "/committee/Prajith AK.png",
-      }
-    ],
-  }
+  const facultyData = [
+    { 
+      image: "/placeholder.svg?height=200&width=200",
+      title: "Dr Biju N", 
+      subtitle: "Faculty Advisor", 
+      borderColor: "#06B6D4",
+      gradient: "linear-gradient(135deg, #06B6D4, #000)",
+      url: "https://www.linkedin.com/in/biju-n-4287a9a"
+    },
+    { 
+      image: "/placeholder.svg?height=200&width=200",
+      title: "Dr Gireesh Kumaran", 
+      subtitle: "Faculty Advisor", 
+      borderColor: "#8B5CF6",
+      gradient: "linear-gradient(225deg, #8B5CF6, #000)",
+      url: "https://www.linkedin.com/in/gireesh-kumaran-thampi-b-s-6711253b"
+    },
+  ]
+
+  const studentData = [
+    { 
+      image: "/committee/Harinadh.png",
+      title: "Harinadh Sadish", 
+      subtitle: "President", 
+      borderColor: "#4F46E5",
+      gradient: "linear-gradient(145deg, #4F46E5, #000)",
+      url: "https://www.linkedin.com/in/harinadh-sadish-a173b6366"
+    },
+    { 
+      image: "/committee/Alakanandha cb.png",
+      title: "Alakanandha C B", 
+      subtitle: "Vice President", 
+      borderColor: "#10B981",
+      gradient: "linear-gradient(210deg, #10B981, #000)",
+      url: "https://www.linkedin.com/in/alakanandha-c-b-610641291"
+    },
+    { 
+      image: "/committee/INDULEKHA T R.png",
+      title: "Indulekha T R", 
+      subtitle: "Secretary", 
+      borderColor: "#F59E0B",
+      gradient: "linear-gradient(165deg, #F59E0B, #000)",
+      url: "https://www.linkedin.com/in/indulekha-t-r-945183227"
+    },
+    { 
+      image: "/committee/neeraj.png",
+      title: "Neeraj V", 
+      subtitle: "Treasurer", 
+      borderColor: "#EF4444",
+      gradient: "linear-gradient(195deg, #EF4444, #000)",
+      url: "https://www.linkedin.com/in/neerajv777"
+    },
+    { 
+      image: "/committee/Aslam.png",
+      title: "Muhammad Aslam", 
+      subtitle: "Technical Head", 
+      borderColor: "#8B5CF6",
+      gradient: "linear-gradient(225deg, #8B5CF6, #000)",
+      url: "https://www.linkedin.com/in/muhammad-aslam"
+    },
+    { 
+      image: "/committee/Prajith AK.png",
+      title: "Prajith A K", 
+      subtitle: "Joint Secretary", 
+      borderColor: "#06B6D4",
+      gradient: "linear-gradient(135deg, #06B6D4, #000)",
+    }
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#020208] via-[#0a0a0f] to-[#020208] relative overflow-hidden">
-      {/* Enhanced Dark Background */}
-      <div className="fixed inset-0 opacity-[0.15] pointer-events-none z-0">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 40% 60%, rgba(147, 51, 234, 0.06) 0%, transparent 50%)
-          `
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a0f] via-[#1a1a2e] to-[#16213e] relative overflow-hidden">
+      {/* Interactive Background */}
+      <InteractiveBackground />
+      
+      {/* Enhanced Background Layers */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {/* Primary gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 via-indigo-900/30 to-cyan-900/40"></div>
+        
+        {/* Animated gradient meshes */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-500/15 via-transparent to-cyan-500/15 animate-pulse"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tl from-indigo-500/12 via-transparent to-blue-500/12 animate-pulse" style={{animationDelay: '1s'}}></div>
+        </div>
+        
+        {/* Floating glassmorphism elements */}
+        <div className="absolute top-[15%] left-[10%] w-20 h-20 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 animate-pulse" style={{animationDuration: '6s'}}></div>
+        <div className="absolute top-[25%] right-[15%] w-15 h-15 rounded-full bg-cyan-500/20 backdrop-blur-md border border-cyan-400/30 animate-pulse" style={{animationDuration: '8s', animationDelay: '2s'}}></div>
+        <div className="absolute bottom-[30%] left-[20%] w-25 h-25 rounded-full bg-indigo-500/20 backdrop-blur-md border border-indigo-400/30 animate-pulse" style={{animationDuration: '10s', animationDelay: '4s'}}></div>
+        <div className="absolute bottom-[20%] right-[25%] w-18 h-18 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 animate-pulse" style={{animationDuration: '7s', animationDelay: '1s'}}></div>
+        
+        {/* Subtle noise texture */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
         }}></div>
-        <div className="absolute inset-0 matrix-background opacity-30"></div>
-        {/* Animated blobs for depth */}
-        <div className="absolute top-20 left-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
       <Navigation currentPage="committee" />
       
       <div id="main-content" className="relative z-10">
-        {/* Dark Header */}
-        <section className="bg-gradient-to-br from-gray-900 via-slate-900 to-black text-white py-24 pt-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-800/30 via-slate-800/20 to-gray-900/30"></div>
+        {/* Enhanced Header with Glassmorphism */}
+        <section className="bg-gradient-to-br from-blue-900/70 via-indigo-900/50 to-cyan-900/70 text-white py-24 pt-32 relative overflow-hidden backdrop-blur-md">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-800/30 via-indigo-800/20 to-cyan-800/30 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 border-b border-blue-400/20"></div>
+          
           <div className="container mx-auto px-4 text-center relative z-10">
             <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white drop-shadow-2xl">
                 Executive Committee
               </h1>
             </div>
@@ -102,139 +130,56 @@ export default function CommitteePage() {
 
         {/* Faculty Section */}
         <section className="py-24 relative">
-          <div className="container mx-auto px-4">
+          {/* Glassmorphism Section Background */}
+          <div className="absolute inset-0 bg-blue-500/15 backdrop-blur-md border-y border-blue-400/30">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-transparent to-cyan-500/15"></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             {/* Section Title */}
-            <div className="text-center mb-24">
-              <h2 className="text-4xl font-bold text-slate-800 mb-4 font-sans">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-slate-100 mb-4 font-sans drop-shadow-lg">
                 Faculty Advisors
               </h2>
             </div>
 
-            {/* Faculty Cards */}
-            <div className="grid md:grid-cols-2 gap-20 max-w-4xl mx-auto">
-              {executiveCommittee.faculty.map((member, index) => (
-                <div 
-                  key={index}
-                  className="group relative pt-32"
-                >
-                  {/* Image - Positioned to pop out from top */}
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="relative w-60 h-60">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl border-2 border-cyan-400/30"
-                      />
-                    </div>
-                  </div>
-                  
-                  {/* Card Container - Dark theme */}
-                  <div className={`rounded-3xl p-6 pt-24 pb-8 transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                    index % 2 === 0 
-                      ? 'bg-black/20 backdrop-blur-xl border border-cyan-400/20' 
-                      : 'bg-black/20 backdrop-blur-xl border border-blue-400/20'
-                  }`}>
-                    {/* Content */}
-                    <div className="text-center">
-                      {/* Name - Large and Bold */}
-                      <h3 className="text-3xl font-bold text-white mb-3 font-sans bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                        {member.name}
-                      </h3>
-                      
-                      {/* Title/Role - Smaller Font */}
-                      <p className="text-lg text-gray-300 font-medium mb-6 font-sans">
-                        {member.position}
-                      </p>
-                      
-                      {/* LinkedIn Button */}
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-full hover:from-cyan-700 hover:to-blue-700 transition-all duration-300 hover:scale-110 shadow-lg"
-                      >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            {/* Faculty ChromaGrid */}
+            <div className="max-w-4xl mx-auto">
+              <ChromaGrid 
+                items={facultyData}
+                columns={2}
+                rows={1}
+                radius={200}
+                className="faculty-grid"
+              />
             </div>
           </div>
         </section>
 
-        {/* Student Committee Section */}
+        {/* Student Section */}
         <section className="py-24 relative">
-          <div className="container mx-auto px-4">
+          {/* Glassmorphism Section Background */}
+          <div className="absolute inset-0 bg-indigo-900/25 backdrop-blur-md border-y border-indigo-400/20">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/15 via-transparent to-blue-500/15"></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             {/* Section Title */}
-            <div className="text-center mb-24">
-              <h2 className="text-4xl font-bold text-white mb-4 font-sans bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4 font-sans bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">
                 Student Executive Committee
               </h2>
             </div>
 
-            {/* Student Cards - Responsive Grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-16 max-w-6xl mx-auto">
-              {executiveCommittee.students.map((member, index) => {
-                const backgroundColors = [
-                  'bg-black/20 backdrop-blur-xl border border-cyan-400/20',
-                  'bg-black/20 backdrop-blur-xl border border-blue-400/20',
-                  'bg-black/20 backdrop-blur-xl border border-purple-400/20',
-                  'bg-black/20 backdrop-blur-xl border border-cyan-400/20',
-                  'bg-black/20 backdrop-blur-xl border border-blue-400/20',
-                  'bg-black/20 backdrop-blur-xl border border-purple-400/20'
-                ];
-                
-                return (
-                  <div 
-                    key={index}
-                    className="group relative pt-28"
-                  >
-                    {/* Image - Positioned to pop out from top */}
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                      <div className="relative w-44 h-44">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110 rounded-2xl border-2 border-cyan-400/30"
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Card Container - Dark theme */}
-                    <div className={`rounded-3xl p-4 pt-20 pb-6 transition-all duration-300 hover:scale-105 hover:shadow-xl ${backgroundColors[index % backgroundColors.length]}`}>
-                      {/* Content */}
-                      <div className="text-center">
-                        {/* Name - Large and Bold */}
-                        <h3 className="text-xl font-bold text-white mb-2 font-sans bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                          {member.name}
-                        </h3>
-                        
-                        {/* Title/Role - Smaller Font */}
-                        <p className="text-sm text-gray-300 font-medium mb-4 font-sans">
-                          {member.position}
-                        </p>
-                        
-                        {/* LinkedIn Button */}
-                        <a
-                          href={member.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-full hover:from-cyan-700 hover:to-blue-700 transition-all duration-300 hover:scale-110 shadow-lg"
-                        >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                          </svg>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            {/* Student ChromaGrid */}
+            <div className="max-w-7xl mx-auto">
+              <ChromaGrid 
+                items={studentData}
+                columns={3}
+                rows={2}
+                radius={250}
+                className="student-grid"
+              />
             </div>
           </div>
         </section>

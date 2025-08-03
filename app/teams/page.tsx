@@ -5,6 +5,7 @@ import { Trophy, Users, ChevronLeft, ChevronRight, X, Play } from "lucide-react"
 import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
+import TeamCarousel from "@/components/TeamCarousel"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import { useState, useEffect } from "react"
 
@@ -16,11 +17,38 @@ export default function TeamsPage() {
   const [currentTeam, setCurrentTeam] = useState(0)
   const [selectedTeam, setSelectedTeam] = useState<any>(null)
   const [windowWidth, setWindowWidth] = useState(0)
+  const [carouselConfig, setCarouselConfig] = useState({
+    cardWidth: 340,
+    cardHeight: 460,
+    visibleCards: 2
+  })
 
   // Handle window resize and set initial width
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth)
+      const width = window.innerWidth
+      setWindowWidth(width)
+      
+      // Update carousel config based on screen size
+      if (width < 768) { // Mobile
+        setCarouselConfig({
+          cardWidth: 280,
+          cardHeight: 380,
+          visibleCards: 1
+        })
+      } else if (width < 1024) { // Tablet
+        setCarouselConfig({
+          cardWidth: 320,
+          cardHeight: 420,
+          visibleCards: 1
+        })
+      } else { // Desktop
+        setCarouselConfig({
+          cardWidth: 340,
+          cardHeight: 460,
+          visibleCards: 2
+        })
+      }
     }
     
     // Set initial width
@@ -42,7 +70,7 @@ export default function TeamsPage() {
       achievements: ["3rd Place - Formula SAE 2024", "Best Design Award 2023", "Innovation Excellence 2022"],
       members: 15,
       established: "2018",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/hermes.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -59,7 +87,7 @@ export default function TeamsPage() {
       achievements: ["1st Place - Baja SAE India 2023", "Innovation Award 2022", "Best Performance 2021"],
       members: 12,
       established: "2019",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/aroha.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -76,7 +104,7 @@ export default function TeamsPage() {
       achievements: ["Best EV Design 2024", "Efficiency Champion 2023", "Green Innovation Award 2022"],
       members: 18,
       established: "2020",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/tarusa.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -93,7 +121,7 @@ export default function TeamsPage() {
       achievements: ["Aero Excellence Award 2024", "CFD Challenge Winner 2023", "Design Innovation 2022"],
       members: 10,
       established: "2021",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/yeti.JPG",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -110,7 +138,7 @@ export default function TeamsPage() {
       achievements: ["Engine Performance Award 2024", "Powertrain Innovation 2023", "Technical Excellence 2022"],
       members: 14,
       established: "2019",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/storm.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -127,7 +155,7 @@ export default function TeamsPage() {
       achievements: ["Best Chassis Design 2024", "Suspension Innovation 2023", "Structural Excellence 2022"],
       members: 11,
       established: "2020",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/maru.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -144,7 +172,7 @@ export default function TeamsPage() {
       achievements: ["Best Electronics Integration 2024", "Data Systems Award 2023", "Innovation Prize 2022"],
       members: 13,
       established: "2021",
-      image: "/placeholder.svg?height=300&width=400",
+      image: "/Team pics/astron.jpg",
       gallery: [
         "/placeholder.svg?height=200&width=300",
         "/placeholder.svg?height=200&width=300",
@@ -166,6 +194,15 @@ export default function TeamsPage() {
   const openTeamDetail = (team: any) => {
     setSelectedTeam(team)
   }
+
+  const carouselMembers = teams.map(team => ({
+    id: team.id.toString(),
+    name: team.name,
+    role: "", // Empty role since we only want team name
+    image: team.image,
+    bio: team.description.split('.').slice(0, 2).join('.') + '.',
+    teamData: team
+  }))
 
   return (
     <div className="min-h-screen bg-gray-900 relative overflow-hidden">
@@ -236,7 +273,7 @@ export default function TeamsPage() {
 
             {/* Clean CTA Button with glassmorphic design */}
             <button
-              onClick={() => document.querySelector('#teams-section')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.querySelector('#team-carousel')?.scrollIntoView({ behavior: 'smooth' })}
               className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
             >
               <Users className="w-5 h-5 mr-2 inline" />
@@ -245,85 +282,75 @@ export default function TeamsPage() {
           </div>
         </section>
 
-      {/* Team Detail Modal */}
+      {/* Team Detail Modal - Minimal Design */}
       {selectedTeam && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative animate-fade-in-up">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white/95 backdrop-blur-md rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden relative shadow-2xl animate-fade-in-up border border-white/20">
             <button
               onClick={() => setSelectedTeam(null)}
-              className="absolute top-4 right-4 z-10 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+              className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
             </button>
 
-            <div className="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
+            {/* Hero Image with Team Name Overlay */}
+            <div className="relative h-56 overflow-hidden">
               <Image
                 src={selectedTeam.image || "/placeholder.svg"}
                 alt={selectedTeam.name}
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <h2 className="text-2xl sm:text-3xl font-bold">{selectedTeam.name}</h2>
-                <p className="text-base sm:text-lg">Est. {selectedTeam.established}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
+                <p className="text-lg opacity-90">Established {selectedTeam.established}</p>
+                <div className="flex items-center mt-2 text-sm">
+                  <Users className="w-4 h-4 mr-2" />
+                  {selectedTeam.members} Members
+                </div>
               </div>
             </div>
 
-            <div className="p-4 sm:p-6">
-              <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-3">About the Team</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{selectedTeam.description}</p>
-
-                  <div className="flex items-center space-x-4 mt-4 text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-1" />
-                      {selectedTeam.members} Members
-                    </div>
-                    <div className="flex items-center">
-                      <Trophy className="w-4 h-4 mr-1" />
-                      {selectedTeam.achievements.length} Awards
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-3">Recent Achievements</h3>
-                  <div className="space-y-2">
-                    {selectedTeam.achievements.map((achievement: any, index: number) => (
-                      <div key={index} className="flex items-center text-sm text-gray-600">
-                        <Trophy className="w-3 h-3 mr-2 text-yellow-500 flex-shrink-0" />
-                        <span>{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            <div className="p-6 overflow-y-auto max-h-[calc(85vh-14rem)]">
+              {/* Description */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
+                <p className="text-gray-600 leading-relaxed line-clamp-4">
+                  {selectedTeam.description.split('.').slice(0, 2).join('.')}...
+                </p>
               </div>
 
-              <div className="mb-4 sm:mb-6">
-                <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-3">Team Gallery</h3>
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
-                  {selectedTeam.gallery.map((image: string, index: number) => (
-                    <div key={index} className="relative h-20 sm:h-24 rounded-lg overflow-hidden">
-                      <Image
-                        src={image || "/placeholder.svg"}
-                        alt={`${selectedTeam.name} - Image ${index + 1}`}
-                        fill
-                        className="object-cover hover:scale-105 transition-transform cursor-pointer"
-                      />
+              {/* Achievements */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                  <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
+                  Key Achievements
+                </h3>
+                <div className="grid gap-2">
+                  {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
+                    <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
+                      <span className="text-gray-700 font-medium">{achievement}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
+              {/* Gallery Preview */}
               <div>
-                <h3 className="text-lg sm:text-xl font-bold text-navy-900 mb-3">Team Video</h3>
-                <div className="relative h-32 sm:h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <Play className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2" />
-                    <p className="text-gray-500 text-sm sm:text-base">Video content coming soon</p>
-                  </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Gallery</h3>
+                <div className="grid grid-cols-3 gap-3">
+                  {selectedTeam.gallery.slice(0, 3).map((image: string, index: number) => (
+                    <div key={index} className="relative h-24 rounded-lg overflow-hidden group">
+                      <Image
+                        src={image || "/placeholder.svg"}
+                        alt={`${selectedTeam.name} - Image ${index + 1}`}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -331,116 +358,43 @@ export default function TeamsPage() {
         </div>
       )}
 
-      {/* Enhanced 3D Teams Carousel Section */}
-      <section id="teams-section" className="py-12 bg-gray-800/50 relative z-10">
-        <div className="container mx-auto px-4">
-          <div ref={carouselRef} className="scroll-animate">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white text-center mb-12 sm:mb-16">Featured Teams</h2>
-
-            <div className="relative">
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevTeam}
-                className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-4 sm:p-5 hover:shadow-xl transition-all duration-300 hover:scale-110"
-              >
-                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
-              </button>
-
-              <button
-                onClick={nextTeam}
-                className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 bg-white shadow-lg rounded-full p-4 sm:p-5 hover:shadow-xl transition-all duration-300 hover:scale-110"
-              >
-                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
-              </button>
-
-              {/* Enhanced 3D Carousel */}
-              <div className="relative h-[500px] sm:h-[600px] lg:h-[700px] overflow-hidden">
-                <div className="flex items-center justify-center h-full perspective-1000">
-                  {teams.map((team, index) => {
-                    const offset = index - currentTeam
-                    const isActive = offset === 0
-                    const isVisible = Math.abs(offset) <= 2
-
-                    if (!isVisible) return null
-
-                    return (
-                      <div
-                        key={team.id}
-                        className={`absolute transition-all duration-700 cursor-pointer ${isActive ? "z-10" : "z-0"}`}
-                        style={{
-                          transform: `
-                            translateX(${offset * (windowWidth < 640 ? 280 : windowWidth < 1024 ? 350 : 420)}px) 
-                            translateZ(${isActive ? "0px" : "-150px"}) 
-                            rotateY(${offset * 12}deg)
-                            scale(${isActive ? 1 : 0.75})
-                          `,
-                          opacity: isActive ? 1 : 0.5,
-                        }}
-                        onClick={() => openTeamDetail(team)}
-                      >
-                        <Card className="w-72 h-96 sm:w-80 sm:h-[450px] lg:w-96 lg:h-[500px] overflow-hidden hover:shadow-xl transition-all duration-500 group bg-white border border-gray-200 hover:border-cyan-400/50">
-                          <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
-                            <Image
-                              src={team.image || "/placeholder.svg"}
-                              alt={team.name}
-                              fill
-                              className="object-cover group-hover:scale-110 transition-transform duration-700"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                            <div className="absolute bottom-4 left-4 text-white">
-                              <h3 className="font-bold text-lg sm:text-xl lg:text-2xl">{team.name}</h3>
-                              <p className="text-sm sm:text-base opacity-90">Est. {team.established}</p>
-                            </div>
-                          </div>
-                          <CardHeader className="p-4 sm:p-6">
-                            <div className="flex items-center justify-between text-sm sm:text-base text-gray-600 mb-3">
-                              <div className="flex items-center">
-                                <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-cyan-500" />
-                                {team.members} Members
-                              </div>
-                              <div className="flex items-center">
-                                <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-500" />
-                                {team.achievements.length} Awards
-                              </div>
-                            </div>
-                            <p className="text-gray-700 text-sm sm:text-base line-clamp-4 leading-relaxed">
-                              {team.description}
-                            </p>
-
-                            {/* Enhanced CTA for active card */}
-                            {isActive && (
-                              <div className="mt-4 pt-4 border-t border-gray-200">
-                                <div className="flex items-center justify-center">
-                                  <span className="text-cyan-600 font-semibold text-sm flex items-center">
-                                    Click to explore <ChevronRight className="w-4 h-4 ml-1" />
-                                  </span>
-                                </div>
-                              </div>
-                            )}
-                          </CardHeader>
-                        </Card>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              {/* Enhanced Team Indicators */}
-              <div className="flex justify-center mt-8 sm:mt-12 space-x-3">
-                {teams.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTeam(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      index === currentTeam
-                        ? "w-12 h-3 bg-gradient-to-r from-cyan-500 to-blue-600"
-                        : "w-3 h-3 bg-gray-300 hover:bg-gray-400 hover:scale-125"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
+      {/* TeamCarousel Section */}
+      <section id="team-carousel" className="relative z-10">
+        <TeamCarousel 
+          members={carouselMembers}
+          title="OUR TEAMS"
+          titleColor="#ffffff"
+          background="transparent"
+          cardWidth={carouselConfig.cardWidth}
+          cardHeight={carouselConfig.cardHeight}
+          cardRadius={16}
+          showArrows={true}
+          showDots={true}
+          keyboardNavigation={true}
+          touchNavigation={true}
+          animationDuration={600}
+          autoPlay={0}
+          pauseOnHover={true}
+          visibleCards={carouselConfig.visibleCards}
+          sideCardScale={0.85}
+          sideCardOpacity={0.7}
+          grayscaleEffect={true}
+          infoPosition="overlay"
+          infoTextColor="#ffffff"
+          infoBackground="linear-gradient(transparent, rgba(0,0,0,0.85))"
+          onCardClick={(member) => {
+            if (member.teamData) {
+              openTeamDetail(member.teamData);
+            }
+          }}
+          className="py-8 md:py-12"
+        />
+        
+        {/* Instructions */}
+        <div className="text-center text-gray-400 pb-8 md:pb-12 px-4">
+          <p className="text-xs md:text-sm">
+            Use arrow keys, swipe, or click arrows to navigate • Click on a team to view details
+          </p>
         </div>
       </section>
 
