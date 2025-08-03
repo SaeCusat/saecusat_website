@@ -30,17 +30,23 @@ export default function TeamsPage() {
       setWindowWidth(width)
       
       // Update carousel config based on screen size
-      if (width < 768) { // Mobile
+      if (width < 480) { // Small Mobile
         setCarouselConfig({
-          cardWidth: 280,
-          cardHeight: 380,
+          cardWidth: 200,
+          cardHeight: 280,
+          visibleCards: 1
+        })
+      } else if (width < 768) { // Mobile
+        setCarouselConfig({
+          cardWidth: 240,
+          cardHeight: 320,
           visibleCards: 1
         })
       } else if (width < 1024) { // Tablet
         setCarouselConfig({
-          cardWidth: 320,
-          cardHeight: 420,
-          visibleCards: 1
+          cardWidth: 300,
+          cardHeight: 400,
+          visibleCards: 2
         })
       } else { // Desktop
         setCarouselConfig({

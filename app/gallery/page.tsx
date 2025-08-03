@@ -6,7 +6,7 @@ import { Calendar, Camera, Grid, Zap, Eye, Play } from "lucide-react"
 import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 
 export default function GalleryPage() {
   const galleryCategories = [

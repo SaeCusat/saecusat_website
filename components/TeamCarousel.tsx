@@ -2,8 +2,10 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence, TargetAndTransition} from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import type { TargetAndTransition } from 'framer-motion';
 import { cn } from '../lib/utils';
+import Image from 'next/image';
 
 export interface TeamMember {
   id: string;
@@ -103,7 +105,16 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
   onCardClick,
   initialIndex = 0,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  // Safety checks
+  if (!members || members.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-white">No team members to display</p>
+      </div>
+    );
+  }
+
+  const [currentIndex, setCurrentIndex] = useState(Math.min(initialIndex, members.length - 1));
   const [direction, setDirection] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -112,11 +123,15 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
 
   const paginate = useCallback(
     (newDirection: number) => {
-      if (totalMembers === 0) return;
-      setDirection(newDirection);
-      const nextIndex = (currentIndex + newDirection + totalMembers) % totalMembers;
-      setCurrentIndex(nextIndex);
-      onMemberChange?.(members[nextIndex], nextIndex);
+      try {
+        if (totalMembers === 0) return;
+        setDirection(newDirection);
+        const nextIndex = (currentIndex + newDirection + totalMembers) % totalMembers;
+        setCurrentIndex(nextIndex);
+        onMemberChange?.(members[nextIndex], nextIndex);
+      } catch (error) {
+        console.warn('Paginate error:', error);
+      }
     },
     [currentIndex, totalMembers, members, onMemberChange]
   );
@@ -127,11 +142,23 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
 
   const calculatePosition = (index: number) => {
     const activeIndex = currentIndex;
-    const diff = wrapIndex(index - activeIndex);
-
-    if (diff === 0) return 'center';
-    if (diff <= visibleCards) return `right-${diff}`;
-    if (diff >= totalMembers - visibleCards) return `left-${totalMembers - diff}`;
+    
+    if (index === activeIndex) return 'center';
+    
+    // Calculate the shortest distance considering circular array
+    let forwardDistance = (index - activeIndex + totalMembers) % totalMembers;
+    let backwardDistance = (activeIndex - index + totalMembers) % totalMembers;
+    
+    // If forward distance is shorter or equal, it's on the right
+    if (forwardDistance <= backwardDistance && forwardDistance <= visibleCards) {
+      return `right-${forwardDistance}`;
+    }
+    
+    // If backward distance is shorter, it's on the left
+    if (backwardDistance < forwardDistance && backwardDistance <= visibleCards) {
+      return `left-${backwardDistance}`;
+    }
+    
     return 'hidden';
   };
 
@@ -210,21 +237,37 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
     let interval: NodeJS.Timeout;
     if (autoPlay > 0) {
       interval = setInterval(() => {
-        paginate(1);
+        try {
+          paginate(1);
+        } catch (error) {
+          console.warn('Auto-play paginate error:', error);
+        }
       }, autoPlay);
     }
 
     const carouselContainer = document.getElementById('team-carousel-container');
 
     const handleMouseEnter = () => {
-      if (pauseOnHover && autoPlay > 0) clearInterval(interval);
+      try {
+        if (pauseOnHover && autoPlay > 0) clearInterval(interval);
+      } catch (error) {
+        console.warn('Mouse enter error:', error);
+      }
     };
 
     const handleMouseLeave = () => {
-      if (pauseOnHover && autoPlay > 0) {
-        interval = setInterval(() => {
-          paginate(1);
-        }, autoPlay);
+      try {
+        if (pauseOnHover && autoPlay > 0) {
+          interval = setInterval(() => {
+            try {
+              paginate(1);
+            } catch (error) {
+              console.warn('Auto-play paginate error:', error);
+            }
+          }, autoPlay);
+        }
+      } catch (error) {
+        console.warn('Mouse leave error:', error);
       }
     };
 
@@ -234,10 +277,14 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
     }
 
     return () => {
-      clearInterval(interval);
-      if (carouselContainer && pauseOnHover && autoPlay > 0) {
-        carouselContainer.removeEventListener('mouseenter', handleMouseEnter);
-        carouselContainer.removeEventListener('mouseleave', handleMouseLeave);
+      try {
+        clearInterval(interval);
+        if (carouselContainer && pauseOnHover && autoPlay > 0) {
+          carouselContainer.removeEventListener('mouseenter', handleMouseEnter);
+          carouselContainer.removeEventListener('mouseleave', handleMouseLeave);
+        }
+      } catch (error) {
+        console.warn('Cleanup error:', error);
       }
     };
   }, [autoPlay, paginate, pauseOnHover]);
@@ -247,40 +294,62 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
     if (!keyboardNavigation) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        paginate(-1);
-      } else if (e.key === 'ArrowRight') {
-        paginate(1);
+      try {
+        if (e.key === 'ArrowLeft') {
+          paginate(-1);
+        } else if (e.key === 'ArrowRight') {
+          paginate(1);
+        }
+      } catch (error) {
+        console.warn('Keyboard navigation error:', error);
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      try {
+        document.removeEventListener('keydown', handleKeyDown);
+      } catch (error) {
+        console.warn('Keyboard cleanup error:', error);
+      }
+    };
   }, [keyboardNavigation, paginate]);
 
   // Touch navigation
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!touchNavigation) return;
-    setTouchStart(e.targetTouches[0].clientX);
+    try {
+      setTouchStart(e.targetTouches[0]?.clientX || 0);
+    } catch (error) {
+      console.warn('Touch start error:', error);
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchNavigation) return;
-    setTouchEnd(e.targetTouches[0].clientX);
+    try {
+      setTouchEnd(e.targetTouches[0]?.clientX || 0);
+    } catch (error) {
+      console.warn('Touch move error:', error);
+    }
   };
 
   const handleTouchEnd = () => {
     if (!touchNavigation) return;
 
-    const swipeThreshold = 50;
-    const diff = touchStart - touchEnd;
+    try {
+      const swipeThreshold = 50;
+      const diff = touchStart - touchEnd;
 
-    if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        paginate(1);
-      } else {
-        paginate(-1);
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          paginate(1);
+        } else {
+          paginate(-1);
+        }
       }
+    } catch (error) {
+      console.warn('Touch end error:', error);
     }
   };
 
@@ -355,6 +424,8 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
         >
           <AnimatePresence initial={false} custom={direction}>
             {members.map((member, index) => {
+              if (!member || !member.id) return null;
+              
               const position = calculatePosition(index);
               const isCurrent = index === currentIndex;
 
@@ -380,20 +451,29 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
                   animate={getVariantStyles(position)}
                   exit={getVariantStyles('hidden')}
                   onClick={() => {
-                    if (!isCurrent) {
-                      const newDirection = index > currentIndex ? 1 : -1;
-                      setDirection(newDirection);
-                      setCurrentIndex(index);
-                      onMemberChange?.(members[index], index);
+                    try {
+                      if (!isCurrent) {
+                        const newDirection = index > currentIndex ? 1 : -1;
+                        setDirection(newDirection);
+                        setCurrentIndex(index);
+                        onMemberChange?.(members[index], index);
+                      }
+                      onCardClick?.(member, index);
+                    } catch (error) {
+                      console.warn('Card click error:', error);
                     }
-                    onCardClick?.(member, index);
                   }}
                 >
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
+                  <Image
+                    src={member.image || "/placeholder.svg"}
+                    alt={member.name || "Team member"}
+                    fill
+                    className="object-cover"
                     style={{ borderRadius: cardRadius }}
+                    sizes="(max-width: 768px) 280px, (max-width: 1024px) 320px, 340px"
+                    onError={(e) => {
+                      console.warn('Image load error for:', member.name);
+                    }}
                   />
 
                   {/* Overlay Info */}
@@ -407,7 +487,7 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
                         borderBottomRightRadius: cardRadius,
                       }}
                     >
-                      <h3 className="text-base md:text-lg lg:text-xl font-bold">{member.name}</h3>
+                      <h3 className="text-base md:text-lg lg:text-xl font-bold">{member.name || "Unknown"}</h3>
                     </div>
                   )}
                 </motion.div>
@@ -458,11 +538,15 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
             <motion.button
               key={index}
               onClick={() => {
-                if (index !== currentIndex) {
-                  const newDirection = index > currentIndex ? 1 : -1;
-                  setDirection(newDirection);
-                  setCurrentIndex(index);
-                  onMemberChange?.(members[index], index);
+                try {
+                  if (index !== currentIndex) {
+                    const newDirection = index > currentIndex ? 1 : -1;
+                    setDirection(newDirection);
+                    setCurrentIndex(index);
+                    onMemberChange?.(members[index], index);
+                  }
+                } catch (error) {
+                  console.warn('Dot click error:', error);
                 }
               }}
               className={cn(
