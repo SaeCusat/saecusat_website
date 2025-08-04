@@ -20,10 +20,12 @@
     --accent-foreground: 222.2 84% 4.9%;
     
     /* Dark Futuristic Theme Variables */
-    --dark-background: #060F1A;
+    --dark-background: #0A192F;
     --light-text: #CCD6F6;
     --accent-cyan: #4A90E2;
     --accent-cyan-glow: rgba(74, 144, 226, 0.1);
+    --glass-bg: rgba(41, 61, 90, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.08);
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
@@ -88,31 +90,168 @@
     z-index: 3;
   }
 
-  .about-us-matrix h2 {
-    background: rgba(6, 15, 26, 0.4);
-    backdrop-filter: blur(5px);
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(74, 144, 226, 0.2);
-    margin: 1rem auto;
-    display: inline-block;
-  }
-
-  .about-us-matrix p {
-    background: rgba(6, 15, 26, 0.3);
-    backdrop-filter: blur(3px);
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    margin: 1rem 0;
-    border: 1px solid rgba(74, 144, 226, 0.1);
-  }
-
   @keyframes matrix-drift {
     0% {
       transform: translate(0, 0);
     }
     100% {
       transform: translate(50px, 50px);
+    }
+  }
+
+  /* Glassmorphic Section Styles */
+  .glassmorphic-section {
+    width: 100%;
+    padding: 4rem 2rem;
+    background-color: var(--dark-background);
+    position: relative;
+  }
+
+  .section-heading {
+    text-align: center;
+    color: var(--accent-cyan);
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--light-text);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 15px;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--accent-cyan-glow);
+    border-color: rgba(74, 144, 226, 0.3);
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1rem;
+    display: block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Glassmorphic Academy Section Styles */
+  .glassmorphic-content-card {
+    transition: all 0.3s ease;
+  }
+
+  .glassmorphic-content-card:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(74, 144, 226, 0.08) 50%, rgba(255, 255, 255, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .glassmorphic-feature-item {
+    transition: all 0.3s ease;
+  }
+
+  .glassmorphic-feature-item:hover {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(74, 144, 226, 0.08) 100%);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+  }
+
+  .glassmorphic-academy-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glassmorphic-academy-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    border-radius: 1.5rem;
+  }
+
+  .glassmorphic-feature-box {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glassmorphic-feature-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+    border-radius: 0.75rem;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .glassmorphic-section {
+      padding: 3rem 1rem;
+    }
+    
+    .section-heading {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .cards-container {
+      gap: 1.5rem;
+    }
+    
+    .glass-card {
+      padding: 1.5rem;
     }
   }
 

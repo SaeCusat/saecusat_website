@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import Navigation from "@/components/Navigation"
+import DotGrid from "@/components/DotGrid"
 import {
   MapPin,
   Phone,
@@ -233,145 +234,190 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* About Us Section - Dark Futuristic Theme */}
-          <section id="about" className="about-us-matrix py-16 sm:py-20 relative z-20" style={{ backgroundColor: 'var(--dark-background)' }}>
+          {/* About Us Section - Glassmorphic Cards Design */}
+          <section id="about" className="about-us-matrix glassmorphic-section relative z-20">
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto">
-                <div ref={aboutRef} className="opacity-100">
-                  {/* Centered narrow layout wrapper */}
-                  <div className="max-w-3xl mx-auto text-center">
-                    <h2 className={`text-4xl sm:text-5xl font-bold mb-12 sm:mb-16 ${montserrat.className}`} 
-                        style={{ 
-                          color: 'var(--accent-cyan)',
-                          textShadow: '0 0 20px rgba(100, 255, 218, 0.3)'
-                        }}>
-                      About Us
-                    </h2>
-                    
-                    {/* Text Content - Centered */}
-                    <div className="space-y-6 text-center" style={{ color: 'var(--light-text)' }}>
-                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
-                        Welcome to SAE CUSAT, where innovation meets engineering excellence. We are a team of passionate students driven by a shared interest in automobiles, design, and hands-on engineering. At SAE CUSAT, we go beyond just building vehicles - we focus on creating, learning, and growing through real-world experience.
-                      </p>
-                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
-                        As the official student chapter of the Society of Automotive Engineers at CUSAT, we bring together individuals who enjoy tackling challenges, working as a team, and constantly pushing the limits of what's possible. Our community is built on the foundation of <span className="highlight">collaborative learning</span>, <span className="highlight">innovative thinking</span>, and <span className="highlight">practical application of engineering principles</span>.
-                      </p>
-                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
-                        Whether you're interested in design, manufacturing, testing, or competition, we provide opportunities to explore every aspect of automotive engineering. If you have a passion for engineering, teamwork, and technology, you'll feel right at home here.
-                      </p>
+              <div ref={aboutRef} className="opacity-100">
+                <div className="text-center mb-8">
+                  <h2 className={`section-heading ${montserrat.className}`}>
+                    About Us
+                  </h2>
+                  <p className={`text-lg sm:text-xl ${montserrat.className} text-center`} style={{ color: 'var(--light-text)' }}>
+                    Welcome to SAE CUSAT, where innovation meets engineering excellence.
+                  </p>
+                </div>
+                
+                <div className="cards-container">
+                  {/* Card 1: Our Mission */}
+                  <div className="glass-card">
+                    <div className="card-icon">
+                      <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+                        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                      </svg>
                     </div>
+                    <h3 className={montserrat.className}>Our Mission</h3>
+                    <p className={montserrat.className}>
+                      We are a passionate team of student engineers dedicated to real-world application and hands-on discovery. Our primary focus is to foster a dynamic environment for creating, learning, and growing through practical projects and challenges.
+                    </p>
+                  </div>
+
+                  {/* Card 2: Our Approach */}
+                  <div className="glass-card">
+                    <div className="card-icon">
+                      <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                        <path d="M8 12h8M12 8v8M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+                        <circle cx="9" cy="9" r="2" fill="currentColor"/>
+                        <circle cx="15" cy="9" r="2" fill="currentColor"/>
+                        <circle cx="9" cy="15" r="2" fill="currentColor"/>
+                        <circle cx="15" cy="15" r="2" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <h3 className={montserrat.className}>Our Approach</h3>
+                    <p className={montserrat.className}>
+                      As the official student chapter at CUSAT, our community is built on teamwork and collaborative learning. We bring together individuals who thrive on innovative thinking, tackling complex challenges, and pushing the limits of what is possible.
+                    </p>
+                  </div>
+
+                  {/* Card 3: Hands-On Engineering */}
+                  <div className="glass-card">
+                    <div className="card-icon">
+                      <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22.7 19L13.6 9.9C14.5 7.6 14 4.9 12.1 3C10.1 1 7.1 0.6 4.7 1.7L9 6L6 9L1.6 4.7C0.4 7.1 0.9 10.1 2.9 12.1C4.8 14 7.5 14.5 9.8 13.6L18.9 22.7C19.3 23.1 19.9 23.1 20.3 22.7L22.6 20.4C23.1 20 23.1 19.3 22.7 19Z"/>
+                      </svg>
+                    </div>
+                    <h3 className={montserrat.className}>Hands-On Engineering</h3>
+                    <p className={montserrat.className}>
+                      We provide immersive opportunities across the full spectrum of automotive engineering. From initial design and manufacturing to rigorous testing and track-side competition, we empower members to apply their skills in a practical environment.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          {/* Our Core Values Section - Dark Futuristic Theme */}
-          <section className="py-16 sm:py-20 relative z-10" style={{ backgroundColor: 'var(--dark-background)' }}>
+          {/* Our Core Values Section - Glassmorphic Cards Design */}
+          <section className="glassmorphic-section relative z-10">
             <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
-                <h3 className={`text-3xl sm:text-4xl font-bold mb-12 text-center ${montserrat.className}`}
-                    style={{ 
-                      color: 'var(--accent-cyan)',
-                      textShadow: '0 0 20px rgba(100, 255, 218, 0.3)'
-                    }}>
-                  Our Core Values
-                </h3>
-                
-                {/* Dark Theme Value Cards */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-                  {[
-                    { icon: Users, title: "Community" },
-                    { icon: Trophy, title: "Excellence" },
-                    { icon: BookOpen, title: "Learning" },
-                  ].map((item, index) => (
-                    <div
-                      key={index}
-                      className="value-card group relative overflow-hidden rounded-2xl p-8 transition-all duration-500 hover:scale-105"
-                      style={{ animationDelay: `${index * 200}ms` }}
-                    >
-                      {/* Content */}
-                      <div className="relative z-10 text-center">
-                        <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300" 
-                             style={{ backgroundColor: 'transparent', border: '2px solid var(--accent-cyan)' }}>
-                          <item.icon className="w-10 h-10" style={{ color: 'var(--accent-cyan)' }} />
-                        </div>
-                        <h3 className={`text-2xl font-bold ${montserrat.className}`} style={{ color: 'var(--light-text)' }}>
-                          {item.title}
-                        </h3>
-                      </div>
-                      
-                      {/* Hover glow effect */}
-                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
-                           style={{ boxShadow: '0 0 25px var(--accent-cyan-glow)' }}></div>
+              <h3 className={`section-heading ${montserrat.className}`}>
+                Our Core Values
+              </h3>
+              
+              <div className="cards-container">
+                {[
+                  { 
+                    icon: Users, 
+                    title: "Community",
+                    description: "United by passion, driven by teamwork. We foster a collaborative environment where we achieve more, together."
+                  },
+                  { 
+                    icon: Trophy, 
+                    title: "Excellence",
+                    description: "A relentless commitment to precision, performance, and engineering innovation. We don't just meet standards; we aim to set them."
+                  },
+                  { 
+                    icon: BookOpen, 
+                    title: "Learning",
+                    description: "Bridging the gap between theory and practice. We believe true knowledge is forged in the workshop and proven on the track."
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="glass-card group"
+                    style={{ animationDelay: `${index * 200}ms` }}
+                  >
+                    <div className="card-icon">
+                      <item.icon className="w-12 h-12 mx-auto" />
                     </div>
-                  ))}
-                </div>
+                    <h3 className={`${montserrat.className}`}>
+                      {item.title}
+                    </h3>
+                    <p className={montserrat.className}>
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* SAE Academy Section */}
-          <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative z-10">
-            <div className="container mx-auto px-4">
+          <section className="py-16 bg-gradient-to-br from-slate-950 via-gray-900 to-slate-900 relative z-10 overflow-hidden">
+            {/* Interactive Dot Grid Background */}
+            <div className="absolute inset-0 z-0">
+              <DotGrid
+                dotSize={6}
+                gap={25}
+                baseColor="#1e293b"
+                activeColor="#4A90E2"
+                proximity={120}
+                shockRadius={180}
+                shockStrength={3}
+                resistance={500}
+                returnDuration={1.8}
+                speedTrigger={80}
+                className="opacity-60"
+              />
+            </div>
+            
+            {/* Glassmorphic background overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-blue-800/5 to-blue-900/10 z-5"></div>
+            <div className="absolute inset-0 backdrop-blur-[0.5px] z-5"></div>
+            
+            <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-6xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   {/* Left Content */}
                   <div className="space-y-6 animate-fade-in-up">
-                    <div className="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
-                      <GraduationCap className="w-4 h-4 mr-2" />
-                      Coming Soon
-                    </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
                       SAE Academy
                     </h2>
-                    <p className="text-lg text-blue-100 leading-relaxed">
-                      Unlock your potential with our comprehensive engineering education platform. 
-                      Learn from industry experts, work on real projects, and advance your automotive engineering career.
-                    </p>
+                    <div className="glassmorphic-content-card p-6 rounded-2xl backdrop-blur-md bg-gradient-to-br from-white/5 via-blue-500/5 to-white/5 border border-white/10">
+                      <p className="text-lg text-gray-200 leading-relaxed">
+                        Learn from our experienced student members who share their knowledge and expertise. 
+                        Our peer-to-peer learning approach connects you with skilled students who mentor and guide newcomers through hands-on projects.
+                      </p>
+                    </div>
                     <div className="space-y-4">
                       {[
-                        "Industry-expert instructors",
+                        "Student mentors and guides",
                         "Hands-on project experience", 
-                        "Certificate programs",
-                        "Career advancement support"
+                        "Certificate programs"
                       ].map((feature, index) => (
-                        <div key={index} className="flex items-center space-x-3 animate-fade-in-up" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
-                          <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
-                          <span className="text-blue-100">{feature}</span>
+                        <div key={index} className="flex items-center space-x-3 animate-fade-in-up glassmorphic-feature-item p-3 rounded-xl backdrop-blur-sm bg-gradient-to-r from-white/5 to-blue-500/5 border border-white/5" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
+                          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                          <span className="text-gray-200">{feature}</span>
                         </div>
                       ))}
                     </div>
-                    <Link href="/academy">
-                      <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-8 py-4 text-lg rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-1000">
-                        Get Early Access
-                      </Button>
-                    </Link>
                   </div>
                   
                   {/* Right Visual */}
                   <div className="relative animate-slide-in-right animation-delay-500">
-                    <div className="bg-gradient-to-br from-blue-800/90 to-indigo-800/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 border border-blue-400/20">
-                      <div className="space-y-6">
+                    <div className="glassmorphic-academy-card bg-gradient-to-br from-gray-800/30 via-blue-800/20 to-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 border border-white/10 hover:border-white/20">
+                      {/* Gradient overlay for extra depth */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-white/5 rounded-3xl"></div>
+                      
+                      <div className="space-y-6 relative z-10">
                         <div className="text-center">
-                          <div className="w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow shadow-lg">
+                          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-white rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow shadow-lg backdrop-blur-sm border border-white/20">
                             <GraduationCap className="w-10 h-10 text-white" />
                           </div>
-                          <h3 className="text-2xl font-bold text-white mb-2">Learn. Build. Innovate.</h3>
-                          <p className="text-blue-200">Join the future of automotive engineering education</p>
+                          <h3 className="text-2xl font-bold text-white mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">Learn. Build. Innovate.</h3>
+                          <p className="text-gray-200">Student-led learning community</p>
                         </div>
                         
                         {/* Feature highlights */}
                         <div className="grid grid-cols-2 gap-4 mt-6">
                           {[
-                            { icon: "🎓", title: "Expert-Led", desc: "Industry professionals" },
+                            { icon: "👥", title: "Peer-Led", desc: "Expert students" },
                             { icon: "🔧", title: "Hands-On", desc: "Real projects" },
                             { icon: "📜", title: "Certified", desc: "Recognized credentials" },
                             { icon: "🚗", title: "Automotive", desc: "Specialized focus" }
                           ].map((item, index) => (
-                            <div key={index} className="bg-white/15 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/25 transition-all duration-300 border border-blue-300/20" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
+                            <div key={index} className="glassmorphic-feature-box bg-gradient-to-br from-white/10 via-blue-500/5 to-white/5 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-gradient-to-br hover:from-white/15 hover:via-blue-500/8 hover:to-white/8 transition-all duration-300 border border-white/10 hover:border-white/20" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
                               <div className="text-2xl mb-2">{item.icon}</div>
                               <div className="text-white font-semibold text-sm">{item.title}</div>
-                              <div className="text-blue-200 text-xs">{item.desc}</div>
+                              <div className="text-gray-200 text-xs">{item.desc}</div>
                             </div>
                           ))}
                         </div>

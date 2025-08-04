@@ -131,12 +131,12 @@ export default function CommitteePage() {
       url: "https://www.linkedin.com/in/neerajv777"
     },
     { 
-      image: "/committee/Aslam.png",
+      image: "/committee/aslam (2).png",
       title: "Muhammad Aslam", 
       subtitle: "Technical Head", 
       borderColor: "#3b82f6",
       gradient: "linear-gradient(225deg, #3b82f6, #0f172a)",
-      url: "https://www.linkedin.com/in/muhammad-aslam"
+      url: "https://www.linkedin.com/in/muhammad-aslam-a1484a336"
     },
     { 
       image: "/committee/prajith.png",
