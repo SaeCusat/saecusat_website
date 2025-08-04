@@ -17,10 +17,10 @@ const CommitteeMemberCard = memo(({ member, index }: { member: any; index: numbe
     >
       <div className="relative p-8 rounded-3xl committee-member-enhanced hover:scale-[1.02] transition-all duration-500">
         {/* Subtle inner glow effect on hover */}
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-3"></div>
         
         <div className="relative z-10 text-center">
-          <div className="w-52 h-52 mx-auto mb-6 rounded-full overflow-hidden border-2 border-blue-400/60 group-hover:border-blue-300/80 transition-all duration-500 bg-blue-900/40 shadow-2xl shadow-blue-900/40 group-hover:shadow-blue-400/40">
+          <div className="w-52 h-52 mx-auto mb-6 rounded-full overflow-hidden border-2 border-blue-400/60 group-hover:border-blue-300/80 transition-all duration-500 bg-slate-900/80 shadow-2xl shadow-blue-900/40 group-hover:shadow-blue-400/40">
             {!imageLoaded && (
               <div className="w-full h-full committee-loading"></div>
             )}
