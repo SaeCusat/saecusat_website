@@ -70,43 +70,66 @@ export function useAdvancedParallax() {
       }
     }
 
-    // Initial setup
-    handleResize()
+    // Initial setup with error handling
+    try {
+      handleResize()
+    } catch (error) {
+      console.warn('Initial resize error:', error)
+    }
     
     window.addEventListener("scroll", handleScroll, { passive: true })
     window.addEventListener("resize", handleResize, { passive: true })
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
-      window.removeEventListener("resize", handleResize)
+      try {
+        window.removeEventListener("scroll", handleScroll)
+        window.removeEventListener("resize", handleResize)
+      } catch (error) {
+        console.warn('Cleanup error:', error)
+      }
     }
   }, [])
 
   const getParallaxStyle = (speed: number, direction: 'up' | 'down' = 'up') => {
-    if (!isClient) return {}
+    if (!isClient || typeof window === 'undefined') return {}
     
-    const translateY = direction === 'up' 
-      ? -scrollY * speed 
-      : scrollY * speed
-    
-    return {
-      transform: `translate3d(0, ${translateY}px, 0)`,
-      willChange: 'transform'
+    try {
+      const translateY = direction === 'up' 
+        ? -scrollY * speed 
+        : scrollY * speed
+      
+      return {
+        transform: `translate3d(0, ${translateY}px, 0)`,
+        willChange: 'transform'
+      }
+    } catch (error) {
+      console.warn('Parallax style error:', error)
+      return {}
     }
   }
 
   const getOpacityFade = (fadeStart: number, fadeEnd: number) => {
-    if (!isClient) return 1
+    if (!isClient || typeof window === 'undefined') return 1
     
-    const progress = Math.min(Math.max((scrollY - fadeStart) / (fadeEnd - fadeStart), 0), 1)
-    return Math.max(1 - progress, 0)
+    try {
+      const progress = Math.min(Math.max((scrollY - fadeStart) / (fadeEnd - fadeStart), 0), 1)
+      return Math.max(1 - progress, 0)
+    } catch (error) {
+      console.warn('Opacity fade error:', error)
+      return 1
+    }
   }
 
   const getScaleFade = (scaleStart: number, scaleEnd: number, maxScale: number = 1.2) => {
-    if (!isClient) return 1
+    if (!isClient || typeof window === 'undefined') return 1
     
-    const progress = Math.min(Math.max((scrollY - scaleStart) / (scaleEnd - scaleStart), 0), 1)
-    return 1 + (maxScale - 1) * progress
+    try {
+      const progress = Math.min(Math.max((scrollY - scaleStart) / (scaleEnd - scaleStart), 0), 1)
+      return Math.min(1 + progress * (maxScale - 1), maxScale)
+    } catch (error) {
+      console.warn('Scale fade error:', error)
+      return 1
+    }
   }
 
   return {

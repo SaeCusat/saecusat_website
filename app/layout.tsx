@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'SAE CUSAT - Society of Automotive Engineers',
+  description: 'Official website of SAE CUSAT - Society of Automotive Engineers, CUSAT Chapter',
+  keywords: ['SAE', 'CUSAT', 'Automotive Engineers', 'Formula SAE', 'Baja SAE'],
+  generator: 'Next.js',
 }
 
 export default function RootLayout({
@@ -13,8 +15,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className="antialiased" suppressHydrationWarning>
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
+      </body>
     </html>
   )
 }

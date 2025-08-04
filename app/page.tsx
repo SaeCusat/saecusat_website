@@ -1,17 +1,13 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Navigation from "@/components/Navigation"
 import {
-  Calendar,
   MapPin,
   Phone,
   Mail,
   Users,
   Trophy,
-  Camera,
   BookOpen,
   GraduationCap,
   CheckCircle,
@@ -22,7 +18,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import { useAdvancedParallax } from "@/hooks/use-parallax"
 import { useEffect, useState } from "react"
 import LightRays from "@/components/LightRays"
-import { Montserrat } from 'next/font/google'
+import { Montserrat, Inter } from 'next/font/google'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
@@ -30,10 +26,15 @@ const montserrat = Montserrat({
   variable: '--font-montserrat'
 })
 
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-inter'
+})
+
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false)
   const aboutRef = useScrollAnimation()
-  const achievementsRef = useScrollAnimation()
-  const eventsRef = useScrollAnimation()
   const contactRef = useScrollAnimation()
   
   // Parallax effects
@@ -45,6 +46,8 @@ export default function HomePage() {
   const [heroContentReady, setHeroContentReady] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+    
     // Faster smooth transition sequence with better performance
     const logoZoomTimer = setTimeout(() => {
       setLogoAnimationComplete(true)
@@ -70,59 +73,14 @@ export default function HomePage() {
     }
   }, [])
 
-  const achievements = [
-    {
-      title: "Formula SAE Competition 2024",
-      description:
-        "Secured 3rd position in the national Formula SAE competition with our innovative electric vehicle design.",
-      image: "/placeholder.svg?height=200&width=300",
-      date: "March 2024",
-    },
-    {
-      title: "Baja SAE India 2023",
-      description: "Won the Best Design Award for our all-terrain vehicle at the prestigious Baja SAE competition.",
-      image: "/placeholder.svg?height=200&width=300",
-      date: "January 2023",
-    },
-    {
-      title: "Efficycle Competition",
-      description: "First place in the fuel efficiency challenge with our hybrid prototype vehicle.",
-      image: "/placeholder.svg?height=200&width=300",
-      date: "September 2023",
-    },
-  ]
-
-  const events = [
-    {
-      id: 1,
-      title: "Annual Tech Fest 2024",
-      date: "2024-03-15",
-      type: "upcoming",
-      description:
-        "Join us for our biggest technical event of the year featuring workshops, competitions, and exhibitions.",
-    },
-    {
-      id: 2,
-      title: "Formula SAE Workshop Series",
-      date: "2024-02-20",
-      type: "upcoming",
-      description: "Comprehensive workshop series covering vehicle dynamics, engine design, and aerodynamics.",
-    },
-    {
-      id: 3,
-      title: "Industry Expert Lecture",
-      date: "2024-01-10",
-      type: "past",
-      description: "Guest lecture by automotive industry experts on future trends in electric vehicles.",
-    },
-    {
-      id: 4,
-      title: "Baja SAE Preparation Camp",
-      date: "2023-12-05",
-      type: "past",
-      description: "Intensive preparation camp for the upcoming Baja SAE competition.",
-    },
-  ]
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    )
+  }
 
   const scrollToSection = (sectionId: string) => {
     try {
@@ -190,7 +148,7 @@ export default function HomePage() {
         {/* Main page content with smooth transition */}
         <div 
           id="main-content"
-          className={`transition-all duration-1000 ${!heroContentReady ? 'opacity-0' : 'opacity-100'}`}
+          className="transition-all duration-1000"
         >
           {/* Hero Section - Full Screen */}
           <section className="hero-seamless-bg text-white relative overflow-hidden" style={{ height: '100vh', minHeight: '100vh', marginTop: '0' }}>
@@ -273,59 +231,78 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            
-            {/* Scroll indicator with Enhanced Parallax */}
-            <div 
-              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-scroll-indicator-appear opacity-0 hero-parallax-scroll parallax-element hero-depth-layer-1"
-              style={isClient ? {
-                ...getParallaxStyle(0.8),
-                opacity: getOpacityFade(50, 250)
-              } : {}}
-            >
-              <div className="flex flex-col items-center space-y-3 animate-bounce cursor-pointer group" onClick={() => scrollToSection('about')}>
-                <div className="text-white/60 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors duration-300">Scroll</div>
-                <div className="w-8 h-8 flex items-center justify-center">
-                  <svg 
-                    className="w-6 h-6 text-white/70 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+          </section>
+
+          {/* About Us Section - Dark Futuristic Theme */}
+          <section id="about" className="about-us-matrix py-16 sm:py-20 relative z-20" style={{ backgroundColor: 'var(--dark-background)' }}>
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div ref={aboutRef} className="opacity-100">
+                  {/* Centered narrow layout wrapper */}
+                  <div className="max-w-3xl mx-auto text-center">
+                    <h2 className={`text-4xl sm:text-5xl font-bold mb-12 sm:mb-16 ${montserrat.className}`} 
+                        style={{ 
+                          color: 'var(--accent-cyan)',
+                          textShadow: '0 0 20px rgba(100, 255, 218, 0.3)'
+                        }}>
+                      About Us
+                    </h2>
+                    
+                    {/* Text Content - Centered */}
+                    <div className="space-y-6 text-center" style={{ color: 'var(--light-text)' }}>
+                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
+                        Welcome to SAE CUSAT, where innovation meets engineering excellence. We are a team of passionate students driven by a shared interest in automobiles, design, and hands-on engineering. At SAE CUSAT, we go beyond just building vehicles - we focus on creating, learning, and growing through real-world experience.
+                      </p>
+                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
+                        As the official student chapter of the Society of Automotive Engineers at CUSAT, we bring together individuals who enjoy tackling challenges, working as a team, and constantly pushing the limits of what's possible. Our community is built on the foundation of <span className="highlight">collaborative learning</span>, <span className="highlight">innovative thinking</span>, and <span className="highlight">practical application of engineering principles</span>.
+                      </p>
+                      <p className={`text-lg sm:text-xl leading-relaxed ${montserrat.className} font-medium`}>
+                        Whether you're interested in design, manufacturing, testing, or competition, we provide opportunities to explore every aspect of automotive engineering. If you have a passion for engineering, teamwork, and technology, you'll feel right at home here.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
-
-          {/* About Us Section */}
-          <section id="about" className="py-12 sm:py-16 bg-gray-50 relative z-10">
+          {/* Our Core Values Section - Dark Futuristic Theme */}
+          <section className="py-16 sm:py-20 relative z-10" style={{ backgroundColor: 'var(--dark-background)' }}>
             <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto text-center">
-                <div ref={aboutRef} className="scroll-animate">
-                  <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-6 sm:mb-8 text-center">About Us</h2>
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6 sm:mb-8 px-4">
-                    Welcome to SAE CUSAT, where innovation meets engineering excellence.<br></br>
-We are a team of passionate students driven by a shared interest in automobiles, design, and hands-on engineering. At SAE CUSAT, we go beyond just building vehicles,we focus on creating, learning, and growing through real-world experience. As the official student chapter of the Society of Automotive Engineers at CUSAT, we bring together individuals who enjoy tackling challenges, working as a team, and constantly pushing the limits of what's possible. If you have a passion for engineering, teamwork, and technology, you'll feel right at home here.
-                  </p>
-                </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              <div className="max-w-6xl mx-auto">
+                <h3 className={`text-3xl sm:text-4xl font-bold mb-12 text-center ${montserrat.className}`}
+                    style={{ 
+                      color: 'var(--accent-cyan)',
+                      textShadow: '0 0 20px rgba(100, 255, 218, 0.3)'
+                    }}>
+                  Our Core Values
+                </h3>
+                
+                {/* Dark Theme Value Cards */}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
                   {[
-                    { icon: Users, title: "Community", desc: "Building a strong network of automotive enthusiasts" },
-                    { icon: Trophy, title: "Excellence", desc: "Striving for excellence in all our endeavors" },
-                    { icon: BookOpen, title: "Learning", desc: "Continuous learning and skill development" },
+                    { icon: Users, title: "Community" },
+                    { icon: Trophy, title: "Excellence" },
+                    { icon: BookOpen, title: "Learning" },
                   ].map((item, index) => (
                     <div
                       key={index}
-                      className="text-center hover:transform hover:scale-105 transition-all duration-300 cursor-pointer p-4"
+                      className="value-card group relative overflow-hidden rounded-2xl p-8 transition-all duration-500 hover:scale-105"
                       style={{ animationDelay: `${index * 200}ms` }}
                     >
-                      <div className="w-16 h-16 bg-navy-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:bg-blue-800 transition-colors duration-300">
-                        <item.icon className="w-8 h-8 text-white" />
+                      {/* Content */}
+                      <div className="relative z-10 text-center">
+                        <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 transition-all duration-300" 
+                             style={{ backgroundColor: 'transparent', border: '2px solid var(--accent-cyan)' }}>
+                          <item.icon className="w-10 h-10" style={{ color: 'var(--accent-cyan)' }} />
+                        </div>
+                        <h3 className={`text-2xl font-bold ${montserrat.className}`} style={{ color: 'var(--light-text)' }}>
+                          {item.title}
+                        </h3>
                       </div>
-                      <h3 className="font-semibold text-navy-900 mb-2">{item.title}</h3>
-                      <p className="text-gray-600 text-sm sm:text-base">{item.desc}</p>
+                      
+                      {/* Hover glow effect */}
+                      <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                           style={{ boxShadow: '0 0 25px var(--accent-cyan-glow)' }}></div>
                     </div>
                   ))}
                 </div>
@@ -334,20 +311,20 @@ We are a team of passionate students driven by a shared interest in automobiles,
           </section>
 
           {/* SAE Academy Section */}
-          <section className="py-16 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 relative z-10">
+          <section className="py-16 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative z-10">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   {/* Left Content */}
                   <div className="space-y-6 animate-fade-in-up">
-                    <div className="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse">
+                    <div className="inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse shadow-lg">
                       <GraduationCap className="w-4 h-4 mr-2" />
                       Coming Soon
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-navy-900 leading-tight">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
                       SAE Academy
                     </h2>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <p className="text-lg text-blue-100 leading-relaxed">
                       Unlock your potential with our comprehensive engineering education platform. 
                       Learn from industry experts, work on real projects, and advance your automotive engineering career.
                     </p>
@@ -359,8 +336,8 @@ We are a team of passionate students driven by a shared interest in automobiles,
                         "Career advancement support"
                       ].map((feature, index) => (
                         <div key={index} className="flex items-center space-x-3 animate-fade-in-up" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
-                          <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                          <span className="text-gray-700">{feature}</span>
+                          <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                          <span className="text-blue-100">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -373,11 +350,11 @@ We are a team of passionate students driven by a shared interest in automobiles,
                   
                   {/* Right Visual */}
                   <div className="relative animate-slide-in-right animation-delay-500">
-                    <div className="bg-gradient-to-br from-navy-900 to-blue-800 rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
+                    <div className="bg-gradient-to-br from-blue-800/90 to-indigo-800/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 border border-blue-400/20">
                       <div className="space-y-6">
                         <div className="text-center">
-                          <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
-                            <GraduationCap className="w-10 h-10 text-navy-900" />
+                          <div className="w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow shadow-lg">
+                            <GraduationCap className="w-10 h-10 text-white" />
                           </div>
                           <h3 className="text-2xl font-bold text-white mb-2">Learn. Build. Innovate.</h3>
                           <p className="text-blue-200">Join the future of automotive engineering education</p>
@@ -391,7 +368,7 @@ We are a team of passionate students driven by a shared interest in automobiles,
                             { icon: "📜", title: "Certified", desc: "Recognized credentials" },
                             { icon: "🚗", title: "Automotive", desc: "Specialized focus" }
                           ].map((item, index) => (
-                            <div key={index} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/20 transition-all duration-300" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
+                            <div key={index} className="bg-white/15 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-white/25 transition-all duration-300 border border-blue-300/20" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
                               <div className="text-2xl mb-2">{item.icon}</div>
                               <div className="text-white font-semibold text-sm">{item.title}</div>
                               <div className="text-blue-200 text-xs">{item.desc}</div>
@@ -406,119 +383,10 @@ We are a team of passionate students driven by a shared interest in automobiles,
             </div>
           </section>
 
-          {/* Achievements Section */}
-          <section id="achievements" className="py-12 sm:py-16 relative z-10">
-            <div className="container mx-auto px-4">
-              <div ref={achievementsRef} className="scroll-animate">
-                <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-8 sm:mb-12">Achievements</h2>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {achievements.map((achievement, index) => (
-                  <Card
-                    key={index}
-                    className="overflow-hidden hover:shadow-xl transition-all duration-500 hover:transform hover:scale-105 cursor-pointer group"
-                    style={{ animationDelay: `${index * 150}ms` }}
-                  >
-                    <div className="relative h-48 overflow-hidden">
-                      <Image
-                        src={achievement.image || "/placeholder.svg"}
-                        alt={achievement.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
-                    <CardHeader className="p-4 sm:p-6">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2 gap-2">
-                        <CardTitle className="text-base sm:text-lg text-navy-900 group-hover:text-blue-700 transition-colors duration-300">
-                          {achievement.title}
-                        </CardTitle>
-                        <Badge variant="secondary" className="self-start sm:self-auto">
-                          {achievement.date}
-                        </Badge>
-                      </div>
-                      <CardDescription className="text-gray-600 text-sm sm:text-base">
-                        {achievement.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                ))}
-              </div>
-              <div className="text-center mt-8">
-                <Link href="/gallery">
-                  <Button className="bg-navy-900 hover:bg-navy-800 hover:scale-105 transition-all duration-300">
-                    <Camera className="w-4 h-4 mr-2" />
-                    View Full Gallery
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          {/* Events Timeline */}
-          <section id="events" className="py-12 sm:py-16 relative z-10">
-            <div className="container mx-auto px-4">
-              <div ref={eventsRef} className="scroll-animate">
-                <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-8 sm:mb-12">Events</h2>
-              </div>
-              <div className="max-w-4xl mx-auto">
-                <div className="relative">
-                  <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-navy-600 to-gray-400"></div>
-
-                  <div className="space-y-8 sm:space-y-12">
-                    {events.map((event, index) => (
-                      <div
-                        key={event.id}
-                        className="relative flex items-start space-x-4 sm:space-x-8 group"
-                        style={{ animationDelay: `${index * 100}ms` }}
-                      >
-                        <div className="relative z-10 flex-shrink-0">
-                          <div
-                            className={`w-6 h-6 rounded-full border-4 border-white shadow-lg ${
-                              event.type === "upcoming"
-                                ? "bg-gradient-to-r from-blue-500 to-blue-600"
-                                : "bg-gradient-to-r from-gray-400 to-gray-500"
-                            } group-hover:scale-125 transition-transform duration-300`}
-                          ></div>
-                        </div>
-
-                        <Card className="flex-1 hover:shadow-xl transition-all duration-500 cursor-pointer hover:scale-[1.02] group-hover:translate-x-2">
-                          <CardHeader className="p-4 sm:pb-4">
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
-                              <CardTitle className="text-lg sm:text-xl text-navy-900 group-hover:text-blue-700 transition-colors duration-300">
-                                {event.title}
-                              </CardTitle>
-                              <Badge
-                                variant={event.type === "upcoming" ? "default" : "secondary"}
-                                className={`self-start sm:self-auto ${event.type === "upcoming" ? "bg-blue-500 hover:bg-blue-600" : ""}`}
-                              >
-                                {event.type === "upcoming" ? "Upcoming" : "Past"}
-                              </Badge>
-                            </div>
-                            <div className="flex items-center text-sm text-gray-500 mb-3">
-                              <Calendar className="w-4 h-4 mr-2" />
-                              {new Date(event.date).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              })}
-                            </div>
-                            <CardDescription className="text-gray-600 leading-relaxed text-sm sm:text-base">
-                              {event.description}
-                            </CardDescription>
-                          </CardHeader>
-                        </Card>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Contact Section */}
-          <section id="contact" className="py-12 sm:py-16 bg-navy-900 text-white relative z-10">
+          <section id="contact" className="py-12 sm:py-16 bg-slate-900 text-white relative z-10">
             <div className="container mx-auto px-4">
-              <div ref={contactRef} className="scroll-animate">
+              <div ref={contactRef} className="opacity-100">
                 <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 animate-text-reveal">
                   Contact Us
                 </h2>
@@ -583,7 +451,7 @@ We are a team of passionate students driven by a shared interest in automobiles,
           </section>
 
           {/* Footer */}
-          <footer className="bg-gray-900 text-white py-6 sm:py-8 relative z-10">
+          <footer className="bg-black text-white py-6 sm:py-8 relative z-10">
             <div className="container mx-auto px-4 flex flex-col items-center justify-center">
               <div className="flex space-x-6 mb-3">
                 <a href="https://instagram.com/saecusat" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-blue-400 transition-colors">

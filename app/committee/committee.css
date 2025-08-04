@@ -1,0 +1,174 @@
+/* Committee Page Optimizations and Glassmorphism Effects */
+
+/* Performance optimizations */
+.committee-container {
+  contain: layout style paint;
+  will-change: transform;
+}
+
+.committee-member-card {
+  contain: layout style;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Dot Matrix Background - Enhanced Visibility */
+.dot-matrix-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.6) 2px, transparent 0);
+  background-size: 25px 25px;
+  animation: dot-matrix-move 15s linear infinite;
+  z-index: 1;
+}
+
+@keyframes dot-matrix-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(25px, 25px);
+  }
+}
+
+/* Performance optimized glassmorphism */
+.glassmorphism-card-optimized {
+  background: rgba(30, 41, 59, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.glassmorphism-card-optimized:hover {
+  background: rgba(30, 64, 175, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 25px rgba(59, 130, 246, 0.15);
+}
+
+/* Enhanced Glassmorphism Effects */
+.glassmorphism-bg {
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glassmorphism-card {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glassmorphism-card:hover {
+  background: rgba(30, 64, 175, 0.2);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 
+    0 8px 40px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Floating orb animations - Optimized */
+@keyframes float-glow {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+    opacity: 0.6;
+  }
+}
+
+.floating-orb {
+  animation: float-glow 6s ease-in-out infinite;
+}
+
+/* Staggered animation for cards - Optimized */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideInUp 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* Optimized blur effects */
+.backdrop-blur-optimized {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Responsive optimizations */
+@media (max-width: 768px) {
+  .glassmorphism-card-optimized {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  
+  .dot-matrix-bg {
+    background-size: 18px 18px;
+    opacity: 0.25;
+  }
+  
+  @keyframes dot-matrix-move {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(18px, 18px);
+    }
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .floating-orb,
+  .animate-pulse,
+  .animate-slide-in,
+  .dot-matrix-bg {
+    animation: none;
+  }
+  
+  .transition-all {
+    transition: none;
+  }
+}
+
+/* Loading state optimizations - Simplified */
+.committee-loading {
+  background: linear-gradient(90deg, 
+    rgba(30, 41, 59, 0.3) 25%, 
+    rgba(59, 130, 246, 0.08) 50%, 
+    rgba(30, 41, 59, 0.3) 75%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
