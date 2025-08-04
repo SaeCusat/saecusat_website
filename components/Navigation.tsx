@@ -92,7 +92,6 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                   }}
                 >
                   <span className="relative z-10 transition-all duration-300 group-hover:text-cyan-300">{item.label}</span>
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-400 group-hover:w-full transition-all duration-400 ease-out"></div>
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
                 </Link>
               ))}
@@ -141,7 +140,6 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                   className="relative px-3 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 hover:scale-105 group"
                 >
                   <span className="relative z-10 group-hover:text-cyan-300">{item.label}</span>
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-400 group-hover:w-full transition-all duration-300 ease-out"></div>
                 </Link>
               ))}
             </div>

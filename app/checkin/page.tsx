@@ -235,11 +235,11 @@ export default function CheckinPage() {
           animation-delay: 2.7s;
         }
       `}</style>
-    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
       {/* Enhanced Dark Background with dot particles */}
       <div className="fixed inset-0 z-0">
         {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950">
           {/* Enhanced dot particle pattern */}
           <div className="absolute inset-0 enhanced-dot-particles opacity-80"></div>
           {/* Additional subtle pattern overlay */}

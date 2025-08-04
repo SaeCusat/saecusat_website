@@ -100,14 +100,14 @@ export default function GalleryPage() {
   const statsSectionRef = useScrollAnimation()
 
   return (
-    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
       {/* Navigation */}
       <Navigation currentPage="gallery" />
 
       {/* Dark Background matching navigation with enhanced dot particles */}
       <div className="fixed inset-0 z-0">
         {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950">
           {/* Enhanced dot particle pattern */}
           <div className="absolute inset-0 enhanced-dot-particles opacity-80"></div>
           {/* Additional subtle pattern overlay */}
@@ -223,44 +223,50 @@ export default function GalleryPage() {
 
                     {/* Redesigned Images Layout - Masonry Style */}
                     <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-                      {category.images.map((image, imageIndex) => (
-                        <div
-                          key={imageIndex}
-                          className="break-inside-avoid relative rounded-2xl overflow-hidden group/image cursor-pointer transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl mb-6"
-                          style={{ 
-                            animationDelay: `${imageIndex * 50}ms`,
-                            height: `${200 + Math.random() * 150}px` // Random heights for masonry effect
-                          }}
-                        >
-                          {/* Image container */}
-                          <div className="relative w-full h-full border border-gray-700 rounded-2xl overflow-hidden group-hover/image:border-blue-500 transition-all duration-300">
-                            <Image
-                              src={image || "/placeholder.svg"}
-                              alt={`${category.title} - Photo ${imageIndex + 1}`}
-                              fill
-                              className="object-cover group-hover/image:scale-105 transition-transform duration-500"
-                            />
-                            
-                            {/* Dark overlay with better contrast */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-all duration-300">
-                              <div className="absolute bottom-4 left-4 right-4">
-                                <div className="text-white text-sm font-medium mb-3">
-                                  {category.title}
+                      {category.images.map((image, imageIndex) => {
+                        // Generate consistent height based on index to avoid hydration issues
+                        const heightVariations = [250, 300, 200, 350, 280, 320, 220, 380];
+                        const height = heightVariations[imageIndex % heightVariations.length];
+                        
+                        return (
+                          <div
+                            key={imageIndex}
+                            className="break-inside-avoid relative rounded-2xl overflow-hidden group/image cursor-pointer transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl mb-6"
+                            style={{ 
+                              animationDelay: `${imageIndex * 50}ms`,
+                              height: `${height}px` // Consistent heights for masonry effect
+                            }}
+                          >
+                            {/* Image container */}
+                            <div className="relative w-full h-full border border-gray-700 rounded-2xl overflow-hidden group-hover/image:border-blue-500 transition-all duration-300">
+                              <Image
+                                src={image || "/placeholder.svg"}
+                                alt={`${category.title} - Photo ${imageIndex + 1}`}
+                                fill
+                                className="object-cover group-hover/image:scale-105 transition-transform duration-500"
+                              />
+                              
+                              {/* Dark overlay with better contrast */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-all duration-300">
+                                <div className="absolute bottom-4 left-4 right-4">
+                                  <div className="text-white text-sm font-medium mb-3">
+                                    {category.title}
+                                  </div>
+                                  <Button variant="secondary" size="sm" className="w-full bg-white/90 border-0 text-gray-900 hover:bg-white font-medium">
+                                    <Eye className="w-4 h-4 mr-2" />
+                                    View
+                                  </Button>
                                 </div>
-                                <Button variant="secondary" size="sm" className="w-full bg-white/90 border-0 text-gray-900 hover:bg-white font-medium">
-                                  <Eye className="w-4 h-4 mr-2" />
-                                  View
-                                </Button>
+                              </div>
+
+                              {/* Minimal corner indicator */}
+                              <div className="absolute top-3 right-3 bg-black/70 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold opacity-0 group-hover/image:opacity-100 transition-opacity duration-300">
+                                {imageIndex + 1}
                               </div>
                             </div>
-
-                            {/* Minimal corner indicator */}
-                            <div className="absolute top-3 right-3 bg-black/70 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold opacity-0 group-hover/image:opacity-100 transition-opacity duration-300">
-                              {imageIndex + 1}
-                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 ))}
