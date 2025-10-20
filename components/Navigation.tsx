@@ -82,12 +82,23 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                   key={index}
                   href={item.href}
                   className="relative px-4 py-2 text-sm xl:text-base font-medium text-white/90 hover:text-white transition-all duration-300 hover:scale-110 group"
-                  onClick={() => {
+                  onClick={(e) => {
                     if (item.href.startsWith('#') && currentPage === "home") {
+                      e.preventDefault()
                       const sectionId = item.href.substring(1)
                       if (onSectionScroll) {
                         onSectionScroll(sectionId)
                       }
+                    } else if (item.href.startsWith('/#')) {
+                      e.preventDefault()
+                      const sectionId = item.href.substring(2)
+                      router.push('/')
+                      setTimeout(() => {
+                        const element = document.getElementById(sectionId)
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' })
+                        }
+                      }, 100)
                     }
                   }}
                 >
@@ -133,11 +144,30 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
 
             {/* Navigation Items */}
             <div className="flex items-center space-x-6">
-              {navigationItems.slice(0, 4).map((item, index) => (
+              {navigationItems.map((item, index) => (
                 <Link
                   key={index}
                   href={item.href}
                   className="relative px-3 py-2 text-sm font-medium text-white/90 hover:text-white transition-all duration-300 hover:scale-105 group"
+                  onClick={(e) => {
+                    if (item.href.startsWith('#') && currentPage === "home") {
+                      e.preventDefault()
+                      const sectionId = item.href.substring(1)
+                      if (onSectionScroll) {
+                        onSectionScroll(sectionId)
+                      }
+                    } else if (item.href.startsWith('/#')) {
+                      e.preventDefault()
+                      const sectionId = item.href.substring(2)
+                      router.push('/')
+                      setTimeout(() => {
+                        const element = document.getElementById(sectionId)
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' })
+                        }
+                      }, 100)
+                    }
+                  }}
                 >
                   <span className="relative z-10 group-hover:text-cyan-300">{item.label}</span>
                 </Link>
@@ -219,6 +249,16 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
                           onSectionScroll(sectionId)
                         }
                         setMobileMenuOpen(false)
+                      } else if (item.href.startsWith('/#')) {
+                        const sectionId = item.href.substring(2)
+                        setMobileMenuOpen(false)
+                        router.push('/')
+                        setTimeout(() => {
+                          const element = document.getElementById(sectionId)
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth' })
+                          }
+                        }, 100)
                       } else {
                         navigateToPage(item.href)
                       }
