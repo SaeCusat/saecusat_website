@@ -1,7 +1,6 @@
 "use client"
 
-import { Card, CardHeader } from "@/components/ui/card"
-import { Trophy, Users, ChevronLeft, ChevronRight, X, Play } from "lucide-react"
+import { Trophy, Users, X, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
@@ -67,137 +66,174 @@ export default function TeamsPage() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const teams = [
-    {
-      id: 1,
-      name: "Hermes",
-      description:
-        "Team Hermes, the official bicycle design team of CUSAT, is a student-led group focused on building high-efficiency, human-powered vehicles. Combining innovative engineering with sustainable design, the team develops competitive bicycles built for performance and eco-friendly mobility. Establishing itself as a national front-runner, Hermes secured All India Rank 1 overall and AIR 2 in Design at BDC 6.0, following a strong showing at BDC 5.0 with AIR 6 overall and another AIR 2 in Design. With back-to-back top-tier performances, the team continues to demonstrate technical depth, innovation, and consistency—cementing its place as a leading force in student-driven cycle engineering in India.",
-      achievements: ["3rd Place - Formula SAE 2024", "Best Design Award 2023", "Innovation Excellence 2022"],
-      members: 15,
-      established: "2018",
-      image: "/Team pics/hermes.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 2,
-      name: "AROHA",
-      description:
-        "Team AROHA, the official drone design and innovation team of CUSAT, develops advanced UAVs for real-world applications and top-tier competitions. Integrating aerodynamics, control systems, and intelligent design, the team builds high-performance drones focused on precision and endurance. Currently competing in SAEINDIA AEROTHON 2025 and ADDC 2025–26, AROHA secured AIR 25/79 and Kerala Rank 2 in AEROTHON Phase 1. On the global front, the team is pursuing strategic collaborations with RWTH Aachen University, Germany, and defense startups—positioning itself at the forefront of aerospace and autonomous systems innovation.",
-      achievements: ["1st Place - Baja SAE India 2023", "Innovation Award 2022", "Best Performance 2021"],
-      members: 12,
-      established: "2019",
-      image: "/Team pics/aroha.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 3,
-      name: "TARUSA",
-      description:
-        "Team TARUSA, the official off-road engineering team of the School of Engineering, CUSAT, specializes in the complete design and development of competition-grade all-terrain vehicles. Founded in 2017 under SAE CUSAT, the team blends mechanical precision, structural resilience, and systems innovation for extreme racing environments. In SAEINDIA BAJA 2025, TARUSA secured AIR 7 overall, with AIR 1 in Cost and Statics, AIR 2 in Altair Simulation, and top-five finishes in Sales, Sustainability, and Design, along with 1st in the Fastrack Exhibition. Past achievements include AIR 1 in hBAJA 2024 Prelims, a Top 20 finish in eBAJA 2022, AIR 10 in Mega ATV 2022, and the Most Cost-Effective Design Award in mBAJA 2019.",
-      achievements: ["Best EV Design 2024", "Efficiency Champion 2023", "Green Innovation Award 2022"],
-      members: 18,
-      established: "2020",
-      image: "/Team pics/tarusa.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 4,
-      name: "YETI Racing",
-      description:
-        "Paving a new pathway in the domain of Formula style Cars, the highest form of racing cars sanctioned by the FIA. A leading force in Formula Student vehicle construction from CUSAT, Kochi, embodies dedication and collaboration, with a strong presence in prestigious competitions like SAE SUPRA, FFS INDIA, and FORMULA BHARAT. The team has been the first ever team from Kerala to win Formula Bharat and their engineering skills and vision brings creative innovation in the very field of Formula Car design.",
-      achievements: ["Aero Excellence Award 2024", "CFD Challenge Winner 2023", "Design Innovation 2022"],
-      members: 10,
-      established: "2021",
-      image: "/Team pics/yeti.JPG",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 5,
-      name: "Storm Racing ",
-      description:
-        "Kart racing, being a form of open wheel motorsport using small light weight four wheelers called go-karts, find its CUSAT pioneer in the team Storm Racing, which was founded in the year 2024 by ambitious automotive enthusiasts of CUSAT. The team is all set to compete in its maiden competition in the month of July, 2025 in DKDC organised by FMAE.",
-      achievements: ["Engine Performance Award 2024", "Powertrain Innovation 2023", "Technical Excellence 2022"],
-      members: 14,
-      established: "2019",
-      image: "/Team pics/storm.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 6,
-      name: "Marutsakha",
-      description:
-        "Team Marutsakha is CUSAT’s official Aero Design Club, dedicated to UAV innovation and excellence. Since its revival in 2023, the team has achieved top national ranks in the SAEISS Drone Development Challenge, including All India Rank 3.For the 2026 SAE ADC  competition, the team will be joined by an additional 10-member Micro-Class team, in addition to the regular class team.With a passion for flight and a mission to push boundaries, Marutsakha blends creativity, teamwork, and real-world engineering to shape the future of aerial tech.",
-      achievements: ["Best Chassis Design 2024", "Suspension Innovation 2023", "Structural Excellence 2022"],
-      members: 11,
-      established: "2020",
-      image: "/Team pics/maru.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-    {
-      id: 7,
-      name: "Astron Aperta",
-      description:
-        "Team Astron Aperta is CUSAT’s pioneering solar off road EV club, blazing a trail in green mobility. Formed in 2024, this student-led team combines electrical and mechanical minds to build innovative solar-powered electric vehicles.With a strong showing at ESVC, Asia’s biggest solar car event, earning Kerala Rank 1 and All India Rank 9, they’re proving that clean energy can power bold ideas.The team is all set for participating in EBAJA and BSVC . For Astron Aperta, it's not just about building cars, it’s about building a sustainable tomorrow.",
-      achievements: ["Best Electronics Integration 2024", "Data Systems Award 2023", "Innovation Prize 2022"],
-      members: 13,
-      established: "2021",
-      image: "/Team pics/astron.jpg",
-      gallery: [
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-        "/placeholder.svg?height=200&width=300",
-      ],
-      videoUrl: "/placeholder-video.mp4",
-    },
-  ]
-
+const teams = [
+  {
+    id: 1,
+    name: "Hermes",
+    description:
+      "Team Hermes is a student-led engineering group dedicated to designing and building high-efficiency, human-powered vehicles. The team blends innovative engineering with sustainable design to develop competitive bicycles that excel in both performance and eco-friendly mobility.",
+    achievements: [
+      " All India Rank 1 (Overall) – BDC 6.0",
+      " All India Rank 2 (Design) – BDC 6.0",
+      " All India Rank 6 (Overall) – BDC 5.0",
+      " All India Rank 2 (Design) – BDC 5.0"
+    ],
+    members: 15,
+    established: "2018",
+    image: "/Team pics/hermes.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+  {
+    id: 2,
+    name: "AROHA",
+    description:
+      "Team AROHA is a student-led drone research and innovation team dedicated to developing advanced UAVs for real-world applications and top-tier competitions. By integrating aerodynamics, control systems, and intelligent design, the team creates high-performance drones built for precision, endurance, and reliability. Currently competing in SAEINDIA AEROTHON 2025 and ADDC 2025–26, Team AROHA is also forging global collaborations with RWTH Aachen University (Germany) and emerging defense startups.",
+    achievements: [
+      " AIR 25 / 79 – SAEINDIA AEROTHON Phase 1 (2025)",
+      " Kerala Rank 2 – SAEINDIA AEROTHON Phase 1 (2025)"
+    ],
+    members: 12,
+    established: "2019",
+    image: "/Team pics/aroha.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+  {
+    id: 3,
+    name: "TARUSA",
+    description:
+      "Team TARUSA is a student-driven off-road engineering team specializing in the end-to-end design and development of competition-grade all-terrain vehicles (ATVs). Founded in 2017 under SAE CUSAT, the team integrates mechanical precision, structural resilience, and system innovation to engineer vehicles capable of withstanding extreme racing environments.",
+    achievements: [
+      "All India Rank 7 (Overall) – SAEINDIA BAJA 2025",
+      " AIR 1 – Cost and Statics (SAEINDIA BAJA 2025)",
+      " AIR 2 – Altair Simulation (SAEINDIA BAJA 2025)",
+      " Top 5 Finishes – Sales, Sustainability, and Design (SAEINDIA BAJA 2025)",
+      " 1st Place – Fastrack Exhibition (SAEINDIA BAJA 2025)",
+      " AIR 1 – hBAJA 2024 Prelims",
+      " Top 20 Finish – eBAJA 2022",
+      " AIR 10 – Mega ATV 2022",
+      " Most Cost-Effective Design Award – mBAJA 2019"
+    ],
+    members: 18,
+    established: "2020",
+    image: "/Team pics/tarusa.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+{
+  id: 4,
+  name: "YETI Racing",
+  description:
+    "Team YETI Racing is a student-led Formula-style car design and racing team from CUSAT, Kochi, dedicated to pioneering excellence in Formula Student vehicle construction. The team combines engineering precision, innovation, and collaboration to develop high-performance, competition-grade Formula cars",
+  achievements: [
+    " First Team from Kerala to Win Formula Bharat",
+    " Strong presence in SAE SUPRA, FFS INDIA, and FORMULA BHARAT competitions",
+    " Recognized for engineering excellence, innovation, and team synergy"
+  ],
+  members: 10,
+  established: "2021",
+  image: "/Team pics/yeti.JPG",
+  gallery: [
+    "/placeholder.svg?height=200&width=300",
+    "/placeholder.svg?height=200&width=300",
+    "/placeholder.svg?height=200&width=300",
+    "/placeholder.svg?height=200&width=300",
+  ],
+  videoUrl: "/placeholder-video.mp4",
+},
+  {
+    id: 5,
+    name: "Storm Racing ",
+    description:
+      "Team Storm Racing is the pioneering kart racing team of CUSAT, dedicated to the design, development, and performance of lightweight, open-wheel racing vehicles known as go-karts. Founded in 2024 by a group of passionate automotive enthusiasts, the team aims to bring innovation, teamwork, and racing spirit to the motorsport culture of the university.",
+    achievements: [" Preparing for its maiden competition – DKDC 2025, organized by FMAE, scheduled for July 2025"],
+    members: 14,
+    established: "2019",
+    image: "/Team pics/storm.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+  {
+    id: 6,
+    name: "Marutsakha",
+    description:
+      "Team Marutsakha is CUSAT’s official Aero Design Club, committed to UAV innovation, research, and excellence in aerial engineering. Since its revival in 2023, the team has demonstrated outstanding performance in national-level competitions, driven by a passion for flight dynamics, design precision, and innovation.",
+    achievements: [
+      " All India Rank 3 – SAEISS Drone Development Challenge (DDC)",
+      " Consistent top-tier performances in national UAV and aero design events"
+    ],
+    members: 11,
+    established: "2020",
+    image: "/Team pics/maru.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+  {
+    id: 7,
+    name: "Astron Endurance",
+    description:
+      "Team Astron Endurance is CUSAT’s pioneering solar off-road electric vehicle (EV) team, leading the charge in sustainable mobility and green innovation. Formed in 2024, this student-led team unites electrical and mechanical engineers to design and build solar-powered electric vehicles that embody creativity, performance, and environmental responsibility.",
+    achievements: [
+      " Kerala Rank 1 – ESVC (Electric Solar Vehicle Championship)",
+      " All India Rank 9 – ESVC, Asia’s largest solar car event"
+    ],
+    members: 13,
+    established: "2021",
+    image: "/Team pics/astron.jpg",
+    gallery: [
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+      "/placeholder.svg?height=200&width=300",
+    ],
+    videoUrl: "/placeholder-video.mp4",
+  },
+]
   const nextTeam = () => {
-    setCurrentTeam((prev) => (prev + 1) % teams.length)
+    setCurrentTeam(prev => {
+      const newIndex = (prev + 1) % teams.length
+      setSelectedTeam(teams[newIndex])
+      return newIndex
+    })
   }
 
   const prevTeam = () => {
-    setCurrentTeam((prev) => (prev - 1 + teams.length) % teams.length)
+    setCurrentTeam(prev => {
+      const newIndex = (prev - 1 + teams.length) % teams.length
+      setSelectedTeam(teams[newIndex])
+      return newIndex
+    })
   }
 
   const openTeamDetail = (team: any) => {
+    const index = teams.findIndex(t => t.id === team.id)
+    setCurrentTeam(index >= 0 ? index : 0)
     setSelectedTeam(team)
   }
 
@@ -291,75 +327,75 @@ export default function TeamsPage() {
       {/* Team Detail Modal - Minimal Design */}
       {selectedTeam && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden relative shadow-2xl animate-fade-in-up border border-white/20">
+          <div className="relative max-w-3xl w-full">
+            {/* Left navigation */}
             <button
-              onClick={() => setSelectedTeam(null)}
-              className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
+              onClick={prevTeam}
+              aria-label="Previous team"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-r-md"
             >
-              <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
+              <ChevronLeft className="w-6 h-6" />
             </button>
 
-            {/* Hero Image with Team Name Overlay */}
-            <div className="relative h-56 overflow-hidden">
-              <Image
-                src={selectedTeam.image || "/placeholder.svg"}
-                alt={selectedTeam.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 text-white">
-                <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
-                <p className="text-lg opacity-90">Established {selectedTeam.established}</p>
-                <div className="flex items-center mt-2 text-sm">
-                  <Users className="w-4 h-4 mr-2" />
-                  {selectedTeam.members} Members
+            {/* Modal Card */}
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl w-full max-h-[85vh] overflow-hidden relative shadow-2xl animate-fade-in-up border border-white/20">
+              <button
+                onClick={() => setSelectedTeam(null)}
+                className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
+              >
+                <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
+              </button>
+
+              {/* Hero Image with Team Name Overlay */}
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={selectedTeam.image || "/placeholder.svg"}
+                  alt={selectedTeam.name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
                 </div>
+              </div>
+
+              <div className="p-6 overflow-y-auto max-h-[calc(85vh-14rem)]">
+                {/* Description - show full description text */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
+                  <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
+                    {selectedTeam.description}
+                  </p>
+                </div>
+
+                {/* Achievements */}
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                    <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
+                    Key Achievements
+                  </h3>
+                  <div className="grid gap-2">
+                    {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
+                      <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
+                        <span className="text-gray-700 font-medium">{achievement}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Gallery removed */}
               </div>
             </div>
 
-            <div className="p-6 overflow-y-auto max-h-[calc(85vh-14rem)]">
-              {/* Description */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
-                <p className="text-gray-600 leading-relaxed line-clamp-4">
-                  {selectedTeam.description.split('.').slice(0, 2).join('.')}...
-                </p>
-              </div>
-
-              {/* Achievements */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
-                  <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
-                  Key Achievements
-                </h3>
-                <div className="grid gap-2">
-                  {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
-                    <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
-                      <span className="text-gray-700 font-medium">{achievement}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Gallery Preview */}
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Gallery</h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {selectedTeam.gallery.slice(0, 3).map((image: string, index: number) => (
-                    <div key={index} className="relative h-24 rounded-lg overflow-hidden group">
-                      <Image
-                        src={image || "/placeholder.svg"}
-                        alt={`${selectedTeam.name} - Image ${index + 1}`}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* Right navigation */}
+            <button
+              onClick={nextTeam}
+              aria-label="Next team"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-l-md"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
           </div>
         </div>
       )}

@@ -1,282 +1,242 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, Camera, Grid, Zap, Eye, Play } from "lucide-react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
-import { useScrollAnimation } from "@/hooks/useScrollAnimation"
+import { useState, useEffect } from "react"
 
 export default function GalleryPage() {
-  const galleryCategories = [
+  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
+  const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({})
+
+  const galleryImages = [
     {
-      title: "Formula SAE Competition 2024",
-      date: "March 2024",
-      type: "Competition",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "YETI RACING",
+      category: "Competition",
+      image: "/gallery/yeti.jpg",
+      slug: "yeti-racing"
     },
     {
-      title: "Baja SAE India 2023",
-      date: "January 2023",
-      type: "Competition",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "YETI RACING",
+      category: "Team Photos",
+      image: "/gallery/yeti3.jpg",
+      slug: "yeti-racing"
     },
     {
-      title: "Annual Tech Fest 2023",
-      date: "September 2023",
-      type: "Event",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "YETI RACING",
+      category: "Team Photos",
+      image: "/gallery/yeti2.jpg",
+      slug: "yeti-racing"
     },
     {
-      title: "Workshop Series 2023",
-      date: "Various Dates",
-      type: "Workshop",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "TEAM STORM RACING",
+      category: "Team Photos",
+      image: "/gallery/storm2.jpg",
+      slug: "storm-racing"
     },
     {
-      title: "Team Building Activities",
-      date: "Throughout 2023",
-      type: "Team Event",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "TEAM STORM RACING",
+      category: "Team Photos",
+      image: "/gallery/storm.jpg",
+      slug: "storm-racing"
     },
     {
-      title: "Industry Visits",
-      date: "2023-2024",
-      type: "Educational",
-      images: [
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-        "/placeholder.svg?height=300&width=400",
-      ],
+      title: "TEAM HERMES",
+      category: "Team Photos",
+      image: "/gallery/hermes.jpg",
+      slug: "hermes"
+    },
+    {
+      title: "TEAM MARUTSAKA",
+      category: "Team Photos",
+      image: "/gallery/marutsaka.jpg",
+      slug: "marutsaka"
+    },
+    {
+      title: "TEAM MARUTSAKA",
+      category: "Team Photos",
+      image: "/gallery/marutsaka2.jpg",
+      slug: "marutsaka"
+    },
+    
+    {
+      title: "TEAM TARUSA",
+      category: "Team Photos",
+      image: "/gallery/tarusa.jpg",
+      slug: "tarusa"
+    },
+    {
+      title: "CADABLE 2024",
+      category: "Team Photos",
+      image: "/gallery/cad.jpg",
+      slug: "CADABLE 2024"
+    },
+    {
+      title: "WELDING WORKSHOP",
+      category: "Team Photos",
+      image: "/gallery/weld3.jpg",
+      slug: "welding-workshop"
+    },
+    {
+      title: "WELDING WORKSHOP",
+      category: "Team Photos",
+      image: "/gallery/weld4.jpg",
+      slug: "welding-workshop"
     },
   ]
 
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "Competition":
-        return "bg-red-900/30 text-red-300 border border-red-700/50 shadow-sm"
-      case "Event":
-        return "bg-blue-900/30 text-blue-300 border border-blue-700/50 shadow-sm"
-      case "Workshop":
-        return "bg-green-900/30 text-green-300 border border-green-700/50 shadow-sm"
-      case "Team Event":
-        return "bg-purple-900/30 text-purple-300 border border-purple-700/50 shadow-sm"
-      case "Educational":
-        return "bg-yellow-900/30 text-yellow-300 border border-yellow-700/50 shadow-sm"
-      default:
-        return "bg-gray-900/30 text-gray-300 border border-gray-700/50 shadow-sm"
-    }
+  const filteredImages = galleryImages.filter(
+    (img) =>
+      (selectedCategory === "All" || img.category === selectedCategory) &&
+      (searchQuery === "" ||
+        img.title.toLowerCase().includes(searchQuery.toLowerCase()))
+  )
+
+  const handlePrevious = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (selectedImageIndex === null) return
+    const newIndex =
+      selectedImageIndex > 0 ? selectedImageIndex - 1 : filteredImages.length - 1
+    setSelectedImageIndex(newIndex)
   }
 
-  const gallerySectionRef = useScrollAnimation()
-  const statsSectionRef = useScrollAnimation()
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (selectedImageIndex === null) return
+    const newIndex =
+      selectedImageIndex < filteredImages.length - 1 ? selectedImageIndex + 1 : 0
+    setSelectedImageIndex(newIndex)
+  }
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return
+      if (e.key === "ArrowLeft") handlePrevious(e as unknown as React.MouseEvent)
+      if (e.key === "ArrowRight") handleNext(e as unknown as React.MouseEvent)
+      if (e.key === "Escape") setSelectedImageIndex(null)
+    }
+    window.addEventListener("keydown", handleKeydown)
+    return () => window.removeEventListener("keydown", handleKeydown)
+  }, [selectedImageIndex])
 
   return (
-    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
-      {/* Navigation */}
+    <div className="min-h-screen bg-slate-950">
       <Navigation currentPage="gallery" />
-
-      {/* Dark Background matching navigation with enhanced dot particles */}
-      <div className="fixed inset-0 z-0">
-        {/* Dark gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950">
-          {/* Enhanced dot particle pattern */}
-          <div className="absolute inset-0 enhanced-dot-particles opacity-80"></div>
-          {/* Additional subtle pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.02]">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
-            }}></div>
-          </div>
+      
+      <main className="container mx-auto px-4 py-8">
+        {/* Gallery Title */}
+        {/* Main Header */}
+                {/* Main Header */}
+        <div className="mb-20 text-center">
+          
         </div>
-        
-        {/* Subtle floating elements */}
-        <div className="absolute inset-0">
-          {[
-            { left: 30, top: 25, delay: 0.5, duration: 9 },
-            { left: 70, top: 40, delay: 2, duration: 11 },
-            { left: 50, top: 60, delay: 3.5, duration: 10 },
-            { left: 80, top: 30, delay: 1, duration: 8.5 },
-            { left: 40, top: 70, delay: 4, duration: 12 },
-            { left: 60, top: 20, delay: 2.5, duration: 9.5 }
-          ].map((dot, i) => (
+
+        {/* Gallery Title Section */}
+        <div className="mb-12 text-center">
+          <h2 className="text-7xl md:text-9xl font-bold mb-4 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent tracking-wider">
+  GALLERY
+</h2>
+
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Explore our journey through competitions, events, and achievements
+          </p>
+        </div>
+
+
+
+        {/* Gallery Grid */}
+        <div className="space-y-8 relative">
+          {Array.from({ length: Math.ceil(filteredImages.length / 4) }).map((_, rowIndex) => (
             <div
-              key={i}
-              className="absolute w-2 h-2 bg-gray-600 rounded-full opacity-20 animate-float"
-              style={{
-                left: `${dot.left}%`,
-                top: `${dot.top}%`,
-                animationDelay: `${dot.delay}s`,
-                animationDuration: `${dot.duration}s`
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div id="main-content" className="relative z-10">
-        {/* Hero Section with Dark Design matching nav */}
-        <section className="min-h-screen flex items-center justify-center relative">
-          {/* Large Background Text - keeping this element you loved */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800 select-none tracking-tight">
-              GALLERY
-            </div>
-          </div>
-
-          <div className="container mx-auto px-4 text-center relative z-10 pt-20">
-            {/* Clean Main Title */}
-            <div className="mb-12">
-              <div className="inline-block">
-                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase">
-                  Visual Collection
-                </div>
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
-                  Gallery
-                </h1>
-              </div>
-            </div>
-
-            {/* Clean CTA Button with glassmorphic design and scroll functionality */}
-            <button
-              onClick={() => document.querySelector('#gallery-section')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
+              key={rowIndex}
+              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative"
+              id={`row-${rowIndex}`}
             >
-              <Eye className="w-5 h-5 mr-2 inline" />
-              Explore Collection
-            </button>
-          </div>
-        </section>
-
-        {/* Gallery Collections - Redesigned Layout */}
-        <section id="gallery-section" className="py-20 relative">
-          <div className="container mx-auto px-4">
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <div className="text-gray-400 font-medium text-lg tracking-wide mb-4">
-                Our Collection
-              </div>
-              <h2 className="text-4xl font-bold text-white mb-6">
-                Captured <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">Moments</span>
-              </h2>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto rounded-full"></div>
-            </div>
-
-            <div ref={gallerySectionRef} className="scroll-animate">
-              <div className="space-y-20">
-                {galleryCategories.map((category, categoryIndex) => (
-                  <div
-                    key={categoryIndex}
-                    className="group relative"
-                  >
-                    {/* Category Header - Dark Theme */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-3xl p-8 mb-10 hover:bg-gray-800/70 hover:border-gray-600 transition-all duration-500 relative overflow-hidden">
-                      {/* Subtle background glow */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-transparent to-purple-600/5"></div>
-                      
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative z-10">
-                        <div className="mb-4 md:mb-0">
-                          <h3 className="text-3xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
-                            {category.title}
-                          </h3>
-                          <div className="flex flex-wrap items-center gap-4">
-                            <div className="flex items-center text-gray-300">
-                              <Calendar className="w-5 h-5 mr-2 text-blue-400" />
-                              <span className="font-medium">{category.date}</span>
-                            </div>
-                            <Badge className={`${getTypeColor(category.type)} font-medium text-sm px-4 py-2 rounded-full`}>
-                              {category.type}
-                            </Badge>
-                          </div>
-                        </div>
+              {filteredImages.slice(rowIndex * 4, rowIndex * 4 + 4).map((item, idx) => (
+                <div
+                  key={idx}
+                  className="group relative overflow-hidden rounded-xl cursor-pointer"
+                  onClick={() => setSelectedImageIndex(rowIndex * 4 + idx)}
+                >
+                  <div className="aspect-[4/3] relative">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
+                      priority={rowIndex === 0}
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100">
+                      <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 lg:p-4 bg-black/70">
+                        <h3 className="text-xs sm:text-sm lg:text-lg font-semibold text-white text-center">
+                          {item.title}
+                        </h3>
                       </div>
                     </div>
-
-                    {/* Redesigned Images Layout - Masonry Style */}
-                    <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-                      {category.images.map((image, imageIndex) => {
-                        // Generate consistent height based on index to avoid hydration issues
-                        const heightVariations = [250, 300, 200, 350, 280, 320, 220, 380];
-                        const height = heightVariations[imageIndex % heightVariations.length];
-                        
-                        return (
-                          <div
-                            key={imageIndex}
-                            className="break-inside-avoid relative rounded-2xl overflow-hidden group/image cursor-pointer transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-2xl mb-6"
-                            style={{ 
-                              animationDelay: `${imageIndex * 50}ms`,
-                              height: `${height}px` // Consistent heights for masonry effect
-                            }}
-                          >
-                            {/* Image container */}
-                            <div className="relative w-full h-full border border-gray-700 rounded-2xl overflow-hidden group-hover/image:border-blue-500 transition-all duration-300">
-                              <Image
-                                src={image || "/placeholder.svg"}
-                                alt={`${category.title} - Photo ${imageIndex + 1}`}
-                                fill
-                                className="object-cover group-hover/image:scale-105 transition-transform duration-500"
-                              />
-                              
-                              {/* Dark overlay with better contrast */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover/image:opacity-100 transition-all duration-300">
-                                <div className="absolute bottom-4 left-4 right-4">
-                                  <div className="text-white text-sm font-medium mb-3">
-                                    {category.title}
-                                  </div>
-                                  <Button variant="secondary" size="sm" className="w-full bg-white/90 border-0 text-gray-900 hover:bg-white font-medium">
-                                    <Eye className="w-4 h-4 mr-2" />
-                                    View
-                                  </Button>
-                                </div>
-                              </div>
-
-                              {/* Minimal corner indicator */}
-                              <div className="absolute top-3 right-3 bg-black/70 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold opacity-0 group-hover/image:opacity-100 transition-opacity duration-300">
-                                {imageIndex + 1}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
                   </div>
-                ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Fullscreen Modal */}
+        {selectedImageIndex !== null && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setSelectedImageIndex(null)
+            }}
+          >
+            <div className="relative w-full max-w-7xl mx-auto px-4">
+              <button
+                onClick={() => setSelectedImageIndex(null)}
+                className="absolute top-4 right-4 z-50 text-white bg-black/50 p-2 rounded-full"
+              >
+                <X className="w-8 h-8" />
+              </button>
+
+              <button
+                onClick={handlePrevious}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 p-2 rounded-full z-50"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-8 h-8" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 p-2 rounded-full z-50"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-8 h-8" />
+              </button>
+
+              <div className="relative aspect-[16/9] z-40">
+                <Image
+                  src={filteredImages[selectedImageIndex].image}
+                  alt={filteredImages[selectedImageIndex].title}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 p-8 z-50">
+                <h2 className="text-3xl font-bold text-white mb-2">
+                  {filteredImages[selectedImageIndex].title}
+                </h2>
               </div>
             </div>
           </div>
-        </section>
+        )}
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }
