@@ -1,10 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { CheckCircle, Clock, MapPin, ExternalLink } from "lucide-react"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
+import { CheckCircle, ExternalLink } from "lucide-react"
 
 export default function CheckinPage() {
   const handleCheckin = () => {
@@ -292,23 +290,45 @@ export default function CheckinPage() {
             {/* Clean Main Title */}
             <div className="mb-12">
               <div className="inline-block">
-                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase">
-                  Lab Facility
+                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase animate-fade-in-up">
+                  SAE Lab Facility
                 </div>
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-8 tracking-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-fade-in-up animation-delay-200">
                   Check-in
                 </h1>
               </div>
             </div>
 
-            {/* Clean CTA Button with glassmorphic design */}
-            <button
-              onClick={() => document.querySelector('#checkin-section')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
-            >
-              <CheckCircle className="w-5 h-5 mr-2 inline" />
-              Access Lab System
-            </button>
+            {/* Enhanced Check-in Button */}
+            <div className="flex flex-col items-center space-y-6">
+              <button
+                onClick={handleCheckin}
+                className="group relative px-12 py-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-white/30 text-white text-xl font-semibold rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:border-blue-400/50 animate-fade-in-up animation-delay-400"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="flex items-center justify-center space-x-3">
+                  <CheckCircle className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+                  <span className="group-hover:text-blue-200 transition-colors duration-300">Check-in to Lab</span>
+                  <ExternalLink className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+                </div>
+              </button>
+
+              {/* Guidelines Button */}
+              <button
+                onClick={() => document.querySelector('#checkin-section')?.scrollIntoView({ behavior: 'smooth' })}
+                className="flex items-center space-x-2 text-gray-400 hover:text-blue-300 transition-colors duration-300 animate-fade-in-up animation-delay-600 group"
+              >
+                <span>View Lab Guidelines</span>
+                <svg 
+                  className="w-4 h-4 transform group-hover:translate-y-1 transition-transform duration-300" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -316,73 +336,10 @@ export default function CheckinPage() {
       <section id="checkin-section" className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            {/* Check-in Card with glassmorphism */}
-            <div className="mb-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-lg animate-fade-in-up animation-delay-300 hover:shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white/15">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg animate-bounce-slow hover:animate-pulse">
-                  <CheckCircle className="w-8 h-8 text-blue-400" />
-                </div>
-                <h2 className="text-3xl font-bold text-white mb-4 animate-fade-in-up animation-delay-400">Lab Attendance System</h2>
-                <p className="text-lg animate-fade-in-up animation-delay-500 text-gray-300 mb-8">
-                  Click the button below to access the attendance marking system for SAE lab facilities.
-                </p>
-                <button
-                  className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 hover:bg-gradient-to-r hover:from-blue-600/30 hover:to-purple-600/30"
-                  onClick={handleCheckin}
-                >
-                  <CheckCircle className="w-5 h-5 mr-2 inline" />
-                  Check-in to Lab
-                  <ExternalLink className="w-4 h-4 ml-2 inline" />
-                </button>
-                <p className="text-sm text-gray-400 mt-4 animate-fade-in-up animation-delay-700">This will redirect you to the attendance marking system</p>
-              </div>
-            </div>
-
-            {/* Lab Information with glassmorphism */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-lg animate-slide-in-left animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 hover:bg-white/15">
-                <div className="mb-4">
-                  <h3 className="flex items-center text-white text-xl font-bold animate-fade-in-up animation-delay-900">
-                    <Clock className="w-5 h-5 mr-2 animate-spin-slow text-blue-400" />
-                    Lab Hours
-                  </h3>
-                </div>
-                <div className="animate-fade-in-up animation-delay-1000">
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="font-medium text-gray-300">Daily Hours:</span>
-                      <span className="font-semibold text-white">6:00 AM - 6:00 PM</span>
-                    </div>
-                    <div className="text-xs text-gray-400 mt-3">
-                      <p>* Extensions beyond 6:00 PM require prior approval</p>
-                      <p>* Open 7 days a week</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-lg animate-slide-in-right animation-delay-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 hover:bg-white/15">
-                <div className="mb-4">
-                  <h3 className="flex items-center text-white text-xl font-bold animate-fade-in-up animation-delay-900">
-                    <MapPin className="w-5 h-5 mr-2 animate-bounce-slow text-purple-400" />
-                    Lab Location
-                  </h3>
-                </div>
-                <div className="animate-fade-in-up animation-delay-1000">
-                  <div className="space-y-2 text-sm text-gray-300">
-                    <p>SAE Workshop</p>
-                    <p>Mechanical Engineering Department</p>
-                    <p>CUSAT Campus, Kochi</p>
-                    <p className="text-gray-400">Building B, Ground Floor</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Guidelines with glassmorphism */}
             <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-lg animate-scale-in animation-delay-1100 hover:shadow-2xl transition-all duration-500 hover:bg-white/15">
-              <div className="mb-6 animate-fade-in-up animation-delay-1200">
-                <h3 className="text-white text-2xl font-bold flex items-center">
+              <div className="mb-6 animate-fade-in-up animation-delay-1200 text-center">
+                <h3 className="text-white text-2xl font-bold flex items-center justify-center">
                   <span className="text-blue-400 mr-2">⚠️</span>
                   Lab Usage Guidelines
                   <span className="text-purple-400 ml-2">⚠️</span>
