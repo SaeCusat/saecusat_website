@@ -176,7 +176,7 @@ export default function HomePage() {
             
             {/* Subtle Gradient Overlay for better text readability - Reduced on Mobile with Parallax */}
             <div 
-              className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 md:from-[#020208]/60 md:via-transparent md:to-[#020208]/40 from-[#020208]/30 via-transparent to-[#020208]/20 z-[1] hero-parallax-bg parallax-element"
+              className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 md:from-[#020208]/50 md:via-transparent md:to-[#020208]/30 z-[1] hero-parallax-bg parallax-element"
               style={isClient ? getParallaxStyle(0.1) : {}}
             ></div>
             
