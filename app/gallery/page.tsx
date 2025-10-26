@@ -27,7 +27,7 @@ export default function GalleryPage() {
     {
       title: "YETI RACING",
       category: "Team Photos",
-      image: "/gallery/yeti3.jpg",
+      image: "/gallery/yeti3.JPG",
       slug: "yeti-racing"
     },
     {
@@ -70,7 +70,7 @@ export default function GalleryPage() {
     {
       title: "TEAM TARUSA",
       category: "Team Photos",
-      image: "/gallery/tarusa.jpg",
+      image: "/gallery/tarusa.JPG",
       slug: "tarusa"
     },
     {

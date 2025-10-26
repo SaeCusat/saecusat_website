@@ -12,6 +12,10 @@ import {
   BookOpen,
   GraduationCap,
   CheckCircle,
+  Users2,
+  Wrench,
+  Award,
+  Gauge,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -74,6 +78,30 @@ export default function HomePage() {
     }
   }, [])
 
+  // Scroll reveal animation handler
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollRevealElements = document.querySelectorAll('.scroll-reveal')
+      
+      scrollRevealElements.forEach((element) => {
+        const elementTop = element.getBoundingClientRect().top
+        const elementBottom = element.getBoundingClientRect().bottom
+        const windowHeight = window.innerHeight
+        
+        // Trigger animation when element is in viewport
+        if (elementTop < windowHeight * 0.85 && elementBottom > 0) {
+          element.classList.add('active')
+        }
+      })
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    // Trigger on initial load
+    handleScroll()
+    
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   // Prevent hydration mismatch
   if (!mounted) {
     return (
@@ -95,16 +123,17 @@ export default function HomePage() {
   }
 
   return (
-    /* Main Content Background - Always rendered to prevent white flash */
-    <div className="min-h-screen bg-gradient-to-br from-[#020208] via-[#040408] to-[#060608] relative overflow-x-hidden">
-      {/* Enhanced Matrix Background */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 matrix-background opacity-[0.03]"></div>
-        <div className="absolute inset-0 animated-dots opacity-[0.02]"></div>
-      </div>
+    <>
+      {/* Main Content Background - Always rendered to prevent white flash */}
+      <div className="min-h-screen bg-gradient-to-br from-[#050812] via-[#0a0e1a] to-[#050812] relative overflow-x-hidden">
+        {/* Enhanced Matrix Background */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 matrix-background opacity-[0.01]"></div>
+          <div className="absolute inset-0 animated-dots opacity-[0.01]"></div>
+        </div>
 
-      {/* Navigation */}
-      <Navigation currentPage="home" onSectionScroll={scrollToSection} />
+        {/* Navigation */}
+        <Navigation currentPage="home" onSectionScroll={scrollToSection} />
 
         {/* Seamless Preloader Overlay - Hardware Accelerated */}
         {showSplash && (
@@ -176,7 +205,7 @@ export default function HomePage() {
             
             {/* Subtle Gradient Overlay for better text readability - Reduced on Mobile with Parallax */}
             <div 
-              className="absolute inset-0 bg-gradient-to-b from-[#020208]/60 via-transparent to-[#020208]/40 md:from-[#020208]/50 md:via-transparent md:to-[#020208]/30 z-[1] hero-parallax-bg parallax-element"
+              className="absolute inset-0 bg-gradient-to-b from-[#020208]/50 via-transparent to-[#020208]/30 md:from-[#020208]/40 md:via-transparent md:to-[#020208]/20 z-[1] hero-parallax-bg parallax-element"
               style={isClient ? getParallaxStyle(0.1) : {}}
             ></div>
             
@@ -236,24 +265,27 @@ export default function HomePage() {
             </div>
           </section>
 
+          {/* Separator Line Below Hero */}
+          <div className="h-px bg-gradient-to-r from-transparent via-blue-500/70 to-transparent relative z-10"></div>
+
           {/* About Us Section - Glassmorphic Cards Design */}
           <section id="about" className="about-us-matrix glassmorphic-section relative z-20">
             <div className="container mx-auto px-4">
               <div ref={aboutRef} className="opacity-100">
-                <div className="text-center mb-8">
-                  <h2 className={`section-heading ${montserrat.className}`}>
+                <div className="text-center mb-8 animate-fade-in-down">
+                  <h2 className={`section-heading ${montserrat.className} scroll-reveal scroll-text-reveal`}>
                     About Us
                   </h2>
-                  <p className={`text-lg sm:text-xl ${montserrat.className} text-center`} style={{ color: 'var(--light-text)' }}>
+                  <p className={`text-lg sm:text-xl ${montserrat.className} text-center animate-fade-in-up animation-delay-200 scroll-reveal scroll-text-reveal`} style={{ color: 'var(--light-text)' }}>
                     Welcome to SAE CUSAT, where innovation meets engineering excellence.
                   </p>
                 </div>
                 
                 <div className="cards-container">
                   {/* Card 1: Our Mission */}
-                  <div className="glass-card">
+                  <div className="glass-card scroll-reveal card-hover-zoom group">
                     <div className="card-icon">
-                      <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-12 h-12 mx-auto group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
                         <circle cx="12" cy="12" r="3" fill="currentColor"/>
                       </svg>
@@ -265,9 +297,9 @@ export default function HomePage() {
                   </div>
 
                   {/* Card 2: Our Approach */}
-                  <div className="glass-card">
+                  <div className="glass-card scroll-reveal card-hover-zoom group">
                     <div className="card-icon">
-                      <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                      <svg className="w-12 h-12 mx-auto group-hover:drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                         <path d="M8 12h8M12 8v8M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
                         <circle cx="9" cy="9" r="2" fill="currentColor"/>
                         <circle cx="15" cy="9" r="2" fill="currentColor"/>
@@ -282,9 +314,9 @@ export default function HomePage() {
                   </div>
 
                   {/* Card 3: Hands-On Engineering */}
-                  <div className="glass-card">
+                  <div className="glass-card scroll-reveal card-hover-zoom group">
                     <div className="card-icon">
-                      <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-12 h-12 mx-auto group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M22.7 19L13.6 9.9C14.5 7.6 14 4.9 12.1 3C10.1 1 7.1 0.6 4.7 1.7L9 6L6 9L1.6 4.7C0.4 7.1 0.9 10.1 2.9 12.1C4.8 14 7.5 14.5 9.8 13.6L18.9 22.7C19.3 23.1 19.9 23.1 20.3 22.7L22.6 20.4C23.1 20 23.1 19.3 22.7 19Z"/>
                       </svg>
                     </div>
@@ -297,14 +329,22 @@ export default function HomePage() {
               </div>
             </div>
           </section>
-          {/* Our Core Values Section - Glassmorphic Cards Design */}
-          <section className="glassmorphic-section relative z-10">
-            <div className="container mx-auto px-4">
-              <h3 className={`section-heading ${montserrat.className}`}>
+          {/* Our Core Values Section */}
+          <section className="relative z-10 py-16 md:py-20 overflow-hidden">
+            {/* Background dot pattern */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle, #8892ac 0.8px, transparent 0.8px)',
+                backgroundSize: '40px 40px',
+                opacity: 0.25
+              }}></div>
+            </div>
+            <div className="container mx-auto px-4 relative z-10">
+              <h3 className={`section-heading ${montserrat.className} animate-fade-in-down scroll-reveal scroll-text-reveal`}>
                 Our Core Values
               </h3>
               
-              <div className="cards-container">
+              <div className="cards-container animate-fade-in-up animation-delay-300">
                 {[
                   { 
                     icon: Users, 
@@ -324,11 +364,11 @@ export default function HomePage() {
                 ].map((item, index) => (
                   <div
                     key={index}
-                    className="glass-card group"
+                    className="glass-card group scroll-reveal card-hover-zoom"
                     style={{ animationDelay: `${index * 200}ms` }}
                   >
                     <div className="card-icon">
-                      <item.icon className="w-12 h-12 mx-auto" />
+                      <item.icon className="w-12 h-12 mx-auto group-hover:drop-shadow-lg" />
                     </div>
                     <h3 className={`${montserrat.className}`}>
                       {item.title}
@@ -342,14 +382,17 @@ export default function HomePage() {
             </div>
           </section>
 
+          {/* Separator Line Above SAE Academy */}
+          <div className="h-px bg-gradient-to-r from-transparent via-blue-500/70 to-transparent relative z-10"></div>
+
           {/* SAE Academy Section */}
-          <section className="py-16 bg-gradient-to-br from-slate-950 via-gray-900 to-slate-900 relative z-10 overflow-hidden">
-            {/* Interactive Dot Grid Background */}
+          <section className="py-16 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 relative z-10 overflow-hidden">
+            {/* Simple Dot Grid Background */}
             <div className="absolute inset-0 z-0">
               <DotGrid
-                dotSize={6}
-                gap={25}
-                baseColor="#1e293b"
+                dotSize={1}
+                gap={32}
+                baseColor="#64748b"
                 activeColor="#4A90E2"
                 proximity={120}
                 shockRadius={180}
@@ -357,23 +400,22 @@ export default function HomePage() {
                 resistance={500}
                 returnDuration={1.8}
                 speedTrigger={80}
-                className="opacity-60"
+                className="opacity-40"
               />
             </div>
             
-            {/* Glassmorphic background overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-blue-800/5 to-blue-900/10 z-5"></div>
-            <div className="absolute inset-0 backdrop-blur-[0.5px] z-5"></div>
+            {/* Subtle background overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-950/5 via-blue-900/5 to-blue-950/5 z-5"></div>
             
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-6xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                   {/* Left Content */}
-                  <div className="space-y-6 animate-fade-in-up">
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                  <div className="space-y-6 animate-fade-in-up scroll-reveal">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent scroll-reveal scroll-text-reveal">
                       SAE Academy
                     </h2>
-                    <div className="glassmorphic-content-card p-6 rounded-2xl backdrop-blur-md bg-gradient-to-br from-white/5 via-blue-500/5 to-white/5 border border-white/10">
+                    <div className="glassmorphic-content-card p-6 rounded-2xl backdrop-blur-md bg-white/8 border border-white/10 scroll-reveal card-hover-zoom">
                       <p className="text-lg text-gray-200 leading-relaxed">
                         Learn from our experienced student members who share their knowledge and expertise. 
                         Our peer-to-peer learning approach connects you with skilled students who mentor and guide newcomers through hands-on projects.
@@ -385,8 +427,8 @@ export default function HomePage() {
                         "Hands-on project experience", 
                         "Certificate programs"
                       ].map((feature, index) => (
-                        <div key={index} className="flex items-center space-x-3 animate-fade-in-up glassmorphic-feature-item p-3 rounded-xl backdrop-blur-sm bg-gradient-to-r from-white/5 to-blue-500/5 border border-white/5" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
-                          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <div key={index} className="flex items-center space-x-3 animate-fade-in-up glassmorphic-feature-item p-3 rounded-xl backdrop-blur-sm bg-white/8 border border-white/10 scroll-reveal card-hover-zoom group" style={{ animationDelay: `${(index + 1) * 200}ms` }}>
+                          <CheckCircle className="w-5 h-5 text-blue-400 flex-shrink-0 group-hover:drop-shadow-lg" />
                           <span className="text-gray-200">{feature}</span>
                         </div>
                       ))}
@@ -394,14 +436,11 @@ export default function HomePage() {
                   </div>
                   
                   {/* Right Visual */}
-                  <div className="relative animate-slide-in-right animation-delay-500">
-                    <div className="glassmorphic-academy-card bg-gradient-to-br from-gray-800/30 via-blue-800/20 to-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105 border border-white/10 hover:border-white/20">
-                      {/* Gradient overlay for extra depth */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-white/5 rounded-3xl"></div>
-                      
+                  <div className="relative animate-slide-in-right animation-delay-500 scroll-reveal">
+                    <div className="glass-card card-hover-zoom" style={{ padding: '2rem', textAlign: 'initial' }}>
                       <div className="space-y-6 relative z-10">
                         <div className="text-center">
-                          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-blue-600 to-white rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow shadow-lg backdrop-blur-sm border border-white/20">
+                          <div className="w-20 h-20 bg-gradient-to-br from-blue-400 via-blue-500 to-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow shadow-lg backdrop-blur-sm border border-white/30 hover-glow">
                             <GraduationCap className="w-10 h-10 text-white" />
                           </div>
                           <h3 className="text-2xl font-bold text-white mb-2 bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">Learn. Build. Innovate.</h3>
@@ -411,13 +450,15 @@ export default function HomePage() {
                         {/* Feature highlights */}
                         <div className="grid grid-cols-2 gap-4 mt-6">
                           {[
-                            { icon: "👥", title: "Peer-Led", desc: "Expert students" },
-                            { icon: "🔧", title: "Hands-On", desc: "Real projects" },
-                            { icon: "📜", title: "Certified", desc: "Recognized credentials" },
-                            { icon: "🚗", title: "Automotive", desc: "Specialized focus" }
+                            { Icon: Users2, title: "Peer-Led", desc: "Expert students" },
+                            { Icon: Wrench, title: "Hands-On", desc: "Real projects" },
+                            { Icon: Award, title: "Certified", desc: "Recognized credentials" },
+                            { Icon: Gauge, title: "Automotive", desc: "Specialized focus" }
                           ].map((item, index) => (
-                            <div key={index} className="glassmorphic-feature-box bg-gradient-to-br from-white/10 via-blue-500/5 to-white/5 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-gradient-to-br hover:from-white/15 hover:via-blue-500/8 hover:to-white/8 transition-all duration-300 border border-white/10 hover:border-white/20" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
-                              <div className="text-2xl mb-2">{item.icon}</div>
+                            <div key={index} className="glass-card group scroll-reveal card-hover-zoom" style={{ animationDelay: `${(index + 3) * 150}ms` }}>
+                              <div className="mb-3">
+                                <item.Icon className="w-8 h-8 mx-auto text-blue-400 group-hover:drop-shadow-lg" />
+                              </div>
                               <div className="text-white font-semibold text-sm">{item.title}</div>
                               <div className="text-gray-200 text-xs">{item.desc}</div>
                             </div>
@@ -432,68 +473,101 @@ export default function HomePage() {
           </section>
 
           {/* Contact Section */}
-          <section id="contact" className="py-12 sm:py-16 bg-slate-900 text-white relative z-10">
+          <section id="contact" className="py-3 sm:py-6 md:py-8 bg-gradient-to-b from-slate-950 via-black to-slate-950 text-white relative z-10 about-us-matrix border-t border-blue-500/70">
             <div className="container mx-auto px-4">
-              <div ref={contactRef} className="opacity-100">
-                <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12 animate-text-reveal">
-                  Contact Us
-                </h2>
-              </div>
-              <div className="max-w-4xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-                  {/* Left: Address & Email */}
-                  <div className="space-y-8 text-left">
-                    <div className="space-y-6">
-                      {/* Address */}
-                      <div className="flex items-center gap-3 animate-fade-in-left">
-                        <div className="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                          <MapPin className="w-6 h-6 text-blue-200" />
-                        </div>
-                        <div className="flex flex-col justify-center items-start">
-                        <h4 className="font-semibold text-base sm:text-lg mb-0.5">Address</h4>
-                        <p className="text-blue-200 text-sm sm:text-base leading-relaxed">
-                          Cochin University of Science and Technology<br />Kochi, Kerala, India
-                        </p>
-                        </div>
-                      </div>
+              <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-0 items-stretch min-h-40 md:min-h-64 animate-fade-in-up animation-delay-200 relative">
+                  {/* 1st Quarter: Contact Us Heading - Center Aligned Horizontally and Vertically */}
+                  <div className="flex flex-col justify-center items-center text-center animate-fade-in-left w-full py-4 sm:py-6 md:py-0">
+                    <div className="w-full flex items-center justify-center">
+                      <h2 className="text-3xl sm:text-4xl md:text-3xl font-bold text-white">Contact Us</h2>
+                    </div>
+                  </div>
+
+                  {/* Separator 1 */}
+                  <div className="hidden md:block absolute left-1/4 top-0 bottom-0 w-px bg-blue-500/70"></div>
+
+                  {/* 2nd Quarter: Contact Details & Icons - Center Aligned */}
+                  <div className="flex flex-col justify-center items-center text-center animate-fade-in-left px-4 py-4 sm:py-6 md:py-0">
+                    {/* Contact Details - Hidden on mobile */}
+                    <div className="hidden md:block space-y-1 text-xs md:text-sm text-blue-200 mb-4">
+                      <p className="flex items-center justify-center gap-3 animate-fade-in-left animation-delay-400">
+                        <svg className="w-4 h-4 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
+                        <a href="https://instagram.com/saecusat" target="_blank" rel="noopener noreferrer" className="hover-underline hover:text-blue-100 transition-colors">@saecusat</a>
+                      </p>
+                      <p className="flex items-center justify-center gap-3 animate-fade-in-left animation-delay-500">
+                        <svg className="w-4 h-4 text-blue-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                        <a href="https://www.linkedin.com/company/society-of-automotive-engineers/" target="_blank" rel="noopener noreferrer" className="hover-underline hover:text-blue-100 transition-colors">SAE CUSAT</a>
+                      </p>
+                      <p className="flex items-center justify-center gap-3 animate-fade-in-left animation-delay-300">
+                        <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                        <a href="mailto:sae.official@cusat.ac.in" className="hover-underline hover:text-blue-100 transition-colors">sae.official@cusat.ac.in</a>
+                      </p>
+                    </div>
+
+                    {/* Icon Links - Horizontal (Below Details) */}
+                    <div className="flex flex-wrap justify-center gap-4 sm:gap-6 py-1 sm:py-2">
                       {/* Email */}
-                      <div className="flex items-center gap-3 animate-fade-in-left animation-delay-200">
-                        <div className="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                          <Mail className="w-6 h-6 text-blue-200" />
-                        </div>
-                        <div className="flex flex-col justify-center">
-                          <h4 className="font-semibold text-base sm:text-lg mb-0.5">Email</h4>
-                          <a href="mailto:sae.official@cusat.ac.in" className="text-blue-200 text-sm sm:text-base hover:underline">sae.official@cusat.ac.in</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Right: Instagram & LinkedIn */}
-                  <div className="space-y-8 text-left md:text-right flex flex-col items-start md:items-end justify-center h-full">
-                    <div className="space-y-6 w-full">
+                      <a 
+                        href="mailto:sae.official@cusat.ac.in" 
+                        title="Email" 
+                        className="text-blue-300 hover:text-blue-100 hover:scale-120 transition-transform duration-200 animate-fade-in-left animation-delay-300 hover-glow icon-scale-only group"
+                      >
+                        <Mail className="w-8 h-8 group-hover:drop-shadow-lg" />
+                      </a>
+                      
                       {/* Instagram */}
-                      <div className="flex items-center gap-4 animate-fade-in-left animation-delay-400 justify-start md:justify-end">
-                        <div className="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-blue-200" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-base sm:text-lg mb-0.5">Instagram</h4>
-                          <a href="https://instagram.com/saecusat" target="_blank" rel="noopener noreferrer" className="text-blue-200 text-sm sm:text-base hover:underline">@saecusat</a>
-                        </div>
-                      </div>
+                      <a 
+                        href="https://instagram.com/saecusat" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Instagram" 
+                        className="text-blue-300 hover:text-blue-100 hover:scale-120 transition-transform duration-200 animate-fade-in-left animation-delay-400 hover-glow icon-scale-only group"
+                      >
+                        <svg className="w-8 h-8 group-hover:drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
+                      </a>
+                      
                       {/* LinkedIn */}
-                      <div className="flex items-center gap-4 animate-fade-in-left animation-delay-600 justify-start md:justify-end">
-                        <div className="flex-shrink-0 w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                          <svg className="w-6 h-6 text-blue-200" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-base sm:text-lg mb-0.5">LinkedIn</h4>
-                          <a href="https://www.linkedin.com/company/society-of-automotive-engineers/" target="_blank" rel="noopener noreferrer" className="text-blue-200 text-sm sm:text-base hover:underline">SAE CUSAT</a>
-                        </div>
-                      </div>
+                      <a 
+                        href="https://www.linkedin.com/company/society-of-automotive-engineers/" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="LinkedIn" 
+                        className="text-blue-300 hover:text-blue-100 hover:scale-120 transition-transform duration-200 animate-fade-in-left animation-delay-500 hover-glow icon-scale-only group"
+                      >
+                        <svg className="w-8 h-8 group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                      </a>
+
+                      {/* Location */}
+                      <a 
+                        href="https://maps.app.goo.gl/qdsh7cX4LXd4BpdH7" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="View on Google Maps" 
+                        className="text-blue-300 hover:text-blue-100 hover:scale-120 transition-transform duration-200 animate-fade-in-left animation-delay-600 hover-glow icon-scale-only group"
+                      >
+                        <svg className="w-8 h-8 group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 8 16 8 16s8-10.75 8-16c0-4.42-3.58-8-8-8zm0 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" /></svg>
+                      </a>
                     </div>
                   </div>
-                </div>
+
+                  {/* Separator 2 */}
+                  <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-blue-500/70"></div>
+
+                  {/* Right Half: Google Map - Center Aligned */}
+                  <div className="md:col-span-2 flex items-center justify-center animate-fade-in-right animation-delay-200 px-4 w-full py-4 sm:py-6 md:py-0">
+                    <div className="relative w-full max-w-sm md:max-w-lg h-48 sm:h-56 md:h-64 rounded-xl overflow-hidden shadow-lg border-2 border-blue-500/30 hover-border-glow transition-all flex items-center justify-center">
+                      <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3928.6186679667867!2d76.3288979747943!3d10.048292090059615!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080c3a571be335%3A0xe9d0d17ee3a87389!2sSchool%20of%20Engineering%2C%20CUSAT!5e0!3m2!1sen!2sin!4v1761487657079" 
+                        width="100%" 
+                        height="100%" 
+                        style={{ border: 0 }}
+                        allowFullScreen={true}
+                        loading="lazy" 
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="rounded-xl"
+                      />
+                    </div>
+                  </div>
               </div>
             </div>
           </section>
@@ -502,11 +576,11 @@ export default function HomePage() {
           <footer className="bg-black text-white py-6 sm:py-8 relative z-10">
             <div className="container mx-auto px-4 flex flex-col items-center justify-center">
               <div className="flex space-x-6 mb-3">
-                <a href="https://instagram.com/saecusat" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-blue-400 transition-colors">
-                  <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                <a href="https://instagram.com/saecusat" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-white hover:text-blue-400 transition-colors hover-glow hover-float group">
+                  <svg className="w-7 h-7 group-hover:drop-shadow-lg" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                 </a>
-                <a href="https://linkedin.com/company/saecusat" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-blue-400 transition-colors">
-                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <a href="https://linkedin.com/company/saecusat" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white hover:text-blue-400 transition-colors hover-glow hover-float group">
+                  <svg className="w-7 h-7 group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </a>
               </div>
               <p className="text-sm sm:text-base">&copy; 2025 SAE CUSAT. All rights reserved.</p>
@@ -517,5 +591,6 @@ export default function HomePage() {
           </footer>
         </div>
       </div>
+    </>
   )
 }

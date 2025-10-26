@@ -89,7 +89,7 @@ export default function CommitteePage() {
       url: "https://www.linkedin.com/in/biju-n-4287a9a"
     },
     { 
-      image: "/committee/gireesh_sir.png",
+      image: "/committee/Gireesh_sir.png",
       title: "Dr Gireesh Kumaran", 
       subtitle: "Faculty Advisor", 
       borderColor: "#1d4ed8",
@@ -178,33 +178,30 @@ export default function CommitteePage() {
           {/* Wave Pattern Background */}
           <div className="wave-pattern"></div>
           
-          {/* Enhanced gradient overlay with darker tones */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/60 via-gray-900/50 to-slate-900/60"></div>
-          <div className="absolute inset-0 bg-gradient-to-tr from-blue-950/30 via-transparent to-indigo-950/40"></div>
+          {/* Simplified darker gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-gray-950"></div>
+          <div className="absolute inset-0 bg-gradient-to-tr from-blue-950/20 via-transparent to-indigo-950/20"></div>
           
-          {/* Enhanced animated elements */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/10 via-transparent to-indigo-600/15"></div>
-            <div className="absolute inset-0 bg-gradient-to-tl from-purple-900/8 via-transparent to-blue-900/12"></div>
+          {/* Subtle animated elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-600/5"></div>
           </div>
           
-          {/* Enhanced floating orbs with better glow */}
-          <div className="absolute top-[15%] left-[10%] w-32 h-32 rounded-full floating-orb"></div>
-          <div className="absolute top-[60%] left-[5%] w-24 h-24 rounded-full floating-orb" style={{animationDelay: '2s'}}></div>
-          <div className="absolute bottom-[20%] right-[15%] w-28 h-28 rounded-full floating-orb" style={{animationDelay: '3s'}}></div>
-          <div className="absolute top-[30%] right-[20%] w-20 h-20 rounded-full floating-orb" style={{animationDelay: '5s'}}></div>
+          {/* Subtle floating orbs */}
+          <div className="absolute top-[15%] left-[10%] w-32 h-32 rounded-full floating-orb opacity-30"></div>
+          <div className="absolute top-[60%] left-[5%] w-24 h-24 rounded-full floating-orb opacity-30" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-[20%] right-[15%] w-28 h-28 rounded-full floating-orb opacity-30" style={{animationDelay: '3s'}}></div>
+          <div className="absolute top-[30%] right-[20%] w-20 h-20 rounded-full floating-orb opacity-30" style={{animationDelay: '5s'}}></div>
         </div>
 
       <Navigation currentPage="committee" />
       
       <main id="main-content" className="relative z-10">
-        {/* Enhanced Header with Premium Glassmorphism */}
+        {/* Simplified Header */}
         <header className="relative py-24 pt-40 overflow-hidden">
-          {/* Enhanced background with deeper glassmorphism */}
+          {/* Minimal background */}
           <div className="absolute inset-0 header-bg-enhanced">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/15 via-slate-900/10 to-indigo-900/20"></div>
-            {/* Additional glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-blue-500/5 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/5 via-transparent to-indigo-900/5"></div>
           </div>
           
           <div className="container mx-auto px-4 text-center relative z-10">
@@ -219,13 +216,11 @@ export default function CommitteePage() {
           </div>
         </header>
 
-        {/* Faculty Section with Enhanced Glassmorphism */}
+        {/* Faculty Section - Simplified */}
         <section className="py-20 relative">
-          {/* Enhanced Section Background */}
+          {/* Minimal Section Background */}
           <div className="absolute inset-0 section-bg-enhanced">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/8 via-transparent to-indigo-500/12"></div>
-            {/* Additional depth layer */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-slate-800/10 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-indigo-500/5"></div>
           </div>
           
           <div className="container mx-auto px-4 relative z-20">
@@ -251,13 +246,11 @@ export default function CommitteePage() {
           </div>
         </section>
 
-        {/* Student Section with Enhanced Glassmorphism */}
+        {/* Student Section - Simplified */}
         <section className="py-20 relative">
-          {/* Enhanced Section Background */}
+          {/* Minimal Section Background */}
           <div className="absolute inset-0 section-bg-enhanced">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-slate-500/8"></div>
-            {/* Additional depth and glow */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-purple-900/5 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-slate-500/5"></div>
           </div>
           
           <div className="container mx-auto px-4 relative z-20">
