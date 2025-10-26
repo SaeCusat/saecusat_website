@@ -81,7 +81,7 @@ export default function CommitteePage() {
   // Memoized data to prevent unnecessary re-renders
   const facultyData = useMemo(() => [
     { 
-      image: "/placeholder.svg?height=200&width=200",
+      image: "/committee/Biju_sir.png",
       title: "Dr Biju N", 
       subtitle: "Faculty Advisor", 
       borderColor: "#1e3a8a",
@@ -89,18 +89,26 @@ export default function CommitteePage() {
       url: "https://www.linkedin.com/in/biju-n-4287a9a"
     },
     { 
-      image: "/placeholder.svg?height=200&width=200",
+      image: "/committee/gireesh_sir.png",
       title: "Dr Gireesh Kumaran", 
       subtitle: "Faculty Advisor", 
       borderColor: "#1d4ed8",
       gradient: "linear-gradient(225deg, #1d4ed8, #0f172a)",
       url: "https://www.linkedin.com/in/gireesh-kumaran-thampi-b-s-6711253b"
     },
+    { 
+      image: "/committee/akhil_sir.png",
+      title: "Dr Akhil S Karun", 
+      subtitle: "Faculty Advisor", 
+      borderColor: "#1e40af",
+      gradient: "linear-gradient(165deg, #1e40af, #0f172a)",
+      url: "https://www.linkedin.com/in/dr-akhil-s-karun-mie-31593328"
+    },
   ], [])
 
   const studentData = useMemo(() => [
     { 
-      image: "/committee/Harinadh.png",
+      image: "/committee/hari.png",
       title: "Harinadh Sadish", 
       subtitle: "President", 
       borderColor: "#1e40af",
@@ -145,7 +153,7 @@ export default function CommitteePage() {
       subtitle: "Joint Secretary", 
       borderColor: "#1e40af",
       gradient: "linear-gradient(135deg, #1e40af, #0f172a)",
-      url: "https://www.linkedin.com/in/prajith-a-k"
+      url: "https://www.linkedin.com/in/prajith-a-k-3b4b25210"
     }
   ], [])
 
@@ -233,8 +241,8 @@ export default function CommitteePage() {
             </div>
 
             {/* Faculty Grid - Custom layout for better performance */}
-            <div className="max-w-4xl mx-auto relative z-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="max-w-6xl mx-auto relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {facultyData.map((member, index) => (
                   <CommitteeMemberCard key={member.title} member={member} index={index} />
                 ))}

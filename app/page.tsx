@@ -223,7 +223,9 @@ export default function HomePage() {
                       className="text-lg md:text-xl lg:text-2xl font-medium text-white/90 tracking-wide leading-relaxed hero-subtitle-animated parallax-text-blur"
                       style={isClient ? {
                         transform: `translateY(${scrollY * 0.4}px) scale(${getScaleFade(100, 500, 1.03)})`,
-                        filter: `blur(${Math.min(scrollY * 0.003, 1)}px)`
+                        filter: `blur(${Math.min(scrollY * 0.003, 1)}px)`,
+                        WebkitTextFillColor: 'inherit',
+                        WebkitBackgroundClip: 'unset'
                       } : {}}
                     >
                       Cochin University of Science and Technology

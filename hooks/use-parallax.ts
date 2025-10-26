@@ -48,15 +48,28 @@ export function useAdvancedParallax() {
   const [scrollY, setScrollY] = useState(0)
   const [windowHeight, setWindowHeight] = useState(0)
   const [isClient, setIsClient] = useState(false)
+  const scrollYRef = useRef(0)
+  const animationFrameRef = useRef<number | null>(null)
 
   useEffect(() => {
     setIsClient(true)
     
     if (typeof window === 'undefined') return
 
+    let animating = false
+
     const handleScroll = () => {
       try {
-        setScrollY(window.scrollY)
+        scrollYRef.current = window.scrollY
+        
+        // Use requestAnimationFrame for smooth parallax
+        if (!animating) {
+          animating = true
+          animationFrameRef.current = requestAnimationFrame(() => {
+            setScrollY(scrollYRef.current)
+            animating = false
+          })
+        }
       } catch (error) {
         console.warn('Scroll event error:', error)
       }
@@ -84,6 +97,9 @@ export function useAdvancedParallax() {
       try {
         window.removeEventListener("scroll", handleScroll)
         window.removeEventListener("resize", handleResize)
+        if (animationFrameRef.current) {
+          cancelAnimationFrame(animationFrameRef.current)
+        }
       } catch (error) {
         console.warn('Cleanup error:', error)
       }

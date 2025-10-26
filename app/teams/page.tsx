@@ -302,12 +302,12 @@ const teams = [
 
           <div className="container mx-auto px-4 text-center relative z-10 pt-20">
             {/* Clean Main Title */}
-            <div className="mb-12">
+            <div className="mb-12 animate-fade-in-up">
               <div className="inline-block">
-                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase">
+                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase animate-fade-in-up animation-delay-200">
                   Our Teams
                 </div>
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
                   Teams
                 </h1>
               </div>
@@ -316,7 +316,7 @@ const teams = [
             {/* Clean CTA Button with glassmorphic design */}
             <button
               onClick={() => document.querySelector('#team-carousel')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30"
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30 animate-fade-in-up animation-delay-400"
             >
               <Users className="w-5 h-5 mr-2 inline" />
               Meet Our Teams
@@ -327,7 +327,7 @@ const teams = [
       {/* Team Detail Modal - Minimal Design */}
       {selectedTeam && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="relative max-w-3xl w-full">
+          <div className="relative max-w-3xl w-full animate-scale-in">
             {/* Left navigation */}
             <button
               onClick={prevTeam}

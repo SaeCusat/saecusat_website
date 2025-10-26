@@ -6,8 +6,7 @@ import { CheckCircle, ExternalLink } from "lucide-react"
 
 export default function CheckinPage() {
   const handleCheckin = () => {
-    // This will redirect to the actual attendance system when it's built
-    alert("Redirecting to attendance system... (To be implemented)")
+    window.location.href = 'https://saelab.cusat.co.in/'
   }
 
   return (
