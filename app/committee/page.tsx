@@ -15,43 +15,44 @@ interface CommitteeMember {
 const CommitteeCard = ({ member, index }: { member: CommitteeMember; index: number }) => {
   return (
     <div 
-      className="group relative rounded-xl overflow-hidden h-80 sm:h-80 md:h-80 lg:h-96 shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" 
+      className="group rounded-2xl overflow-hidden shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 animate-fade-in-up flex flex-col border border-blue-500/40 hover:border-blue-400/60 relative"
       style={{
-        background: 'linear-gradient(135deg, #0a0f2c 0%, #0f1f4a 50%, #1a3a6a 100%), radial-gradient(ellipse at center, transparent 20%, rgba(5, 15, 40, 0.95) 100%)', 
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), inset 0 -10px 30px rgba(0, 0, 0, 0.5)',
-        animationDelay: `${index * 100}ms`
+        animationDelay: `${index * 100}ms`,
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), 0 25px 50px rgba(59, 130, 246, 0.1)'
       }}
-    >      {/* Background Image */}
-      <img 
-        src={member.image}
-        alt={member.name}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-        onError={(e) => {
-          e.currentTarget.src = `https://placehold.co/400x510/475569/f8fafc?text=${encodeURIComponent(member.name)}`
-        }}
-      />
+    >
+      {/* Glossy Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-400/10 via-blue-300/5 to-transparent pointer-events-none rounded-2xl z-20"></div>      
+      {/* Image Container - Fixed Height - Same ratio across all screens */}
+      <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-slate-850 via-blue-850 to-slate-950 flex-shrink-0">
+        <img 
+          src={member.image}
+          alt={member.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            e.currentTarget.src = `https://placehold.co/400x510/1e3a5f/f8fafc?text=${encodeURIComponent(member.name)}`
+          }}
+        />
+      </div>
 
-      {/* Premium Dark Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10 transition-opacity duration-300 group-hover:from-black/98 group-hover:via-black/50"></div>
-
-      {/* Text Content - Bottom Overlay */}
-      <div className="absolute bottom-0 left-0 w-full p-4 sm:p-6 md:p-6 lg:p-8">
-        <h2 className="text-xl sm:text-2xl md:text-2xl lg:text-2xl font-bold text-white mb-1 transition-transform duration-300 group-hover:translate-y-0 translate-y-1 line-clamp-2">
-          {member.name}
-        </h2>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <p className="text-sm sm:text-base md:text-base lg:text-base text-gray-200 font-medium transition-transform duration-300 group-hover:translate-y-0 translate-y-1 line-clamp-1">
+      {/* Text Content Box - Below Image */}
+      <div className="bg-gradient-to-b from-slate-800 via-slate-850 to-slate-900 p-2 sm:p-3 md:p-4 lg:p-5 flex-grow flex flex-col justify-center items-center text-center border-t-2 border-blue-500/30 transition-all duration-300 group-hover:from-slate-700 group-hover:via-slate-800 group-hover:to-slate-850">
+        <div className="w-full">
+          <h2 className="text-xs sm:text-sm md:text-base lg:text-base font-bold text-white line-clamp-2 group-hover:text-blue-300 transition-colors duration-300 mb-1">
+            {member.name}
+          </h2>
+          <p className="text-xs sm:text-xs md:text-sm lg:text-sm text-blue-300 font-semibold line-clamp-1 group-hover:text-blue-200 transition-colors duration-300 mb-2">
             {member.role}
           </p>
-          {/* LinkedIn Icon */}
+          {/* LinkedIn Icon - Round and Below */}
           <a
             href={member.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8 lg:w-8 lg:h-8 rounded-full bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 hover:text-white transition-all duration-300 transform hover:scale-110 flex-shrink-0"
+            className="inline-flex items-center justify-center w-9 h-9 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-10 lg:h-10 rounded-full bg-gradient-to-br from-blue-600/60 to-blue-700/60 hover:from-blue-500 hover:to-blue-600 text-blue-100 hover:text-white transition-all duration-300 transform hover:scale-125 shadow-lg"
             title={`${member.name}'s LinkedIn Profile`}
           >
-            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-4 md:h-4 lg:w-4 lg:h-4" fill="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
@@ -71,7 +72,7 @@ export default function CommitteePage() {
       isFaculty: true
     },
     {
-      name: "Dr Gireesh Kumaran",
+      name: "Dr Gireesh Kumaran Thampi",
       role: "Faculty Advisor",
       image: "/committee/Gireesh_sir.png",
       linkedin: "https://www.linkedin.com/in/gireesh-kumaran-thampi-b-s-6711253b",
@@ -114,7 +115,7 @@ export default function CommitteePage() {
     {
       name: "Muhammad Aslam",
       role: "Technical Head",
-      image: "/committee/aslam (2).png",
+      image: "/committee/Aslam.png",
       linkedin: "https://www.linkedin.com/in/muhammad-aslam-a1484a336"
     },
     {
@@ -132,7 +133,7 @@ export default function CommitteePage() {
       <main className="min-h-screen bg-gradient-to-br from-[#0f1729] via-[#0a0e1a] to-[#020614] relative">
         {/* Dot Grid Background */}
         <div 
-          className="fixed inset-0 pointer-events-none opacity-50"
+          className="fixed inset-0 pointer-events-none opacity-75"
           style={{
             backgroundImage: `
               radial-gradient(circle, rgba(96, 165, 250, 0.3) 1px, transparent 1px),
@@ -156,8 +157,8 @@ export default function CommitteePage() {
             <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">Faculty Advisors</h2>
           </div>
 
-          {/* Faculty Grid (2-col on tablet, 3-col on desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mb-24 sm:mb-32">
+          {/* Faculty Grid (1-col on mobile, 2-col on tablet, 3-col on desktop) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto mb-24 sm:mb-32">
             {facultyAdvisors.map((member, index) => (
               <CommitteeCard key={member.name} member={member} index={index} />
             ))}
@@ -168,8 +169,8 @@ export default function CommitteePage() {
             <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">Student Executive Committee</h2>
           </div>
 
-          {/* Student Grid (2-col on tablet, 3-col on desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+          {/* Student Grid (1-col on mobile, 2-col on tablet, 3-col on desktop) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto">
             {studentCommittee.map((member, index) => (
               <CommitteeCard key={member.name} member={member} index={index + facultyAdvisors.length} />
             ))}
