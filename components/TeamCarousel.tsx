@@ -397,19 +397,19 @@ export const TeamCarousel: React.FC<TeamCarouselProps> = ({
           perspective: '1000px',
         }}
       >
-        {/* Navigation Arrows */}
+        {/* Navigation Arrows - Hidden on mobile, visible on md and up */}
         {showArrows && (
           <>
             <motion.button
               onClick={() => paginate(-1)}
-              className="absolute left-2 md:left-5 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 border border-white/20"
+              className="hidden md:flex absolute left-2 md:left-5 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white w-10 h-10 md:w-12 md:h-12 rounded-full items-center justify-center z-20 transition-all duration-300 hover:scale-110 border border-white/20"
               whileTap={{ scale: 0.9 }}
             >
               <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
             </motion.button>
             <motion.button
               onClick={() => paginate(1)}
-              className="absolute right-2 md:right-5 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center z-20 transition-all duration-300 hover:scale-110 border border-white/20"
+              className="hidden md:flex absolute right-2 md:right-5 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white w-10 h-10 md:w-12 md:h-12 rounded-full items-center justify-center z-20 transition-all duration-300 hover:scale-110 border border-white/20"
               whileTap={{ scale: 0.9 }}
             >
               <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />

@@ -23,6 +23,8 @@ const GALLERY_IMAGES = [
 export default function GalleryPage() {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
   const [scrollY, setScrollY] = useState(0)
+  const [touchStart, setTouchStart] = useState(0)
+  const [touchEnd, setTouchEnd] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +44,30 @@ export default function GalleryPage() {
     if (selectedImageIndex === null) return
     const newIndex = selectedImageIndex < GALLERY_IMAGES.length - 1 ? selectedImageIndex + 1 : 0
     setSelectedImageIndex(newIndex)
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0]?.clientX || 0)
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    setTouchEnd(e.changedTouches[0]?.clientX || 0)
+    handleSwipe()
+  }
+
+  const handleSwipe = () => {
+    const swipeThreshold = 50
+    const diff = touchStart - touchEnd
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left, show next image
+        handleNext()
+      } else {
+        // Swiped right, show previous image
+        handlePrevious()
+      }
+    }
   }
 
   useEffect(() => {
@@ -143,6 +169,8 @@ export default function GalleryPage() {
               setSelectedImageIndex(null)
               document.body.style.overflow = 'auto'
             }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             {/* Blurred background content - optional visual enhancement */}
             <div className="fixed inset-0 bg-black/40 backdrop-blur-md -z-10" />

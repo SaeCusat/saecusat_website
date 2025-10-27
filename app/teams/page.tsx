@@ -324,82 +324,6 @@ const teams = [
           </div>
         </section>
 
-      {/* Team Detail Modal - Minimal Design */}
-      {selectedTeam && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="relative max-w-3xl w-full animate-scale-in">
-            {/* Left navigation */}
-            <button
-              onClick={prevTeam}
-              aria-label="Previous team"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-r-md"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-            {/* Modal Card */}
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl w-full max-h-[85vh] overflow-hidden relative shadow-2xl animate-fade-in-up border border-white/20">
-              <button
-                onClick={() => setSelectedTeam(null)}
-                className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
-              >
-                <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
-              </button>
-
-              {/* Hero Image with Team Name Overlay */}
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src={selectedTeam.image || "/placeholder.svg"}
-                  alt={selectedTeam.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-6 left-6 text-white">
-                  <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
-                </div>
-              </div>
-
-              <div className="p-6 overflow-y-auto max-h-[calc(85vh-14rem)]">
-                {/* Description - show full description text */}
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
-                  <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">
-                    {selectedTeam.description}
-                  </p>
-                </div>
-
-                {/* Achievements */}
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
-                    <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
-                    Key Achievements
-                  </h3>
-                  <div className="grid gap-2">
-                    {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
-                      <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
-                        <span className="text-gray-700 font-medium">{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Gallery removed */}
-              </div>
-            </div>
-
-            {/* Right navigation */}
-            <button
-              onClick={nextTeam}
-              aria-label="Next team"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-l-md"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* TeamCarousel Section */}
       <section id="team-carousel" className="relative z-10">
         <TeamCarousel 
@@ -435,13 +359,86 @@ const teams = [
         {/* Instructions */}
         <div className="text-center text-gray-400 pb-8 md:pb-12 px-4">
           <p className="text-xs md:text-sm">
-            Use arrow keys, swipe, or click arrows to navigate • Click on a team to view details
+            Swipe or click arrows to navigate • Click on a team to view details
           </p>
         </div>
       </section>
 
       <Footer />
       </div>
+
+      {/* Team Detail Modal - Minimal Design - Outside main-content for proper z-index */}
+      {selectedTeam && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="relative w-full max-w-3xl bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto">
+            {/* Left navigation */}
+            <button
+              onClick={prevTeam}
+              aria-label="Previous team"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-r-md"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedTeam(null)}
+              className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
+            >
+              <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
+            </button>
+
+            {/* Hero Image with Team Name Overlay */}
+            <div className="relative h-56 overflow-hidden">
+              <Image
+                src={selectedTeam.image || "/placeholder.svg"}
+                alt={selectedTeam.name}
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              {/* Description */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {selectedTeam.description}
+                </p>
+              </div>
+
+              {/* Achievements */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                  <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
+                  Key Achievements
+                </h3>
+                <div className="grid gap-2">
+                  {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
+                    <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
+                      <span className="text-gray-700 font-medium">{achievement}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right navigation */}
+            <button
+              onClick={nextTeam}
+              aria-label="Next team"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-l-md"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
