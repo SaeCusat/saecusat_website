@@ -247,7 +247,7 @@ const teams = [
   }))
 
   return (
-    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 relative">
       {/* Navigation */}
       <Navigation currentPage="teams" />
 
@@ -369,27 +369,18 @@ const teams = [
 
       {/* Team Detail Modal - Minimal Design - Outside main-content for proper z-index */}
       {selectedTeam && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fade-in">
-          <div className="relative w-full max-w-3xl bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto animate-scale-in">
-            {/* Left navigation */}
-            <button
-              onClick={prevTeam}
-              aria-label="Previous team"
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-r-md"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setSelectedTeam(null)}>
+          <div className="w-full max-w-3xl bg-white rounded-lg shadow-2xl border border-gray-300 overflow-hidden" onClick={(e) => e.stopPropagation()}>
             {/* Close Button */}
             <button
               onClick={() => setSelectedTeam(null)}
-              className="absolute top-4 right-4 z-10 bg-black/10 backdrop-blur-md rounded-full p-2 hover:bg-black/20 transition-all duration-300 group"
+              className="absolute top-4 right-4 z-10 bg-black rounded-full p-2 hover:bg-gray-800"
             >
-              <X className="w-5 h-5 text-gray-700 group-hover:text-black" />
+              <X className="w-5 h-5 text-white" />
             </button>
 
             {/* Hero Image with Team Name Overlay */}
-            <div className="relative h-56 overflow-hidden">
+            <div className="relative h-48 overflow-hidden bg-gray-400">
               <Image
                 src={selectedTeam.image || "/placeholder.svg"}
                 alt={selectedTeam.name}
@@ -397,45 +388,37 @@ const teams = [
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-6 left-6 text-white">
-                <h2 className="text-3xl font-bold mb-1">{selectedTeam.name}</h2>
+              <div className="absolute bottom-4 left-4 text-white">
+                <h2 className="text-2xl font-bold">{selectedTeam.name}</h2>
               </div>
             </div>
 
             {/* Content */}
             <div className="p-6">
-              {/* Description */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">About</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {selectedTeam.description}
-                </p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">About</h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                {selectedTeam.description}
+              </p>
+
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
+                <Trophy className="w-4 h-4 mr-2 text-yellow-500" />
+                Achievements
+              </h3>
+              <div className="space-y-2">
+                {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
+                  <div key={index} className="bg-yellow-50 p-2 rounded border border-yellow-200 text-sm text-gray-700">
+                    {achievement}
+                  </div>
+                ))}
               </div>
 
-              {/* Achievements */}
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
-                  <Trophy className="w-5 h-5 mr-2 text-yellow-500" />
-                  Key Achievements
-                </h3>
-                <div className="grid gap-2">
-                  {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
-                    <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 p-3 rounded-lg border border-yellow-100">
-                      <span className="text-gray-700 font-medium">{achievement}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <button
+                onClick={() => setSelectedTeam(null)}
+                className="mt-4 w-full bg-gray-900 text-white py-2 rounded hover:bg-black"
+              >
+                Close
+              </button>
             </div>
-
-            {/* Right navigation */}
-            <button
-              onClick={nextTeam}
-              aria-label="Next team"
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-black/30 hover:bg-black/40 text-white p-3 rounded-l-md"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
           </div>
         </div>
       )}

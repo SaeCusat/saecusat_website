@@ -15,6 +15,28 @@ const nextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  headers: async () => {
+    return [
+      {
+        source: '/robots.txt',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain',
+          },
+        ],
+      },
+      {
+        source: '/sitemap.xml',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/xml',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default nextConfig

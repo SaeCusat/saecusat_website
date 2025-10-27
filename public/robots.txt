@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow private areas (if any)
+Disallow: /.next/
+Disallow: /api/
+
+# Specify sitemap location
+Sitemap: https://saecusat.com/sitemap.xml
