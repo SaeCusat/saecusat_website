@@ -294,20 +294,20 @@ const teams = [
         {/* Hero Section with Dark Design matching gallery */}
         <section className="min-h-screen flex items-center justify-center relative">
           {/* Large Background Text - matching gallery style */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800 select-none tracking-tight">
+          <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+            <div className="text-6xl sm:text-8xl md:text-[12rem] lg:text-[18rem] xl:text-[22rem] font-black text-gray-800 select-none tracking-tight">
               TEAMS
             </div>
           </div>
 
-          <div className="container mx-auto px-4 text-center relative z-10 pt-20 animate-fade-in-down">
+          <div className="container mx-auto px-4 text-center relative z-10 pt-10 sm:pt-16 md:pt-20 animate-fade-in-down">
             {/* Clean Main Title */}
-            <div className="mb-12 animate-fade-in-up">
+            <div className="mb-8 sm:mb-12 animate-fade-in-up">
               <div className="inline-block">
-                <div className="text-sm text-gray-300 font-medium mb-6 tracking-[0.3em] uppercase animate-fade-in-up animation-delay-200">
+                <div className="text-xs sm:text-sm text-gray-300 font-medium mb-4 sm:mb-6 tracking-[0.3em] uppercase animate-fade-in-up animation-delay-200">
                   Our Teams
                 </div>
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 tracking-tight bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-fade-in-up animation-delay-300">
                   Teams
                 </h1>
               </div>
@@ -316,9 +316,9 @@ const teams = [
             {/* Clean CTA Button with glassmorphic design */}
             <button
               onClick={() => document.querySelector('#team-carousel')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30 animate-fade-in-up animation-delay-400"
+              className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:bg-white/15 hover:border-white/30 animate-fade-in-up animation-delay-400"
             >
-              <Users className="w-5 h-5 mr-2 inline" />
+              <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 inline" />
               Meet Our Teams
             </button>
           </div>
@@ -369,44 +369,32 @@ const teams = [
 
       {/* Team Detail Modal - Minimal Design - Outside main-content for proper z-index */}
       {selectedTeam && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setSelectedTeam(null)}>
-          <div className="w-full max-w-3xl bg-white rounded-lg shadow-2xl border border-gray-300 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-2 sm:p-4" onClick={() => setSelectedTeam(null)}>
+          <div className="w-full max-h-[95vh] sm:max-h-[90vh] max-w-sm sm:max-w-md md:max-w-2xl lg:max-w-3xl bg-white rounded-lg shadow-2xl border border-gray-300 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             {/* Close Button */}
             <button
               onClick={() => setSelectedTeam(null)}
-              className="absolute top-4 right-4 z-10 bg-black rounded-full p-2 hover:bg-gray-800"
+              className="sticky top-2 right-2 float-right z-10 bg-black rounded-full p-2 hover:bg-gray-800"
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </button>
 
-            {/* Hero Image with Team Name Overlay */}
-            <div className="relative h-48 overflow-hidden bg-gray-400">
-              <Image
-                src={selectedTeam.image || "/placeholder.svg"}
-                alt={selectedTeam.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <h2 className="text-2xl font-bold">{selectedTeam.name}</h2>
-              </div>
-            </div>
-
             {/* Content */}
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">About</h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">
+            <div className="p-4 sm:p-5 md:p-6">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">{selectedTeam.name}</h2>
+              
+              <h3 className="text-base sm:text-lg md:text-lg font-semibold text-gray-900 mb-2">About</h3>
+              <p className="text-gray-600 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">
                 {selectedTeam.description}
               </p>
 
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 flex items-center">
-                <Trophy className="w-4 h-4 mr-2 text-yellow-500" />
+              <h3 className="text-base sm:text-lg md:text-lg font-semibold text-gray-900 mb-2 flex items-center">
+                <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-yellow-500" />
                 Achievements
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-1 sm:space-y-2">
                 {selectedTeam.achievements.slice(0, 3).map((achievement: any, index: number) => (
-                  <div key={index} className="bg-yellow-50 p-2 rounded border border-yellow-200 text-sm text-gray-700">
+                  <div key={index} className="bg-yellow-50 p-1.5 sm:p-2 rounded border border-yellow-200 text-xs sm:text-sm text-gray-700">
                     {achievement}
                   </div>
                 ))}
@@ -414,7 +402,7 @@ const teams = [
 
               <button
                 onClick={() => setSelectedTeam(null)}
-                className="mt-4 w-full bg-gray-900 text-white py-2 rounded hover:bg-black"
+                className="mt-3 sm:mt-4 w-full bg-gray-900 text-white py-2 rounded hover:bg-black text-sm sm:text-base"
               >
                 Close
               </button>
