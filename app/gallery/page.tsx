@@ -1,127 +1,54 @@
 "use client"
 
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import { useState, useEffect } from "react"
 
+const GALLERY_IMAGES = [
+  { title: "YETI RACING", image: "/gallery/yeti.jpg" },
+  { title: "YETI RACING", image: "/gallery/yeti3.JPG" },
+  { title: "YETI RACING", image: "/gallery/yeti2.jpg" },
+  { title: "TEAM STORM RACING", image: "/gallery/storm2.jpg" },
+  { title: "TEAM STORM RACING", image: "/gallery/storm.jpg" },
+  { title: "TEAM HERMES", image: "/gallery/hermes.jpg" },
+  { title: "TEAM MARUTSAKA", image: "/gallery/marutsaka.jpg" },
+  { title: "TEAM MARUTSAKA", image: "/gallery/marutsaka2.jpg" },
+  { title: "TEAM TARUSA", image: "/gallery/tarusa.JPG" },
+  { title: "CADABLE 2024", image: "/gallery/cad.jpg" },
+  { title: "WELDING WORKSHOP", image: "/gallery/weld3.jpg" },
+  { title: "WELDING WORKSHOP", image: "/gallery/weld4.jpg" },
+]
+
 export default function GalleryPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [searchQuery, setSearchQuery] = useState("")
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null)
-  const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({})
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
 
   useEffect(() => {
-    setIsLoaded(true)
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const galleryImages = [
-    {
-      title: "YETI RACING",
-      category: "Competition",
-      image: "/gallery/yeti.jpg",
-      slug: "yeti-racing"
-    },
-    {
-      title: "YETI RACING",
-      category: "Team Photos",
-      image: "/gallery/yeti3.JPG",
-      slug: "yeti-racing"
-    },
-    {
-      title: "YETI RACING",
-      category: "Team Photos",
-      image: "/gallery/yeti2.jpg",
-      slug: "yeti-racing"
-    },
-    {
-      title: "TEAM STORM RACING",
-      category: "Team Photos",
-      image: "/gallery/storm2.jpg",
-      slug: "storm-racing"
-    },
-    {
-      title: "TEAM STORM RACING",
-      category: "Team Photos",
-      image: "/gallery/storm.jpg",
-      slug: "storm-racing"
-    },
-    {
-      title: "TEAM HERMES",
-      category: "Team Photos",
-      image: "/gallery/hermes.jpg",
-      slug: "hermes"
-    },
-    {
-      title: "TEAM MARUTSAKA",
-      category: "Team Photos",
-      image: "/gallery/marutsaka.jpg",
-      slug: "marutsaka"
-    },
-    {
-      title: "TEAM MARUTSAKA",
-      category: "Team Photos",
-      image: "/gallery/marutsaka2.jpg",
-      slug: "marutsaka"
-    },
-    
-    {
-      title: "TEAM TARUSA",
-      category: "Team Photos",
-      image: "/gallery/tarusa.JPG",
-      slug: "tarusa"
-    },
-    {
-      title: "CADABLE 2024",
-      category: "Team Photos",
-      image: "/gallery/cad.jpg",
-      slug: "CADABLE 2024"
-    },
-    {
-      title: "WELDING WORKSHOP",
-      category: "Team Photos",
-      image: "/gallery/weld3.jpg",
-      slug: "welding-workshop"
-    },
-    {
-      title: "WELDING WORKSHOP",
-      category: "Team Photos",
-      image: "/gallery/weld4.jpg",
-      slug: "welding-workshop"
-    },
-  ]
-
-  const filteredImages = galleryImages.filter(
-    (img) =>
-      (selectedCategory === "All" || img.category === selectedCategory) &&
-      (searchQuery === "" ||
-        img.title.toLowerCase().includes(searchQuery.toLowerCase()))
-  )
-
-  const handlePrevious = (e: React.MouseEvent) => {
-    e.stopPropagation()
+  const handlePrevious = () => {
     if (selectedImageIndex === null) return
-    const newIndex =
-      selectedImageIndex > 0 ? selectedImageIndex - 1 : filteredImages.length - 1
+    const newIndex = selectedImageIndex > 0 ? selectedImageIndex - 1 : GALLERY_IMAGES.length - 1
     setSelectedImageIndex(newIndex)
   }
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation()
+  const handleNext = () => {
     if (selectedImageIndex === null) return
-    const newIndex =
-      selectedImageIndex < filteredImages.length - 1 ? selectedImageIndex + 1 : 0
+    const newIndex = selectedImageIndex < GALLERY_IMAGES.length - 1 ? selectedImageIndex + 1 : 0
     setSelectedImageIndex(newIndex)
   }
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (selectedImageIndex === null) return
-      if (e.key === "ArrowLeft") handlePrevious(e as unknown as React.MouseEvent)
-      if (e.key === "ArrowRight") handleNext(e as unknown as React.MouseEvent)
+      if (e.key === "ArrowLeft") handlePrevious()
+      if (e.key === "ArrowRight") handleNext()
       if (e.key === "Escape") setSelectedImageIndex(null)
     }
     window.addEventListener("keydown", handleKeydown)
@@ -129,145 +56,182 @@ export default function GalleryPage() {
   }, [selectedImageIndex])
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f1729] via-[#0a0e1a] to-[#020614]">
       <Navigation currentPage="gallery" />
       
-      <main className="container mx-auto px-4 py-8">
-        {/* Gallery Title */}
-        {/* Main Header */}
-                {/* Main Header */}
-        <div className="mb-20 text-center">
-          
-        </div>
+      <main className="relative min-h-screen">
+        {/* Dot Grid Background - Fixed and Behind */}
+        <div 
+          className="fixed inset-0 pointer-events-none opacity-50 z-0"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle, rgba(96, 165, 250, 0.3) 1px, transparent 1px),
+              radial-gradient(circle, rgba(59, 130, 246, 0.2) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px, 100px 100px',
+            backgroundPosition: '0 0, 25px 25px'
+          }}
+        ></div>
 
-        {/* Gallery Title Section */}
-        <div className={`mb-20 text-center transition-all duration-1000 transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="relative inline-block">
-            {/* Animated Background Glow */}
-            <div className="absolute -inset-8 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 rounded-3xl blur-2xl opacity-0 animate-pulse-slow"></div>
+        {/* Content Container - In front of background */}
+        <div className="relative z-20 container mx-auto px-4 sm:px-6 py-20 sm:py-28">
+          {/* Header Section */}
+          <div className="text-center mb-20 sm:mb-28 pt-8 sm:pt-12">
+            {/* Gallery Heading - Premium Style */}
+            <div className="relative inline-block w-full mb-8">
+              {/* Animated Background Glow */}
+              <div className="absolute -inset-8 bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-blue-600/20 rounded-3xl blur-3xl opacity-75 animate-pulse-glow"></div>
+              
+              <h1 
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-0 animate-fade-in-up relative z-10 bg-gradient-to-r from-blue-300 via-cyan-200 to-blue-300 bg-clip-text text-transparent"
+                style={{
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                GALLERY
+              </h1>
+            </div>
             
-            {/* Main Title with Shadow and Depth */}
-            <h1 className="text-7xl md:text-8xl lg:text-9xl font-black mb-6 bg-gradient-to-r from-blue-200 via-white to-blue-100 bg-clip-text text-transparent tracking-tighter leading-tight relative z-10"
-              style={{
-                textShadow: `
-                  0 10px 30px rgba(59, 130, 246, 0.4),
-                  0 20px 60px rgba(0, 0, 0, 0.6),
-                  0 0 40px rgba(99, 102, 241, 0.3),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                `,
-                letterSpacing: '-0.02em',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
-              GALLERY
-            </h1>
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed hover:text-gray-100 transition-colors duration-300 animate-fade-in-up mt-8" style={{ animationDelay: '0.2s' }}>
+              Explore our journey through <span className="text-cyan-300 font-semibold">competitions</span>, <span className="text-blue-300 font-semibold">events</span>, and <span className="text-indigo-300 font-semibold">achievements</span>
+            </p>
           </div>
 
-          <p className="text-gray-300 max-w-2xl mx-auto text-lg font-light animate-fade-in-up animation-delay-300 hover:text-white transition-colors duration-300">
-            Explore our journey through competitions, events, and achievements
-          </p>
-        </div>
-
-
-
-        {/* Gallery Grid */}
-        <div className="space-y-8 relative">
-          {Array.from({ length: Math.ceil(filteredImages.length / 4) }).map((_, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6 relative animate-fade-in-up"
-              style={{ animationDelay: `${rowIndex * 100}ms` }}
-              id={`row-${rowIndex}`}
-            >
-              {filteredImages.slice(rowIndex * 4, rowIndex * 4 + 4).map((item, idx) => (
-                <div
-                  key={idx}
-                  className="group relative overflow-hidden rounded-xl cursor-pointer animate-scale-in transform transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30"
-                  style={{ animationDelay: `${(rowIndex * 4 + idx) * 75}ms` }}
-                  onClick={() => setSelectedImageIndex(rowIndex * 4 + idx)}
-                >
-                  <div className="aspect-[4/3] relative overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
-                      priority={rowIndex === 0}
-                    />
-                    {/* Overlay with Animation */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center transform translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                          <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/40 transition-all duration-500">
-                            <ChevronRight className="w-6 h-6 text-white" />
-                          </div>
-                          <p className="text-white font-semibold text-sm">View</p>
-                        </div>
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                        <h3 className="text-sm sm:text-base lg:text-lg font-bold text-white">
-                          {item.title}
-                        </h3>
-                      </div>
-                    </div>
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            {GALLERY_IMAGES.map((item, idx) => (
+              <div
+                key={idx}
+                className="group relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 animate-fade-in-up"
+                style={{ 
+                  animationDelay: `${idx * 75}ms`,
+                }}
+                onClick={() => {
+                  setSelectedImageIndex(idx)
+                  document.body.style.overflow = 'hidden'
+                }}
+              >
+                <div style={{ paddingBottom: '75%', position: 'relative', overflow: 'hidden', backgroundColor: '#1a1a2e' }}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                    className="transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
+                    <h3 className="text-white font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{item.title}</h3>
                   </div>
                 </div>
-              ))}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Fullscreen Modal */}
+        {/* Modal Lightbox - Outside content container to avoid z-index issues */}
         {selectedImageIndex !== null && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm animate-fade-in"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setSelectedImageIndex(null)
+            className="fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[9999] top-0 left-0 right-0 bottom-0"
+            onClick={() => {
+              setSelectedImageIndex(null)
+              document.body.style.overflow = 'auto'
             }}
           >
-            <div className="relative w-full max-w-7xl mx-auto px-4 animate-scale-in">
+            {/* Blurred background content - optional visual enhancement */}
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-md -z-10" />
+            
+            <div className="relative w-full h-full flex flex-col items-center justify-center max-w-screen-lg" onClick={(e) => e.stopPropagation()}>
+              {/* Close Button */}
               <button
-                onClick={() => setSelectedImageIndex(null)}
-                className="absolute top-4 right-4 z-50 text-white bg-black/50 hover:bg-red-600/50 p-2 rounded-full transition-all duration-300 transform hover:rotate-90 hover:scale-110"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedImageIndex(null)
+                  document.body.style.overflow = 'auto'
+                }}
+                className="absolute top-6 right-6 sm:top-10 sm:right-10 text-white hover:text-red-500 transition-colors duration-200 z-[10000] p-2 rounded-full"
+                style={{
+                  outline: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
+                title="Close (ESC)"
               >
-                <X className="w-8 h-8" />
+                <X className="w-8 h-8 sm:w-10 sm:h-10" />
               </button>
 
+              {/* Previous Button */}
               <button
-                onClick={handlePrevious}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-blue-600/50 p-3 rounded-full z-50 transition-all duration-300 transform hover:scale-110 hover:-translate-x-1"
-                aria-label="Previous image"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handlePrevious()
+                }}
+                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-white text-opacity-70 hover:text-opacity-100 hover:text-blue-400 transition-colors duration-200 z-[10001] select-none flex items-center justify-center"
+                style={{
+                  outline: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '48px',
+                  height: '48px',
+                  padding: '0',
+                  backgroundColor: 'transparent',
+                  transform: 'translateY(-50%)'
+                }}
+                title="Previous (Left Arrow)"
+                type="button"
               >
-                <ChevronLeft className="w-8 h-8" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-blue-600/50 p-3 rounded-full z-50 transition-all duration-300 transform hover:scale-110 hover:translate-x-1"
-                aria-label="Next image"
-              >
-                <ChevronRight className="w-8 h-8" />
+                <ChevronLeft className="w-8 h-8 sm:w-12 sm:h-12" />
               </button>
 
-              <div className="relative aspect-[16/9] z-40 animate-fade-in animation-delay-200">
-                <Image
-                  src={filteredImages[selectedImageIndex].image}
-                  alt={filteredImages[selectedImageIndex].title}
-                  fill
-                  className="object-contain"
-                  priority
+              {/* Next Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleNext()
+                }}
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-white text-opacity-70 hover:text-opacity-100 hover:text-blue-400 transition-colors duration-200 z-[10001] select-none flex items-center justify-center"
+                style={{
+                  outline: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  width: '48px',
+                  height: '48px',
+                  padding: '0',
+                  backgroundColor: 'transparent',
+                  transform: 'translateY(-50%)'
+                }}
+                title="Next (Right Arrow)"
+                type="button"
+              >
+                <ChevronRight className="w-8 h-8 sm:w-12 sm:h-12" />
+              </button>
+
+              {/* Image Container */}
+              <div className="flex items-center justify-center h-full w-full px-4">
+                <img
+                  src={GALLERY_IMAGES[selectedImageIndex].image}
+                  alt={GALLERY_IMAGES[selectedImageIndex].title}
+                  style={{
+                    maxWidth: '95vw',
+                    maxHeight: '80vh',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain'
+                  }}
+                  className="drop-shadow-2xl"
                 />
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-8 z-50 animate-slide-up animation-delay-300">
-                <h2 className="text-3xl font-bold text-white mb-2">
-                  {filteredImages[selectedImageIndex].title}
-                </h2>
-                <p className="text-gray-300">
-                  {selectedImageIndex + 1} of {filteredImages.length}
-                </p>
+              {/* Image Info - Fixed at bottom */}
+              <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 text-center text-white z-[10000] w-full px-4">
+                <p className="text-lg sm:text-xl font-semibold">{GALLERY_IMAGES[selectedImageIndex].title}</p>
+                <p className="text-sm sm:text-base text-gray-300">{selectedImageIndex + 1} of {GALLERY_IMAGES.length}</p>
               </div>
             </div>
           </div>

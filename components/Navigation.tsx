@@ -112,17 +112,18 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
 
         {/* Check-in Button - Top Right Corner */}
         <div className="absolute top-6 right-6 z-[70]">
-          <Link href="/checkin">
+          <div className="bg-gradient-to-r from-black/20 via-black/25 to-black/20 backdrop-blur-2xl border border-white/3 rounded-full px-1 py-1 shadow-2xl">
             <Button
               variant="outline"
               size="sm"
-              className="bg-black/15 backdrop-blur-xl border-white/8 text-white hover:bg-white/15 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-6 py-4 shadow-2xl hover:shadow-3xl group overflow-hidden relative rounded-full border-2 hover:border-cyan-400/40"
+              onClick={() => navigateToPage('/checkin')}
+              className="bg-transparent border-0 text-white hover:bg-white/10 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-6 py-2 shadow-none group overflow-hidden relative rounded-full"
             >
               <CheckCircle className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
               <span className="relative z-10">Check-in</span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out rounded-full"></div>
             </Button>
-          </Link>
+          </div>
         </div>
       </div>
 
@@ -175,16 +176,15 @@ export default function Navigation({ currentPage = "home", onSectionScroll }: Na
             </div>
 
             {/* Check-in Button */}
-            <Link href="/checkin">
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-black/15 backdrop-blur-xl border-white/8 text-white hover:bg-white/15 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-4 py-2 shadow-lg hover:shadow-xl group overflow-hidden relative rounded-full"
-              >
-                <CheckCircle className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
-                <span className="relative z-10">Check-in</span>
-              </Button>
-            </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigateToPage('/checkin')}
+              className="bg-black/20 backdrop-blur-2xl border-2 border-white/60 text-white hover:bg-white/15 hover:text-white transition-all duration-300 hover:scale-105 font-medium px-4 py-2 shadow-lg hover:shadow-xl group overflow-hidden relative rounded-full hover:border-white/80"
+            >
+              <CheckCircle className="w-4 h-4 mr-2 group-hover:rotate-12 transition-transform duration-300" />
+              <span className="relative z-10">Check-in</span>
+            </Button>
           </div>
         </div>
       </nav>
