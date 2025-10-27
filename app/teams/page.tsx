@@ -300,7 +300,7 @@ const teams = [
             </div>
           </div>
 
-          <div className="container mx-auto px-4 text-center relative z-10 pt-20">
+          <div className="container mx-auto px-4 text-center relative z-10 pt-20 animate-fade-in-down">
             {/* Clean Main Title */}
             <div className="mb-12 animate-fade-in-up">
               <div className="inline-block">
@@ -369,8 +369,8 @@ const teams = [
 
       {/* Team Detail Modal - Minimal Design - Outside main-content for proper z-index */}
       {selectedTeam && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-          <div className="relative w-full max-w-3xl bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fade-in">
+          <div className="relative w-full max-w-3xl bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl border border-white/20 max-h-[90vh] overflow-y-auto animate-scale-in">
             {/* Left navigation */}
             <button
               onClick={prevTeam}

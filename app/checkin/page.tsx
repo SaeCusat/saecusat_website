@@ -277,7 +277,7 @@ export default function CheckinPage() {
 
       <div id="main-content" className="relative z-10">
         {/* Hero Section with glassmorphic header */}
-        <section className="min-h-screen flex items-center justify-center relative">
+        <section className="min-h-screen flex items-center justify-center relative animate-fade-in-down">
           {/* Large Background Text */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-[12rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800 select-none tracking-tight">

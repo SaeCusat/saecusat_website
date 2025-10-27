@@ -1,0 +1,204 @@
+/* Performance-optimized animations */
+.animate-optimized {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced modal animations */
+.modal-enter {
+  animation: fade-in 0.3s ease-out, scale-in 0.3s ease-out;
+}
+
+.modal-exit {
+  animation: fade-out 0.2s ease-out;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Image lazy load fade in */
+.image-fade-in {
+  animation: fade-in 0.4s ease-in-out;
+}
+
+/* Staggered list animations */
+.list-item-animated {
+  opacity: 0;
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.list-item-animated:nth-child(1) { animation-delay: 0.05s; }
+.list-item-animated:nth-child(2) { animation-delay: 0.1s; }
+.list-item-animated:nth-child(3) { animation-delay: 0.15s; }
+.list-item-animated:nth-child(4) { animation-delay: 0.2s; }
+.list-item-animated:nth-child(5) { animation-delay: 0.25s; }
+.list-item-animated:nth-child(6) { animation-delay: 0.3s; }
+.list-item-animated:nth-child(7) { animation-delay: 0.35s; }
+.list-item-animated:nth-child(8) { animation-delay: 0.4s; }
+.list-item-animated:nth-child(9) { animation-delay: 0.45s; }
+.list-item-animated:nth-child(10) { animation-delay: 0.5s; }
+
+/* Smooth section reveal on scroll */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.section-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth page fade in */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-fade-in {
+  animation: page-fade-in 0.5s ease-out forwards;
+}
+
+/* Stagger animations for grid items */
+@keyframes grid-item-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.grid-item-animated {
+  animation: grid-item-reveal 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Bounce animations for interactive elements */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bounce-in {
+  animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Smooth hover lift effect */
+.hover-lift-smooth {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, box-shadow;
+}
+
+.hover-lift-smooth:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Loader animations */
+@keyframes pulse-smooth {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pulse-smooth {
+  animation: pulse-smooth 2s ease-in-out infinite;
+}
+
+/* Image loading skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.image-skeleton {
+  background: linear-gradient(90deg, #1a1a2e 25%, #2a2a4e 50%, #1a1a2e 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Smooth text reveal */
+@keyframes text-reveal {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.text-reveal {
+  animation: text-reveal 0.8s ease-out forwards;
+}
+
+/* Smooth navbar animations */
+.navbar-item-animate {
+  opacity: 0;
+  animation: fade-in-down 0.5s ease-out forwards;
+}
+
+.navbar-item-animate:nth-child(1) { animation-delay: 0.1s; }
+.navbar-item-animate:nth-child(2) { animation-delay: 0.2s; }
+.navbar-item-animate:nth-child(3) { animation-delay: 0.3s; }
+.navbar-item-animate:nth-child(4) { animation-delay: 0.4s; }
+.navbar-item-animate:nth-child(5) { animation-delay: 0.5s; }
+
+/* Content transition on route change */
+.route-transition {
+  animation: page-fade-in 0.4s ease-out;
+}
+
+/* Smooth scroll behavior optimization */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Performance: Disable animations on low-power devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

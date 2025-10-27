@@ -4,6 +4,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import { useState, useEffect } from "react"
+import Image from "next/image"
 
 const GALLERY_IMAGES = [
   { title: "YETI RACING", image: "/gallery/yeti.jpg" },
@@ -25,14 +26,23 @@ export default function GalleryPage() {
   const [scrollY, setScrollY] = useState(0)
   const [touchStart, setTouchStart] = useState(0)
   const [touchEnd, setTouchEnd] = useState(0)
+  const [loadedImages, setLoadedImages] = useState<boolean[]>(new Array(GALLERY_IMAGES.length).fill(false))
 
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => {
+      const updated = [...prev]
+      updated[index] = true
+      return updated
+    })
+  }
 
   const handlePrevious = () => {
     if (selectedImageIndex === null) return
@@ -139,18 +149,27 @@ export default function GalleryPage() {
                 }}
               >
                 <div style={{ paddingBottom: '75%', position: 'relative', overflow: 'hidden', backgroundColor: '#1a1a2e' }}>
+                  {/* Skeleton loader while image is loading */}
+                  {!loadedImages[idx] && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 animate-pulse"></div>
+                  )}
+                  
                   <img
                     src={item.image}
                     alt={item.title}
+                    onLoad={() => handleImageLoad(idx)}
                     style={{
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover'
+                      objectFit: 'cover',
+                      opacity: loadedImages[idx] ? 1 : 0,
+                      transition: 'opacity 0.3s ease-in-out'
                     }}
                     className="transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end p-4">
                     <h3 className="text-white font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{item.title}</h3>
@@ -164,7 +183,7 @@ export default function GalleryPage() {
         {/* Modal Lightbox - Outside content container to avoid z-index issues */}
         {selectedImageIndex !== null && (
           <div
-            className="fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[9999] top-0 left-0 right-0 bottom-0"
+            className="fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[9999] top-0 left-0 right-0 bottom-0 animate-fade-in"
             onClick={() => {
               setSelectedImageIndex(null)
               document.body.style.overflow = 'auto'

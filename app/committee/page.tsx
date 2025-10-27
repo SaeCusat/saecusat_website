@@ -12,10 +12,16 @@ interface CommitteeMember {
   isFaculty?: boolean
 }
 
-const CommitteeCard = ({ member }: { member: CommitteeMember }) => {
+const CommitteeCard = ({ member, index }: { member: CommitteeMember; index: number }) => {
   return (
-    <div className="group relative rounded-xl overflow-hidden h-80 sm:h-80 md:h-80 lg:h-96 shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1" style={{background: 'linear-gradient(135deg, #0a0f2c 0%, #0f1f4a 50%, #1a3a6a 100%), radial-gradient(ellipse at center, transparent 20%, rgba(5, 15, 40, 0.95) 100%)', boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), inset 0 -10px 30px rgba(0, 0, 0, 0.5)'}}>
-      {/* Background Image */}
+    <div 
+      className="group relative rounded-xl overflow-hidden h-80 sm:h-80 md:h-80 lg:h-96 shadow-2xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 animate-fade-in-up" 
+      style={{
+        background: 'linear-gradient(135deg, #0a0f2c 0%, #0f1f4a 50%, #1a3a6a 100%), radial-gradient(ellipse at center, transparent 20%, rgba(5, 15, 40, 0.95) 100%)', 
+        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), inset 0 -10px 30px rgba(0, 0, 0, 0.5)',
+        animationDelay: `${index * 100}ms`
+      }}
+    >      {/* Background Image */}
       <img 
         src={member.image}
         alt={member.name}
@@ -139,21 +145,21 @@ export default function CommitteePage() {
 
         <div className="container mx-auto px-4 sm:px-6 py-20 sm:py-28 relative z-10">
           {/* Header Section */}
-          <div className="text-center mb-20 sm:mb-28 pt-8 sm:pt-12">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-200 via-blue-100 to-cyan-200 bg-clip-text text-transparent mt-2 tracking-tight drop-shadow-lg">
+          <div className="text-center mb-20 sm:mb-28 pt-8 sm:pt-12 animate-fade-in-down">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-blue-200 via-blue-100 to-cyan-200 bg-clip-text text-transparent mt-2 tracking-tight drop-shadow-lg animate-fade-in-up">
               Executive Committee
             </h1>
           </div>
 
           {/* Faculty Advisors Section */}
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="text-center mb-12 sm:mb-16 animate-fade-in-up animation-delay-200">
             <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">Faculty Advisors</h2>
           </div>
 
           {/* Faculty Grid (2-col on tablet, 3-col on desktop) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mb-24 sm:mb-32">
-            {facultyAdvisors.map((member) => (
-              <CommitteeCard key={member.name} member={member} />
+            {facultyAdvisors.map((member, index) => (
+              <CommitteeCard key={member.name} member={member} index={index} />
             ))}
           </div>
 
@@ -164,8 +170,8 @@ export default function CommitteePage() {
 
           {/* Student Grid (2-col on tablet, 3-col on desktop) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-            {studentCommittee.map((member) => (
-              <CommitteeCard key={member.name} member={member} />
+            {studentCommittee.map((member, index) => (
+              <CommitteeCard key={member.name} member={member} index={index + facultyAdvisors.length} />
             ))}
           </div>
         </div>
