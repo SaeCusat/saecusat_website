@@ -8,14 +8,14 @@ export const metadata: Metadata = {
   description: 'Official website of SAE CUSAT - Society of Automotive Engineers, CUSAT Chapter. Explore our Formula SAE and Baja SAE teams.',
   keywords: ['SAE', 'CUSAT', 'Automotive Engineers', 'Formula SAE', 'Baja SAE', 'Cochin University'],
   generator: 'Next.js',
-  metadataBase: new URL('https://saecusat.com'),
+  metadataBase: new URL('https://sae.cusat.co.in'),
   alternates: {
-    canonical: 'https://saecusat.com',
+    canonical: 'https://sae.cusat.co.in',
   },
   openGraph: {
     title: 'SAE CUSAT - Society of Automotive Engineers',
     description: 'Official website of SAE CUSAT - Society of Automotive Engineers, CUSAT Chapter',
-    url: 'https://saecusat.com',
+    url: 'https://sae.cusat.co.in',
     type: 'website',
     images: [
       {
